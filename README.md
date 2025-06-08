@@ -17,8 +17,20 @@ OpenGL, Unity, Simulation에 관심이 많습니다.
 
 ---
 
-### 📫 연락처  
-- 📧 이메일: qufqja72@gmail.com  
-- 🖥️ 포트폴리오 페이지:
+### 🚀 Explore More Projects
+
+Want to dive deeper into what I’ve built?  
+My portfolio includes **3D real-time simulations**, **AI-assisted navigation systems**, and **interactive game prototypes**.
+
+Highlighted projects include:  
+- 🪨 A real-time stone rolling game built with OpenGL and Bullet Physics  
+- 🧭 A Unity-based interactive campus map with GPT-powered NPC dialogues
+
+🔗 **[🌐 jypark1105.github.io](https://jypark1105.github.io)**
+
+Browse gameplay demos, technical breakdowns, and GitHub links—all in one place!
 
 ---
+
+📧 Contact: [qufqja72@gmail.com](mailto:qufqja72@gmail.com)  
+🐙 GitHub: [jyPark1105](https://github.com/jyPark1105)
