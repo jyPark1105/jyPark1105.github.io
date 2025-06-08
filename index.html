@@ -61,12 +61,16 @@
     function toggleLanguage() {
       const en = document.getElementById('english');
       const ko = document.getElementById('korean');
+      const btn = document.getElementById('langToggle');
+  
       if (en.style.display === 'none') {
         en.style.display = 'block';
         ko.style.display = 'none';
+        btn.textContent = '🇰🇷 한국어 보기';
       } else {
         en.style.display = 'none';
         ko.style.display = 'block';
+        btn.textContent = '🇺🇸 영어로 보기';
       }
     }
   </script>
