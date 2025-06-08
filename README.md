@@ -26,7 +26,7 @@ Highlighted projects include:
 - 🪨 A real-time stone rolling game built with OpenGL and Bullet Physics  
 - 🧭 A Unity-based interactive campus map with GPT-powered NPC dialogues
 
-🔗 [🌐 jypark1105.github.io](https://jypark1105.github.io)
+🔗 My Portfolio: [🌐 jypark1105.github.io](https://jypark1105.github.io)
 
 ---
 
