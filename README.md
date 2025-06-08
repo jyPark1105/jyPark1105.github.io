@@ -8,7 +8,7 @@ I’ve developed several projects based on what I’ve learned.
 
 ### 📁 Project List
 
-| Project | Description | Tech Stack | Link |
+| Project | Description | Technology Stack | Link |
 |---------|-------------|------------|------|
 | **LearnOpenGL** | Studying OpenGL fundamentals | C++, GLSL | [GitHub Link](https://github.com/jyPark1105/LearnOpenGL) |
 | **The Rolling Stone Game** | Rolling stone simulation using OpenGL | C++, GLSL, Bullet, Skeleton Animation | [GitHub Link](https://github.com/jyPark1105/The-Stone-Rolling-Game) |
