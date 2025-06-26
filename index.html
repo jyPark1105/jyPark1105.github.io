@@ -20,17 +20,20 @@
     h1, h2, h3 {
       color: #007acc;
     }
-    .small-text {
-      font-size: 0.8rem;
-    }
     section {
       margin-bottom: 3rem;
     }
-    table {
+    table1{
       border-collapse: collapse;
       width: 100%;
       margin-top: 1rem;
       font-size: 0.95rem;
+    }
+    table2{
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1rem;
+      font-size: 0.8rem;
     } 
     th, td {
       border-bottom: 1px solid #ccc;
@@ -177,7 +180,7 @@
 
     <section>
       <h2>📚 Skills</h2>
-      <table>
+      <table1>
         <tr><th>Category</th><th>Details</th></tr>
         <tr><td>💬 Languages</td><td>C++, C#, GLSL, Python</td></tr>
         <tr><td>🔧 Tools</td><td>Unity, OpenGL, Bullet Physics</td></tr>
@@ -218,7 +221,7 @@
 
         <section>
           <h2>📁 System Development Overview</h2>
-          <table>
+          <table2>
             <colgroup>
               <col style="width: 16%;">
               <col style="width: 10%;">
@@ -246,14 +249,14 @@
                     <li>WebGL Build</li>
                   </ul>
                 </td>
-                <td class="small-text">
+                <td>
                   <ul>
                     <li>UI 구성 (내비게이션, GPT 질문, 캠퍼스 지도)</li>
                     <li>NavMesh 기반 길찾기 로직</li>
                     <li>WebGL 빌드</li>
                   </ul>
                 </td>
-                <td class="small-text">
+                <td>
                   <ul>
                     <li>Firebase 연동 (회원가입, 로그인, DB 저장)</li>
                     <li>Django와 연동하여 질문/응답 처리</li>
@@ -266,7 +269,7 @@
                 <td>🌐 Django Rest Framework (Backend)</td>
                 <td>Python</td>
                 <td>DRF, Firebase Admin SDK</td>
-                <td class="small-text">
+                <td>
                   <ul>
                     <li>GPT-3.5 Turbo에게 질문 전달</li>
                     <li>Django Rest Framework Database 내 학교 정보 탐색</li>
@@ -274,7 +277,7 @@
                     <li>결과 JSON 응답 생성</li>
                   </ul>
                 </td>
-                <td class="small-text">
+                <td>
                   <ul>
                     <li>Unity Client에서 전달된 질문 수신 및 응답 전달</li>
                     <li>Firebase Firestore와 연동 (질문/응답 저장 및 검증)</li>
@@ -285,7 +288,7 @@
                 <td>💻 React + Next.js (Frontend)</td>
                 <td>JavaScript</td>
                 <td>React, Next.js</td>
-                <td class="small-text">
+                <td>
                   <ul>
                     <li>전체 웹 UI 구성</li>
                     <li>Unity WebGL을 iframe으로 포함</li>
@@ -429,7 +432,7 @@
     
     <section>
       <h2>📚 역량</h2>
-      <table>
+      <table1>
         <tr><th>항목</th><th>내용</th></tr>
         <tr><td>💬 사용 언어</td><td>C++, C#, GLSL, Python</td></tr>
         <tr><td>🔧 도구</td><td>Unity, OpenGL, Bullet Physics</td></tr>
