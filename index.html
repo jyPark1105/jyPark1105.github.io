@@ -257,17 +257,17 @@
                 </td>
                 <td>
                   <ul class="custom-marker">
-                    <li>UI 구성 (내비게이션, GPT 질문, 캠퍼스 지도)</li>
-                    <li>NavMesh 기반 길찾기 로직</li>
-                    <li>WebGL 빌드</li>
+                    <li>UI structure (Navigation, GPT Q&A, Campus Map)</li>
+                    <li>Pathfinding using NavMesh</li>
+                    <li>WebGL build deployment</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="custom-marker">
-                    <li>Firebase 연동 (회원가입, 로그인, DB 저장)</li>
-                    <li>Django와 연동하여 질문/응답 처리</li>
-                    <li>UnityWebRequest로 Django 서버와 통신 (JSON)</li>
-                    <li>React 웹에 WebGL 포함 및 렌더링</li>
+                    <li>Firebase integration (Signup, Login, Database)</li>
+                    <li>Interact with Django for Q&A</li>
+                    <li>Communicate with Django via UnityWebRequest (JSON)</li>
+                    <li>Embedded WebGL rendering in React web</li>
                   </ul>
                 </td>
               </tr>
@@ -277,16 +277,16 @@
                 <td>DRF, Firebase Admin SDK</td>
                 <td>
                   <ul class="custom-marker">
-                    <li>GPT-3.5 Turbo에게 질문 전달</li>
-                    <li>Django Rest Framework Database 내 학교 정보 탐색</li>
-                    <li>시스템 프롬프트로 응답 정제</li>
-                    <li>결과 JSON 응답 생성</li>
+                    <li>Send user input to GPT-3.5 Turbo</li>
+                    <li>Search internal database (campus info)</li>
+                    <li>Process system prompts and organize answers</li>
+                    <li>Return JSON-formatted responses</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="custom-marker">
-                    <li>Unity Client에서 전달된 질문 수신 및 응답 전달</li>
-                    <li>Firebase Firestore와 연동 (질문/응답 저장 및 검증)</li>
+                    <li>Receive questions and return answers to Unity client</li>
+                    <li>Store and validate Q&A via Firebase Firestore</li>
                   </ul>
                 </td>
               </tr>
@@ -296,14 +296,14 @@
                 <td>React, Next.js</td>
                 <td>
                   <ul class="custom-marker">
-                    <li>전체 웹 UI 구성</li>
-                    <li>Unity WebGL을 iframe으로 포함</li>
+                    <li>User interface layout of web interface</li>
+                    <li>Embed Unity WebGL via iframe</li>
                   </ul>
                 </td>
                 <td class="small-text">
                   <ul class="custom-marker">
-                    <li>Unity WebGL을 React Web Page에 렌더링</li>
-                    <li>Client에게 UI 제공</li>
+                    <li>Render Unity WebGL within React page</li>
+                    <li>Provide user interface for the user</li>
                   </ul>
                 </td>
               </tr>
@@ -325,7 +325,7 @@
           <li>Implemented hill terrain-based realistic pathfinding logic</li>
         </ul>
       
-        <p><strong>Role:</strong> UI development, data saving, GPT integration</p>
+        <p><strong>Role:</strong> User interface development, data saving, GPT integration</p>
         <p>🔗 GitHub Link (coming soon)</p>
       </div>
     </section>
@@ -339,14 +339,14 @@
         <img src="gifs/Roll & Get Item Game_3D.gif" alt="Ball Collector Game Preview (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li>Applied <span class="highlight">3D physics and jump boost logic</span> based on collectible triggers</li>
-          <li>Used <span class="highlight">Sprite-based 2D UI</span> with stage status & retry conditions</li>
+          <li>Used <span class="highlight">Sprite-based 2D user interface</span> with stage status & retry conditions</li>
           <li>Designed level transitions across <span class="highlight">three different map scenes</span></li>
         </ul>
         <p><strong>Game Summary:</strong><br>
           Roll a ball through narrow platforms while collecting all items.<br>
           Blue items are standard, yellow ones trigger mid-air double jump.<br>
           Reach the final area only if all items are collected — otherwise, restart!</p>
-        <p><strong>Role:</strong> Full development (UI, logic, rendering)</p>
+        <p><strong>Role:</strong> Full development (User interface, logic, rendering)</p>
         <p>🔗 GitHub Link (coming soon)</p>
       </div>
     
@@ -474,12 +474,107 @@
         <h3>🧭 대학교 캠퍼스 맵 내비게이션 (2025.03 ~ 2025.09 완성 예정)</h3>
         <p><strong>Unity</strong>, <strong>Firebase</strong>, <strong>OpenAI API</strong>를 활용한 3D 캠퍼스 내비게이션 시스템</p>
         <img src="images/Univ_Campus_Map.png" alt="'University Campus Map Preview PNG" width="500" style="margin-top:10px; border-radius:8px;" />
+
+        <section>
+          <h2>📁 System Development Overview</h2>
+          <table class="table2">
+            <colgroup>
+              <col style="width: 16%;">
+              <col style="width: 10%;">
+              <col style="width: 14%;">
+              <col style="width: 30%;">
+              <col style="width: 30%;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>구성 요소</th>
+                <th>언어</th>
+                <th>기술 스택</th>
+                <th>내부 기능</th>
+                <th>외부 연동</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🧩 Unity</td>
+                <td>C#</td>
+                <td>
+                  <ul class="custom-marker">
+                    <li>Probuilder</li>
+                    <li>NavMesh</li>
+                    <li>WebGL Build</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul class="custom-marker">
+                    <li>유저 인터페이 구성 (내비게이션, GPT 질문, 캠퍼스 지도)</li>
+                    <li>NavMesh 기반 길찾기 로직</li>
+                    <li>WebGL 빌드</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul class="custom-marker">
+                    <li>Firebase 연동 (회원가입, 로그인, 데이터베이 저장)</li>
+                    <li>Django와 연동하여 질의답 처리</li>
+                    <li>UnityWebRequest로 Django와 JSON 통신</li>
+                    <li>React 웹에 WebGL 포함 및 렌더링</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>🌐 Django Rest Framework (Backend)</td>
+                <td>Python</td>
+                <td>DRF, Firebase Admin SDK</td>
+                <td>
+                  <ul class="custom-marker">
+                    <li>GPT-3.5 Turbo에게 질문 전달</li>
+                    <li>학교 정보가 저장된 데이터베이스 탐색</li>
+                    <li>시스템 프롬프트 기반 응답 정제</li>
+                    <li>JSON 형식으로 응답 생성</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul class="custom-marker">
+                    <li>Unity에서 전달된 질문 수신 및 응답 반환</li>
+                    <li>Firebase Firestore와 연동하여 질의응답 저장 및 검증</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>💻 React + Next.js (Frontend)</td>
+                <td>JavaScript</td>
+                <td>React, Next.js</td>
+                <td>
+                  <ul class="custom-marker">
+                    <li>웹 유저 인터페이스 구성</li>
+                    <li>Unity WebGL을 iframe으로 삽입</li>
+                  </ul>
+                </td>
+                <td class="small-text">
+                  <ul class="custom-marker">
+                    <li>Unity WebGL을 React 페이지에 렌더링</li>
+                    <li>사용자에게 유저 인터페이스 제공</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 부가 이미지 갤러리 -->
+        <div style="margin-top:1.5rem;">
+          <p style="font-weight:bold; margin-bottom: 0.5rem;">📸 데모 하이라이트</p>
+          <img src="images/Tarii.jpg" alt="NPC Chat System in action" width="250" style="margin-right: 10px; border-radius:8px;" />
+          <img src="images/unity.png" alt="Pathfinding demo" width="250" style="margin-right: 10px; border-radius:8px;" />
+          <img src="images/Univ_Campus_Map.png" alt="User selects building to navigate" width="250" style="border-radius:8px;" />
+        </div>
+        
         <ul>
           <li>Firebase 데이터베이스를 통한 사용자 위치 저장 및 불러오기 구현</li>
           <li>ChatGPT 기반 <span class="highlight">NPC 대화 시스템</span> 설계</li>
           <li>산 지형 기반 경로 탐색 로직 구현</li>
         </ul>
-        <p><strong>담당 역할:</strong> UI 개발, 데이터 저장, ChatGPT 연동</p>
+        <p><strong>담당 역할:</strong> 유저 인터페이스스 개발, 데이터 저장, ChatGPT 연동</p>
         <p>🔗 깃허브 링크 (예정)</p>
       </div>
     </section>
@@ -493,14 +588,14 @@
         <img src="gifs/Roll & Get Item Game_3D.gif" alt="3D 공 굴리기 게임 미리보기 (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li><span class="highlight">아이템 트리거 기반 3D 점프 로직</span> 및 물리 시스템 적용</li>
-          <li><span class="highlight">스테이지 UI 및 2D 스프라이트 UI 요소</span> 구현</li>
+          <li><span class="highlight">스테이지 및 2D 스프라이트 User interface 요소</span> 구현</li>
           <li><span class="highlight">총 3개의 서로 다른 씬 구조</span>를 활용한 단계별 게임 구성</li>
         </ul>
         <p><strong>게임 요약:</strong><br>
           공을 굴리며 아슬아슬한 발판 위에서 아이템을 모두 먹는 게임입니다.<br>
           파란 아이템은 일반 수집용이며, 노란 아이템은 2단 점프를 제공합니다.<br>
           모든 아이템을 먹지 않으면 마지막 도달 시에도 게임은 재시작됩니다.</p>
-        <p><strong>담당 역할:</strong> UI, 로직, 렌더링 포함 전체 개발</p>
+        <p><strong>담당 역할:</strong> 단독 개발</p>
         <p>🔗 깃허브 링크 (예정)</p>
       </div>
     
@@ -513,7 +608,7 @@
           <li>간단한 설명 항목 2</li>
           <li>간단한 설명 항목 3</li>
         </ul>
-        <p><strong>담당 역할:</strong> 게임 설계 및 프로그래밍</p>
+        <p><strong>담당 역할:</strong> 단독 개발</p>
         <p>🔗 깃허브 링크 (예정)</p>
       </div>
     
