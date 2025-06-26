@@ -37,6 +37,7 @@
     } 
     th, td {
       border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
       padding: 0.75rem 1rem;
       text-align: left;
     }
@@ -45,8 +46,8 @@
       color: #007acc;
       font-weight: 600;
     }
-    tr:hover {
-      background-color: #f9f9f9;
+    th:last-child, td:last-child {
+      border-right: none;
     }
     .project {
       background: #fff;
@@ -58,6 +59,10 @@
     }
     ul {
       padding-left: 1.2rem;
+    }
+    ul.custom-marker {
+      list-style-type: "- ";
+      padding-left: 1.4rem;
     }
     a {
       color: #007acc;
@@ -243,21 +248,21 @@
                 <td>🧩 Unity</td>
                 <td>C#</td>
                 <td>
-                  <ul>
+                  <ul class="custom-marker">
                     <li>Probuilder</li>
                     <li>NavMesh</li>
                     <li>WebGL Build</li>
                   </ul>
                 </td>
                 <td>
-                  <ul>
+                  <ul class="custom-marker">
                     <li>UI 구성 (내비게이션, GPT 질문, 캠퍼스 지도)</li>
                     <li>NavMesh 기반 길찾기 로직</li>
                     <li>WebGL 빌드</li>
                   </ul>
                 </td>
                 <td>
-                  <ul>
+                  <ul class="custom-marker">
                     <li>Firebase 연동 (회원가입, 로그인, DB 저장)</li>
                     <li>Django와 연동하여 질문/응답 처리</li>
                     <li>UnityWebRequest로 Django 서버와 통신 (JSON)</li>
@@ -270,7 +275,7 @@
                 <td>Python</td>
                 <td>DRF, Firebase Admin SDK</td>
                 <td>
-                  <ul>
+                  <ul class="custom-marker">
                     <li>GPT-3.5 Turbo에게 질문 전달</li>
                     <li>Django Rest Framework Database 내 학교 정보 탐색</li>
                     <li>시스템 프롬프트로 응답 정제</li>
@@ -278,7 +283,7 @@
                   </ul>
                 </td>
                 <td>
-                  <ul>
+                  <ul class="custom-marker">
                     <li>Unity Client에서 전달된 질문 수신 및 응답 전달</li>
                     <li>Firebase Firestore와 연동 (질문/응답 저장 및 검증)</li>
                   </ul>
@@ -289,13 +294,13 @@
                 <td>JavaScript</td>
                 <td>React, Next.js</td>
                 <td>
-                  <ul>
+                  <ul class="custom-marker">
                     <li>전체 웹 UI 구성</li>
                     <li>Unity WebGL을 iframe으로 포함</li>
                   </ul>
                 </td>
                 <td class="small-text">
-                  <ul>
+                  <ul class="custom-marker">
                     <li>Unity WebGL을 React Web Page에 렌더링</li>
                     <li>Client에게 UI 제공</li>
                   </ul>
