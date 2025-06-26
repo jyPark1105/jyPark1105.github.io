@@ -76,18 +76,27 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .contact-icons {
-      margin-top: 0.5rem;
-      margin-bottom: 2rem;
+    .name-and-icons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    .contact-icons a {
-      font-size: 1.6rem;
-      margin-right: 1rem;
+    
+    .name-and-icons h1 {
+      margin: 0;
+      font-size: 1.9rem;
+    }
+    
+    .contact-icons-inline a {
+      font-size: 1.4rem;
+      margin-right: 0.6rem;
       color: #444;
       transition: color 0.3s ease;
       text-decoration: none;
     }
-    .contact-icons a:hover {
+    
+    .contact-icons-inline a:hover {
       color: #007acc;
     }
   </style>
@@ -111,20 +120,16 @@
 </head>
 <body>
 
-  <!-- ✅ 여기에 아이콘 추가 -->
-  <div class="contact-icons">
-    <a href="mailto:jypark@example.com" target="_blank" title="Email">
-      <i class="fas fa-envelope"></i>
-    </a>
-    <a href="https://github.com/jyPark1105" target="_blank" title="GitHub">
-      <i class="fab fa-github"></i>
-    </a>
-    <a href="https://www.linkedin.com/in/your-linkedin-id" target="_blank" title="LinkedIn">
-      <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://www.smu.ac.kr/" target="_blank" title="University Page">
-      <i class="fas fa-graduation-cap"></i>
-    </a>
+  <div class="name-and-icons">
+    <h1>🧑‍💻 <span class="my-name">Je-young Park</span></h1>
+    <div class="contact-icons-inline">
+      <a href="mailto:qufqja72@gmail.com" target="_blank" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+      <a href="https://github.com/jyPark1105" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
   </div>
   
   <button id="langToggle" onclick="toggleLanguage()">🇰🇷 한국어 보기</button>
