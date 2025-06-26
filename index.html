@@ -175,7 +175,55 @@
       
         <!-- 대표 이미지 -->
         <img src="images/Univ_Campus_Map.png" alt="University Campus Map Preview" width="500" style="margin-top:10px; border-radius:8px;" />
-      
+
+        <section>
+          <h2>📁 System Development Overview</h2>
+          <table>
+            <tr>
+              <th>Component</th>
+              <th>Description</th>
+              <th>Language / Tech</th>
+            </tr>
+        
+            <tr>
+              <td>🧩 Unity Client with React</td>
+              <td>
+                Unity Editor에서 C#으로 기능 구현<br>
+                - Firebase 연동 (로그인/DB 저장)<br>
+                - Unity UI 구성<br>
+                - NavMesh 기반 길찾기 로직<br>
+                - Django와 연동하여 질문/응답 처리<br>
+                - WebGL 빌드 후 React 웹에 탑재<br>
+                - UnityWebRequest로 Django 서버와 통신 (JSON)
+              </td>
+              <td>C#</td>
+            </tr>
+        
+            <tr>
+              <td>🌐 Django Rest Framework (Backend)</td>
+              <td>
+                - Unity에서 보낸 질문을 처리<br>
+                - GPT-3.5 Turbo에게 질문 전달 → 응답 가공<br>
+                - DRF DB 내 학교 정보 검색<br>
+                - 시스템 프롬프트로 응답 정제<br>
+                - 결과를 JSON으로 Unity에 반환<br>
+                - Firebase Firestore와 연동하여 질문/응답 이력 저장 및 검증
+              </td>
+              <td>Python, DRF, Firebase Admin SDK</td>
+            </tr>
+        
+            <tr>
+              <td>💻 React + Next.js Frontend</td>
+              <td>
+                - React 웹 페이지 내에 Unity WebGL 렌더링<br>
+                - 전체 웹 UI 구성<br>
+                - Unity WebGL 빌드 파일을 iframe 또는 컴포넌트로 포함
+              </td>
+              <td>JavaScript, React, Next.js</td>
+            </tr>
+          </table>
+        </section>
+
         <!-- 부가 이미지 갤러리 -->
         <div style="margin-top:1.5rem;">
           <p style="font-weight:bold; margin-bottom: 0.5rem;">📸 Demo Highlights</p>
