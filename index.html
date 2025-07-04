@@ -62,8 +62,14 @@
     ul {
       padding-left: 1.1rem;
     }
-    ul.custom-marker {
+    ul.marker1 {
       list-style-type: "- ";
+      padding-left: 1.1rem;
+    }
+    
+    ul.marker2 {
+      list-style-type: disc;
+      padding-left: 1.2rem;
     }
     a {
       color: #007acc;
@@ -178,7 +184,7 @@
       <ul>
           <li>Sangmyung University, Seoul, Korea ( 2020.03 ~ Expected to graduate in 2026.02 )</li>
           <ul>
-              <li>Bachelor of computer science</li>
+              <li>Bachelor of computer science, 4th year student</li>
           </ul> 
       </ul>
     </section>
@@ -248,21 +254,21 @@
                 <td>🧹 Unity 3D</td>
                 <td>C#</td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker1">
                     <li>Probuilder</li>
                     <li>NavMesh</li>
                     <li>WebGL Build</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>UI structure (Navigation, GPT Q&A, Campus Map)</li>
                     <li>Pathfinding using NavMesh</li>
                     <li>WebGL build deployment</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Firebase integration (Signup, Login, Database)</li>
                     <li>Interact with Django for Q&A</li>
                     <li>Communicate with Django via UnityWebRequest (JSON)</li>
@@ -273,9 +279,12 @@
               <tr>
                 <td>🌐 Django Rest Framework (Backend)</td>
                 <td>Python</td>
-                <td>DRF, Firebase Admin SDK</td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker1">
+                  <li>Django Rest API</li>
+                </td>
+                <td>
+                  <ul class="marker2">
                     <li>Send user input to GPT-3.5 Turbo</li>
                     <li>Search internal database (campus info)</li>
                     <li>Process system prompts and organize answers</li>
@@ -283,7 +292,7 @@
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Receive questions and return answers to Unity client</li>
                     <li>Store and validate Q&A via Firebase Firestore</li>
                   </ul>
@@ -293,18 +302,20 @@
                 <td>☁️ Firebase</td>
                 <td>JavaScript / JSON</td>
                 <td>
-                  <ul class="custom-marker">
-                    <li>Firebase Web App</li>
+                  <ul class="marker1">
+                    <li>Web App</li>
+                    <li>Authentication</li>
+                    <li>Firestore Database</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
-                    <li>Authentication (User Sign-up/Login)</li>
-                    <li>Firestore Database (Chat session & message storage)</li>
+                  <ul class="marker2">
+                    <li>Handles sign-up and login via Firebase Authentication</li>
+                    <li>Stores Chat-GPT Q&A data in Firestore by user account</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Pass Firebase UID and session data to Django backend</li>
                     <li>Django uses UID to store & associate GPT Q&A per user</li>
                   </ul>
@@ -313,15 +324,19 @@
               <tr>
                 <td>💻 React + Next.js (Frontend)</td>
                 <td>JavaScript</td>
-                <td>React, Next.js</td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker1">
+                    <li>React</li>
+                    <li>Next.js</li>
+                </td>
+                <td>
+                  <ul class="marker2">
                     <li>User interface layout of web interface</li>
                     <li>Embed Unity WebGL via iframe</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Render Unity WebGL within React page</li>
                     <li>Provide user interface for the user</li>
                   </ul>
@@ -444,9 +459,9 @@
     <section>
       <h2>🏫 학력</h2>
       <ul>
-          <li>상명대학교, 서울, 대한민국 ( 2020.03 ~ 2026.02 졸업 예정)</li>
+          <li>상명대학교, 서울캠퍼스, 대한민국 ( 2020.03 ~ 2026.02 졸업 예정)</li>
           <ul>
-              <li>컴퓨터과학전공 학사</li>
+              <li>컴퓨터과학전공 학사, 4학년 재학</li>
           </ul> 
       </ul>
     </section>
@@ -514,21 +529,21 @@
                 <td>🧩 Unity 3D</td>
                 <td>C#</td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker1">
                     <li>Probuilder</li>
                     <li>NavMesh</li>
                     <li>WebGL Build</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>유저 인터페이스 구성 (내비게이션, GPT 질문, 캠퍼스 지도)</li>
                     <li>NavMesh 기반 길찾기 로직</li>
                     <li>WebGL 빌드</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Firebase 연동 (회원가입, 로그인, 데이터베이스 저장)</li>
                     <li>Django와 연동하여 질의응답 처리</li>
                     <li>UnityWebRequest로 Django와 JSON 통신</li>
@@ -539,9 +554,12 @@
               <tr>
                 <td>🌐 Django Rest Framework (Backend)</td>
                 <td>Python</td>
-                <td>DRF, Firebase Admin SDK</td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker1">
+                    <li>Django Rest API</li>
+                </td>
+                <td>
+                  <ul class="marker2">
                     <li>GPT-3.5 Turbo에게 질문 전달</li>
                     <li>학교 정보가 저장된 데이터베이스 탐색</li>
                     <li>시스템 프롬프트 기반 응답 정제</li>
@@ -549,7 +567,7 @@
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Unity에서 전달된 질문 수신 및 응답 반환</li>
                     <li>Firebase Firestore와 연동하여 질의응답 저장 및 검증</li>
                   </ul>
@@ -559,18 +577,20 @@
                 <td>☁️ Firebase</td>
                 <td>JavaScript / JSON</td>
                 <td>
-                  <ul class="custom-marker">
-                    <li>Firebase Web App</li>
+                  <ul class="marker1">
+                    <li>Web App</li>
+                    <li>Authentication</li>
+                    <li>Firestore Database</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
-                    <li>사용자 가입 / 로그인 인증</li>
-                    <li>Firestore 데이터베이스 (채팅 세션 및 메시지 저장)</li>
+                  <ul class="marker2">
+                    <li>Firebase Authentication으로 회원가입 및 로그인 처리함</li>
+                    <li>사용자 계정 별 Chat-GPT 질의응답 데이터를 Firestore에 저장함</li>
                   </ul>
                 </td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Firebase UID 및 세션 데이터를 Django로 전달</li>
                     <li>Django에서 UID를 통해 개인별 GPT 질응을 관련지적으로 저장</li>
                   </ul>
@@ -580,15 +600,18 @@
               <tr>
                 <td>💻 React + Next.js (Frontend)</td>
                 <td>JavaScript</td>
-                <td>React, Next.js</td>
                 <td>
-                  <ul class="custom-marker">
+                  <ul class="marker1">
+                    <li>React</li>
+                    <li>Next.js</li>
+                <td>
+                  <ul class="marker2">
                     <li>웹 유저 인터페이스 구성</li>
                     <li>Unity WebGL을 iframe으로 삽입</li>
                   </ul>
                 </td>
                 <td class="small-text">
-                  <ul class="custom-marker">
+                  <ul class="marker2">
                     <li>Unity WebGL을 React 페이지에 렌더링</li>
                     <li>사용자에게 유저 인터페이스 제공</li>
                   </ul>
