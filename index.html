@@ -123,23 +123,21 @@
       z-index: 1;
       position: relative;
     }
-    
+
     .gif-overlay-active {
-      position: fixed !important;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      width: 100% !important;
-      max-width: 1080px !important;  /* 포트폴리오 본문 최대 너비로 제한 */
-      max-height: 90vh !important;
-      height: auto !important;
-      z-index: 9999 !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      transform: scale(2.0) !important; /* 확대 배율 (원하는 만큼 조절) */
+      transform-origin: top left !important; /* 확대 기준점을 좌측 상단 고정 */
+      z-index: 10 !important;
       cursor: zoom-out !important;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      background: transparent !important;
       border-radius: 12px;
+      pointer-events: auto !important;
     }
-  
+    
     .overlay-lock {
       pointer-events: none;
       opacity: 0.2;
@@ -267,7 +265,16 @@
       <div class="project">
         <h3>🪨 'The Rolling Stone' Game (2025.04 ~ 2025.06)</h3>
         <p><strong>OpenGL</strong>, <strong>Bullet Physics</strong>, <strong>Skeletal Animation</strong> based 3D physics simulation</p>
-        <img src="gifs/Graphics Project_Demo.gif" alt="Rolling Stone Preview (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
+        
+        <!-- 이 div를 추가해 줌 -->
+        <div class="gif-wrapper" style="position: relative; display: inline-block;">
+          <img src="gifs/Graphics Project_Demo.gif"
+               alt="Rolling Stone Preview (GIF)"
+               width="500"
+               class="zoomable-gif"
+               style="margin-top:10px; border-radius:8px;" />
+        </div>
+      
         <ul>
           <li>Optimized matrix frame updates for <span class="highlight">better FPS</span></li>
           <li>Implemented <span class="highlight">Physics Debug Drawer</span></li>
@@ -278,11 +285,12 @@
           <a href="https://github.com/jyPark1105/The-Stone-Rolling-Game" target="_blank">'The Rolling Stone Game' Repository</a>
         </p>
         <p>
-         ▶️ <a href="https://www.youtube.com/watch?v=qQpmfwvg8O0" target="_blank" style="display:inline-block; padding:10px 16px; background:#cc0000; color:white; border-radius:6px; text-decoration:none;">
+          ▶️ <a href="https://www.youtube.com/watch?v=qQpmfwvg8O0" target="_blank" style="display:inline-block; padding:10px 16px; background:#cc0000; color:white; border-radius:6px; text-decoration:none;">
             Watch Demo (YouTube)
           </a>
         </p>
       </div>
+
       
       <div class="project">
         <h3>🧭 University Campus Map Navigation System (2025.03 ~ Scheduled for completion in 2025.09)</h3>
