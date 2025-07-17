@@ -123,7 +123,52 @@
       z-index: 1;
       position: relative;
     }
+
+    /* 확대된 GIF 전체 컨테이너 */
+    .gif-overlay-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 1080px;
+      width: 100%;
+      max-height: 90vh;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      overflow: hidden;
+      cursor: zoom-out;
+    }
     
+    /* 상단 제목 + 설명 */
+    .gif-header {
+      background-color: #f3f3f3;
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid #ddd;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    /* 제목 */
+    .gif-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #007acc;
+    }
+    
+    /* 부제목 */
+    .gif-subtitle {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 0.2rem;
+    }
+    
+    /* GIF 이미지 */
+    .gif-overlay-img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
     .gif-overlay-active {
       position: fixed !important;
       top: 50% !important;
@@ -153,17 +198,21 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const gifs = document.querySelectorAll(".zoomable-gif");
-      const modal = document.getElementById("gifModal");
-      const modalGif = document.getElementById("modalGif");
-  
+      const modal = document.getElementById("gifOverlay");
+      const modalGif = document.getElementById("gifOverlayImg");
+      const modalTitle = document.querySelector(".gif-title");
+      const modalSubtitle = document.querySelector(".gif-subtitle");
+    
       gifs.forEach(gif => {
         gif.addEventListener("dblclick", function () {
           modal.style.display = "block";
           modalGif.src = this.src;
+          modalTitle.textContent = this.dataset.title || "";
+          modalSubtitle.textContent = this.dataset.subtitle || "";
           document.body.classList.add("no-scroll");
         });
       });
-  
+    
       modal.addEventListener("click", function () {
         modal.style.display = "none";
         modalGif.src = "";
@@ -243,7 +292,15 @@
       <div class="project">
         <h3>🪨 'The Rolling Stone' Game (2025.04 ~ 2025.06)</h3>
         <p><strong>OpenGL</strong>, <strong>Bullet Physics</strong>, <strong>Skeletal Animation</strong> based 3D physics simulation</p>
-        <img src="gifs/Graphics Project_Demo.gif" alt="Rolling Stone Preview (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
+        
+        <!-- 확대 가능한 GIF -->
+        <img src="gifs/Graphics Project_Demo.gif"
+             alt="Rolling Stone Preview (GIF)"
+             class="zoomable-gif"
+             data-title="🧱 Rolling Stone Simulation"
+             data-subtitle="OpenGL + Bullet Physics + Skeletal Animation"
+             style="margin-top:10px; border-radius:8px; width:500px;" />
+        
         <ul>
           <li>Optimized matrix frame updates for <span class="highlight">better FPS</span></li>
           <li>Implemented <span class="highlight">Physics Debug Drawer</span></li>
@@ -839,23 +896,13 @@
     </section>
   </div>
 
-  <!-- 모달 오버레이 -->
-  <div id="gifModal" style="display: none;
-    position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: white; z-index: 9999;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    max-width: 1080px;     /* 💡 너비 제한 */
-    width: 100%;
-    max-height: 90vh;       /* 💡 높이 제한 */
-    overflow: auto;">
-    
-    <img id="modalGif"
-         src=""
-         style="width: 100%; height: auto;
-                border-radius: 12px;
-                cursor: zoom-out;" />
+  <!-- ✨ GIF 확대용 오버레이 (단 하나만 존재) -->
+  <div class="gif-overlay-container" id="gifOverlay" style="display: none;">
+    <div class="gif-header">
+      <div class="gif-title"></div>
+      <div class="gif-subtitle"></div>
+    </div>
+    <img src="" class="gif-overlay-img" id="gifOverlayImg" />
   </div>
 </body>
 </html>
