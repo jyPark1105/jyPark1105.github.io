@@ -151,47 +151,23 @@
     }
   </style>
   <script>
-    function toggleLanguage() {
-      const en = document.getElementById('english');
-      const ko = document.getElementById('korean');
-      const btn = document.getElementById('langToggle');
-  
-      if (en.style.display === 'none') {
-        en.style.display = 'block';
-        ko.style.display = 'none';
-        btn.textContent = '🇰🇷 한국어 보기';
-      } else {
-        en.style.display = 'none';
-        ko.style.display = 'block';
-        btn.textContent = '🇺🇸 영어로 보기';
-      }
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
       const gifs = document.querySelectorAll(".zoomable-gif");
-      let isZoomed = false;
-      let activeGif = null;
+      const modal = document.getElementById("gifModal");
+      const modalGif = document.getElementById("modalGif");
   
       gifs.forEach(gif => {
         gif.addEventListener("dblclick", function () {
-          if (!isZoomed) {
-            // 확대 시작
-            this.classList.add("gif-overlay-active");
-            document.body.classList.add("no-scroll");
-            activeGif = this;
-            gifs.forEach(g => {
-              if (g !== this) g.classList.add("overlay-lock");
-            });
-            isZoomed = true;
-          } else if (this === activeGif) {
-            // 축소
-            this.classList.remove("gif-overlay-active");
-            document.body.classList.remove("no-scroll");
-            gifs.forEach(g => g.classList.remove("overlay-lock"));
-            isZoomed = false;
-            activeGif = null;
-          }
+          modal.style.display = "block";
+          modalGif.src = this.src;
+          document.body.classList.add("no-scroll");
         });
+      });
+  
+      modal.addEventListener("click", function () {
+        modal.style.display = "none";
+        modalGif.src = "";
+        document.body.classList.remove("no-scroll");
       });
     });
   </script>
@@ -863,5 +839,13 @@
     </section>
   </div>
 
+  <!-- 확대용 GIF 모달 -->
+  <div id="gifModal" style="display: none; position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white; z-index: 9999;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);">
+    <img id="modalGif" src="" style="max-width: 90vw; max-height: 90vh; border-radius: 12px; cursor: zoom-out;" />
+  </div>
 </body>
 </html>
