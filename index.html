@@ -163,33 +163,30 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-    const gifs = document.querySelectorAll(".zoomable-gif");
-    let isZoomed = false;
-    let activeGif = null;
-
-    gifs.forEach(gif => {
-      gif.addEventListener("dblclick", function () {
-        if (!isZoomed) {
-          // 확대
-          this.classList.add("gif-overlay-active");
-          activeGif = this;
-          gifs.forEach(g => {
-            if (g !== this) g.classList.add("overlay-lock");
-          });
-          isZoomed = true;
-        } else if (this === activeGif) {
-          // 축소
-          this.classList.remove("gif-overlay-active");
-          gifs.forEach(g => g.classList.remove("overlay-lock"));
-          isZoomed = false;
-          activeGif = null;
-        }
+      const gifs = document.querySelectorAll(".zoomable-gif");
+      let isZoomed = false;
+      let activeGif = null;
+  
+      gifs.forEach(gif => {
+        gif.addEventListener("dblclick", function () {
+          if (!isZoomed) {
+            // 확대 시작
+            this.classList.add("gif-overlay-active");
+            activeGif = this;
+            gifs.forEach(g => {
+              if (g !== this) g.classList.add("overlay-lock");
+            });
+            isZoomed = true;
+          } else if (this === activeGif) {
+            // 축소
+            this.classList.remove("gif-overlay-active");
+            gifs.forEach(g => g.classList.remove("overlay-lock"));
+            isZoomed = false;
+            activeGif = null;
+          }
+        });
       });
     });
-  });
-      });
-    });
-  });
   </script>
 </head>
   
