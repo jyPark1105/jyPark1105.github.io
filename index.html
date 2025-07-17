@@ -145,6 +145,10 @@
       opacity: 0.2;
       filter: grayscale(100%);
     }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
   </style>
   <script>
     function toggleLanguage() {
@@ -173,6 +177,7 @@
           if (!isZoomed) {
             // 확대 시작
             this.classList.add("gif-overlay-active");
+            document.body.classList.add("no-scroll");
             activeGif = this;
             gifs.forEach(g => {
               if (g !== this) g.classList.add("overlay-lock");
@@ -181,6 +186,7 @@
           } else if (this === activeGif) {
             // 축소
             this.classList.remove("gif-overlay-active");
+            document.body.classList.remove("no-scroll");
             gifs.forEach(g => g.classList.remove("overlay-lock"));
             isZoomed = false;
             activeGif = null;
