@@ -839,13 +839,23 @@
     </section>
   </div>
 
-  <!-- 확대용 GIF 모달 -->
-  <div id="gifModal" style="display: none; position: fixed; top: 50%; left: 50%;
+  <!-- 모달 오버레이 -->
+  <div id="gifModal" style="display: none;
+    position: fixed; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     background: white; z-index: 9999;
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);">
-    <img id="modalGif" src="" style="max-width: 90vw; max-height: 90vh; border-radius: 12px; cursor: zoom-out;" />
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 1080px;     /* 💡 너비 제한 */
+    width: 100%;
+    max-height: 90vh;       /* 💡 높이 제한 */
+    overflow: auto;">
+    
+    <img id="modalGif"
+         src=""
+         style="width: 100%; height: auto;
+                border-radius: 12px;
+                cursor: zoom-out;" />
   </div>
 </body>
 </html>
