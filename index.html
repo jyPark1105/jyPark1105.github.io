@@ -133,8 +133,18 @@
         btn.textContent = '🇺🇸 영어로 보기';
       }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const zoomables = document.querySelectorAll(".zoomable-gif");
+    zoomables.forEach(img => {
+      img.addEventListener("dblclick", () => {
+        img.classList.toggle("zoomed");
+      });
+    });
+  });
   </script>
 </head>
+  
 <body>
   
   <button id="langToggle" onclick="toggleLanguage()">🇰🇷 한국어 보기</button>
@@ -205,7 +215,7 @@
       <div class="project">
         <h3>🪨 'The Rolling Stone' Game (2025.04 ~ 2025.06)</h3>
         <p><strong>OpenGL</strong>, <strong>Bullet Physics</strong>, <strong>Skeletal Animation</strong> based 3D physics simulation</p>
-        <img src="gifs/Graphics Project_Demo.gif" alt="Rolling Stone Preview (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
+        <img src="gifs/Graphics Project_Demo.gif" alt="Rolling Stone Preview (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li>Optimized matrix frame updates for <span class="highlight">better FPS</span></li>
           <li>Implemented <span class="highlight">Physics Debug Drawer</span></li>
@@ -357,26 +367,26 @@
         
           <div style="display: flex; justify-content: space-between; gap: 20px; margin-bottom: 2rem;">
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Sign-up.gif" alt="Sign-up" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Sign-up.gif" alt="Sign-up" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(1) Sign-up</p>
             </div>
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Login.gif" alt="Login" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Login.gif" alt="Login" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(2) Login</p>
             </div>
           </div>
         
           <div style="display: flex; justify-content: space-between; gap: 20px;">
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Path Finder.gif" alt="Path Finder" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Path Finder.gif" alt="Path Finder" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(3) Path Finder</p>
             </div>
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Path Visualizer.gif" alt="Path Visualizer" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Path Visualizer.gif" alt="Path Visualizer" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(3-1) Path Visualizer</p>
             </div>
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/GPT_Q&A.gif" alt="Chat-GPT Q & A" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/GPT_Q&A.gif" alt="Chat-GPT Q & A" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(4) Chat-GPT Q & A</p>
             </div>
           </div>
@@ -412,7 +422,7 @@
         <h3>⚽ #1 Ball Collector Game (2025.02.02 ~ 2025.02.12)</h3>
 
         <p><strong>Unity</strong> based 3D platformer mini-game inspired by GoldMetal tutorials</p>
-        <img src="gifs/Roll & Get Item Game_3D.gif" alt="Ball Collector Game Preview (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
+        <img src="gifs/Roll & Get Item Game_3D.gif" alt="Ball Collector Game Preview (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li>Applied <span class="highlight">3D physics and jump boost logic</span> based on collectible triggers</li>
           <li>Used <span class="highlight">Sprite-based 2D user interface</span> with stage status & retry conditions</li>
@@ -438,7 +448,7 @@
         <h3>🎯 #2 Get Coin Game (2025.02.16 ~ 2025.03.15)</h3>
 
         <p><strong>Unity</strong> based small-scale game project</p>
-        <img src="gifs/Get Coin Game_2D.gif" alt="Get Coin Game Preview (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
+        <img src="gifs/Get Coin Game_2D.gif" alt="Get Coin Game Preview (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li><span class="highlight">2D jump logic based on item triggers with physical colliders</span> applied</li>
           <li>User interface implemented <span class="highlight">using 2D sprites</span></li>
@@ -537,7 +547,7 @@
       <div class="project">
         <h3>🪨 'The Rolling Stone' 게임 (2025.04 ~ 2025.06)</h3>
         <p><strong>OpenGL</strong>, <strong>Bullet Physics</strong>, <strong>Skeletal Animation</strong> 기반 3D 물리 시뮬레이션 게임</p>
-        <img src="gifs/Graphics Project_Demo.gif" alt="'The Rolling Stone' 게임 미리보기 (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
+        <img src="gifs/Graphics Project_Demo.gif" alt="'The Rolling Stone' 게임 미리보기 (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li>본 행렬 프레임 최적화로 <span class="highlight">FPS 성능 향상</span></li>
           <li><span class="highlight">물리 디버깅 함수</span> 구현</li>
@@ -689,26 +699,26 @@
         
           <div style="display: flex; justify-content: space-between; gap: 20px; margin-bottom: 2rem;">
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Sign-up.gif" alt="회원가입" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Sign-up.gif" alt="회원가입" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(1) 회원가입</p>
             </div>
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Login.gif" alt="로그인" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Login.gif" alt="로그인" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(2) 로그인</p>
             </div>
           </div>
         
           <div style="display: flex; justify-content: space-between; gap: 20px;">
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Path Finder.gif" alt="길찾기" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Path Finder.gif" alt="길찾기" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(3) 길찾기</p>
             </div>
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/Path Visualizer.gif" alt="경로 시각화" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/Path Visualizer.gif" alt="경로 시각화" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(3-1) 경로 시각화</p>
             </div>
             <div style="flex: 1; text-align: center;">
-              <img src="gifs/GPT_Q&A.gif" alt="Chat-GPT 질의응답" width="100%" style="border-radius: 8px;" />
+              <img src="gifs/GPT_Q&A.gif" alt="Chat-GPT 질의응답" width="100%" class="zoomable-gif" style="border-radius: 8px;" />
               <p style="margin-top: 0.5rem; font-size: 1rem; color: #555;">(4) Chat-GPT 질의응답</p>
             </div>
           </div>
@@ -741,7 +751,7 @@
       <div class="project">
         <h3>⚽ #1 3D 공 굴리기 수집 게임 (2025.02.02 ~ 2025.02.12)</h3>
         <p><strong>Unity 3D</strong> 기반 GoldMetal 튜토리얼을 바탕으로 제작한 3D 미니게임</p>
-        <img src="gifs/Roll & Get Item Game_3D.gif" alt="3D 공 굴리기 게임 미리보기 (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
+        <img src="gifs/Roll & Get Item Game_3D.gif" alt="3D 공 굴리기 게임 미리보기 (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li><span class="highlight">아이템 트리거 기반 3차원 점프 로직</span> 및 물리 시스템 적용</li>
           <li><span class="highlight">2차원 스프라이트를 활용한 사용자 인터페이스</span> 구현</li>
@@ -769,7 +779,7 @@
         <h3>🎯 #2 2D 코인 먹기 게임 (2025.02.16 ~ 2025.03.15)</h3>
 
         <p><strong>Unity 2D</strong> 기반 GoldMetal 튜토리얼을 바탕으로 제작한 소규모 2D 게임</p>
-        <img src="gifs/Get Coin Game_2D.gif" alt="2D 코인 먹기 게임 미리보기 (GIF)" width="500" style="margin-top:10px; border-radius:8px;" />
+        <img src="gifs/Get Coin Game_2D.gif" alt="2D 코인 먹기 게임 미리보기 (GIF)" width="500" class="zoomable-gif" style="margin-top:10px; border-radius:8px;" />
         <ul>
           <li><span class="highlight">아이템 트리거 기반 2D 점프 로직과 물리적 콜라이더</span> 적용</li>
           <li><span class="highlight">2차원 스프라이트를 활용</span>하여 사용자 인터페이스 구현</li>
