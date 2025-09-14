@@ -509,7 +509,8 @@
         <div style="margin-top:2rem;">
           <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🔧 Technical Details</p>
           <ul class="marker2">
-            <li>Implemented hill terrain-based realistic pathfinding logic with NavMesh and Visualizing the path</li>
+            <li>Implemented realistic hill terrain-based pathfinding logic using two NavMeshes and a custom Dijkstra algorithm, with visualized path rendering</li>
+            <li>After the initial NavMesh pathfinding, a secondary NavMesh evaluates whether the path passes between specific corner objects, generates virtual walls, and derives alternative detour routes</li>
             <li>Implemented <span class="highlight">user sign-up and login</span> functionality using Firebase, and developed features to <span class="highlight">save and retrieve Chat-GPT Q & A logs</span></li>
             <li>Designed ChatGPT-powered <span class="highlight">NPC chat system</span></li>
           </ul>
@@ -875,7 +876,8 @@
 
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🔧 기술 세부 사항</p>
         <ul class="marker2">
-          <li>NavMesh를 활용한 산 지형 기반 경로 탐색 로직 구현 및 경로 시각화</li>
+          <li>두 개의 NavMesh와 커스텀 다익스트라 알고리즘을 활용한 산악 지형 기반의 현실적인 경로 탐색 로직 구현 및 경로 시각화</li>
+          <li>1번째 기본 NavMesh 탐색 후, 2번째 NavMesh에서 특정 코너 오브젝트 간 통과 여부를 판별해 가상 벽을 생성하고 우회 경로를 도출</li>
           <li>Firebase를 활용한 <span class="highlight">회원가입 및 로그인</span> 기능 구현,  <span class="highlight">Chat-GPT 질의응답 로그 저장 및 불러오기</span> 기능 개발</li>
           <li>ChatGPT 기반 <span class="highlight">NPC 대화 시스템</span> 설계</li>
         </ul>
@@ -977,5 +979,6 @@
   </div>
 </body>
 </html>
+
 
 
