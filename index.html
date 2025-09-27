@@ -119,15 +119,14 @@
 
     .icon-cell {
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      vertical-align: middle;  /* 행 가운데 */
     }
     
     .icon-cell img {
+      display: block;
+      margin: 0 auto 6px auto; /* 가운데 정렬 + 간격 */
       width: 35px;
       height: 35px;
-      margin-bottom: 6px; /* 아이콘과 글자 사이 간격 */
     }
     
     .zoomable-gif {
@@ -1015,6 +1014,7 @@
   </div>
 </body>
 </html>
+
 
 
 
