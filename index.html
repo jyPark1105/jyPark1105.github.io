@@ -124,9 +124,15 @@
     
     .icon-cell img {
       display: block;
-      margin: 0 auto 6px auto; /* 가운데 정렬 + 간격 */
+      margin: 0 auto 6px auto;
       width: 35px;
       height: 35px;
+    }
+    
+    .icon-wide {
+      width: 50px;         /* 가로로 좀 더 넓게 */
+      height: auto;        /* 세로는 비율 유지 */
+      object-fit: contain; /* 비율 유지하면서 맞추기 */
     }
     
     .zoomable-gif {
@@ -400,7 +406,7 @@
               <!-- DRF(En) -->
               <tr>
                 <td class="icon-cell">
-                  <img src="icons/Django Rest Framework.png" alt="Django Rest Framework">
+                  <img src="icons/Django Rest Framework.png" alt="Django Rest Framework", class="icon-wide">
                   <strong>Django Rest Framework</strong> (Backend)
                 </td>
                 <td>Python</td>
@@ -783,7 +789,7 @@
               <!-- DRF(Ko) -->
               <tr>
                 <td class="icon-cell">
-                  <img src="icons/Django Rest Framework.png" alt="Django Rest Framework">
+                  <img src="icons/Django Rest Framework.png" alt="Django Rest Framework", class="icon-wide">
                   <strong>Django Rest Framework</strong> (Backend)
                 </td>
                 <td>Python</td>
@@ -1015,6 +1021,7 @@
   </div>
 </body>
 </html>
+
 
 
 
