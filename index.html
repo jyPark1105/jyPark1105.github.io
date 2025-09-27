@@ -365,22 +365,19 @@
                   <ul class="marker1">
                     <li>Probuilder</li>
                     <li>NavMesh</li>
-                    <li>WebGL Build</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>UI structure (Navigation, GPT Q&A, Campus Map)</li>
-                    <li>Pathfinding using NavMesh</li>
-                    <li>WebGL build deployment</li>
+                    <li>UI structure (Pathfinder, Chatbot, Campus map)</li>
+                    <li>Three Pathfinding Methods: NavMesh & Dijkstra-based</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>Firebase integration (Sign-up, Login, Database)</li>
-                    <li>Interact with Django for Q&A</li>
+                    <li>Firebase integration: Authentication & Storing in the database</li>
                     <li>Communicate with Django via UnityWebRequest (JSON)</li>
-                    <li>Embedded WebGL rendering in React web</li>
+                    <li>Rendering embedded WebGL layer onto React</li>
                   </ul>
                 </td>
               </tr>
@@ -408,7 +405,7 @@
               </tr>
               <tr>
                 <td>☁️ Firebase</td>
-                <td>JavaScript / JSON</td>
+                <td></td>
                 <td>
                   <ul class="marker1">
                     <li>Web App</li>
@@ -418,8 +415,8 @@
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>Handles sign-up and login via Firebase Authentication</li>
-                    <li>Stores Chat-GPT Q&A data in Firestore Database by user account</li>
+                    <li>Authentication: Sign-up and Login functionality</li>
+                    <li>Stores Chatbot Q&A data in Firestore Database for each user account (UID)</li>
                   </ul>
                 </td>
                 <td>
@@ -439,14 +436,12 @@
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>User interface layout of web interface</li>
-                    <li>Embed Unity WebGL via iframe</li>
+                    <li>User interface layout of web</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="marker2">
                     <li>Render Unity WebGL layer onto React page</li>
-                    <li>Provide user interface for the user</li>
                   </ul>
                 </td>
               </tr>
@@ -724,8 +719,8 @@
                 <th>구성 요소</th>
                 <th>언어</th>
                 <th>기술 스택</th>
-                <th>내부 기능</th>
-                <th>외부 연동</th>
+                <th>내부 구현 기능</th>
+                <th>외부와의 연동</th>
               </tr>
             </thead>
             <tbody>
@@ -736,22 +731,19 @@
                   <ul class="marker1">
                     <li>Probuilder</li>
                     <li>NavMesh</li>
-                    <li>WebGL Build</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>사용자 인터페이스 구성 (내비게이션, GPT 질문, 캠퍼스 지도)</li>
-                    <li>NavMesh 기반 길찾기 로직</li>
-                    <li>WebGL 빌드</li>
+                    <li>사용자 인터페이스 구성 (길찾기, 챗봇, 캠퍼스맵)</li>
+                    <li>NavMesh & Dijkstra 알고리즘 기반 총 3개의 길찾기 기능</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>Firebase 연동 (회원가입, 로그인, 데이터베이스 저장)</li>
-                    <li>Django와 연동하여 질의응답 처리</li>
-                    <li>UnityWebRequest로 Django와 JSON 통신</li>
-                    <li>React 웹에 WebGL 포함 및 렌더링</li>
+                    <li>Firebase 연동: 보안 인증, 데이터베이스 저장</li>
+                    <li>UnityWebRequest 사용: Django와 JSON 통신</li>
+                    <li>React 위에 WebGL layer 추가하여 렌더링</li>
                   </ul>
                 </td>
               </tr>
@@ -779,7 +771,7 @@
               </tr>
               <tr>
                 <td>☁️ Firebase</td>
-                <td>JavaScript / JSON</td>
+                <td></td>
                 <td>
                   <ul class="marker1">
                     <li>Web App</li>
@@ -789,14 +781,14 @@
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>Firebase Authentication으로 회원가입 및 로그인 처리</li>
-                    <li>사용자 계정 별 Chat-GPT 질의응답 데이터를 Firestore Database에 저장</li>
+                    <li>보안: 회원가입 및 로그인 기능</li>
+                    <li>사용자별 Chatbot 질의응답 데이터를 Firestore Database에 저장</li>
                   </ul>
                 </td>
                 <td>
                   <ul class="marker2">
-                    <li>Firebase User ID(UID) 및 세션 데이터를 Django로 전달</li>
-                    <li>Django에서 User ID(UID)를 통해 개인별 GPT 질의응답을 관련지적으로 저장</li>
+                    <li>Firebase: 사용자 고유 식별자(UID) 및 질의응답 데이터 → Django로 전달</li>
+                    <li>Django: 전달받은 사용자 고유 식별자(UID)를 통해 사용자별 Chatbot 질의응답을 Firebase DB에 저장</li>
                   </ul>
                 </td>
               </tr>
@@ -811,13 +803,11 @@
                 <td>
                   <ul class="marker2">
                     <li>웹 사용자 인터페이스 구성</li>
-                    <li>Unity WebGL을 iframe으로 삽입</li>
                   </ul>
                 </td>
                 <td class="small-text">
                   <ul class="marker2">
                     <li>Unity WebGL layer를 React 위에 렌더링</li>
-                    <li>사용자 인터페이스 제공</li>
                   </ul>
                 </td>
               </tr>
@@ -980,5 +970,6 @@
   </div>
 </body>
 </html>
+
 
 
