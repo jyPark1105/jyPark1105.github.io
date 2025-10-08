@@ -315,89 +315,94 @@
   </style>
   
   <script>
+    // 전역 상태: 코드 토글 상태 저장용
+    const toggleStates = {
+      "code-rollingstone": false,
+      "code-navmesh": false,
+      "code-dijkstra": false
+    };
+  
+    // ✅ 언어 전환 함수
     function toggleLanguage() {
-      const en = document.getElementById('english');
-      const ko = document.getElementById('korean');
-      const btn = document.getElementById('langToggle');
+      const en = document.getElementById("english");
+      const ko = document.getElementById("korean");
+      const btn = document.getElementById("langToggle");
   
-      // ✅ 1. 현재 열려 있는 코드박스 인덱스 기록
-      const openedIndexes = [];
-      document.querySelectorAll('.code-content').forEach((content, i) => {
-        if (content.classList.contains('active')) openedIndexes.push(i);
-      });
+      const isEnglish = en.style.display !== "none";
+      en.style.display = isEnglish ? "none" : "block";
+      ko.style.display = isEnglish ? "block" : "none";
+      btn.textContent = isEnglish ? "🇺🇸 영어로 보기" : "🇰🇷 한국어 보기";
   
-      // ✅ 2. Two NavMeshes가 열려있으면 기록
-      const twoNavMeshesOpen = Array.from(document.querySelectorAll('.two-navmesh-wrapper'))
-        .some(wrapper => wrapper.style.display === 'flex');
-  
-      // ✅ 3. 언어 전환
-      if (en.style.display === 'none') {
-        en.style.display = 'block';
-        ko.style.display = 'none';
-        btn.textContent = '🇰🇷 한국어 보기';
-      } else {
-        en.style.display = 'none';
-        ko.style.display = 'block';
-        btn.textContent = '🇺🇸 영어로 보기';
-      }
-  
-      // ✅ 4. DOM 갱신 후 상태 복구
-      setTimeout(() => {
-        const newContents = document.querySelectorAll('.code-content');
-        const newButtons = document.querySelectorAll('.toggle-btn');
-  
-        // 기존에 열려 있던 코드 다시 열기
-        openedIndexes.forEach(i => {
-          if (newContents[i]) newContents[i].classList.add('active');
-          if (newButtons[i]) {
-            newButtons[i].classList.add('open');
-            newButtons[i].textContent = '▼';
-          }
-        });
-  
-        // Two NavMeshes 상태 복원
-        if (twoNavMeshesOpen) {
-          document.querySelectorAll('.two-navmesh-wrapper').forEach(wrapper => {
-            wrapper.style.display = 'flex';
-          });
-          document.querySelectorAll('.toggle-btn').forEach(btn => {
-            if (btn.textContent === '▶') btn.textContent = '▼';
-            btn.classList.add('open');
-          });
-        }
-      }, 100); // DOM 교체 타이밍 보정 (약간의 delay)
+      // 언어 전환 후 상태 동기화
+      setTimeout(() => syncAllToggles(), 50);
     }
   
-    // ✅ 단일 코드 토글
-    function toggleSingleCode(button) {
-      const content = button.closest('.code-box').querySelector('.code-content');
-      const isActive = content.classList.contains('active');
+    // ✅ 단일 코드 토글 (예: Rolling Stone, Dijkstra)
+    function toggleSingleCode(button, codeId) {
+      const box = button.closest(".code-box");
+      const content = box.querySelector(".code-content");
+      const isActive = content.classList.contains("active");
   
+      toggleStates[codeId] = !isActive; // 상태 저장
+  
+      // 현재 언어 쪽 반영
       if (isActive) {
-        content.classList.remove('active');
-        button.textContent = '▶';
-        button.classList.remove('open');
+        content.classList.remove("active");
+        button.textContent = "▶";
       } else {
-        content.classList.add('active');
-        button.textContent = '▼';
-        button.classList.add('open');
+        content.classList.add("active");
+        button.textContent = "▼";
       }
+  
+      // 반대 언어 쪽도 동기화
+      syncOtherLanguage(codeId);
     }
   
-    // ✅ Two NavMeshes 토글
-    function toggleTwoNavMeshes(button) {
-      const wrapper = button.closest('.code-box').querySelector('.two-navmesh-wrapper');
-      const isVisible = wrapper.style.display === 'flex';
+    // ✅ Two NavMeshes 전용 토글
+    function toggleTwoNavMeshes(button, codeId) {
+      const box = button.closest(".code-box");
+      const wrapper = box.querySelector(".two-navmesh-wrapper");
+      const isVisible = wrapper.style.display === "flex";
+  
+      toggleStates[codeId] = !isVisible; // 상태 저장
   
       if (isVisible) {
-        wrapper.style.display = 'none';
-        button.textContent = '▶';
-        button.classList.remove('open');
+        wrapper.style.display = "none";
+        button.textContent = "▶";
       } else {
-        wrapper.style.display = 'flex';
-        button.textContent = '▼';
-        button.classList.add('open');
+        wrapper.style.display = "flex";
+        button.textContent = "▼";
       }
+  
+      // 반대 언어 쪽도 동기화
+      syncOtherLanguage(codeId);
+    }
+  
+    // ✅ 특정 ID 코드박스 반대언어로 상태 반영
+    function syncOtherLanguage(codeId) {
+      const targetBoxes = document.querySelectorAll(`[data-code-id="${codeId}"]`);
+      targetBoxes.forEach((box) => {
+        const button = box.querySelector(".toggle-btn");
+        const content = box.querySelector(".code-content");
+        const wrapper = box.querySelector(".two-navmesh-wrapper");
+  
+        if (toggleStates[codeId]) {
+          // 열기
+          if (content) content.classList.add("active");
+          if (wrapper) wrapper.style.display = "flex";
+          if (button) button.textContent = "▼";
+        } else {
+          // 닫기
+          if (content) content.classList.remove("active");
+          if (wrapper) wrapper.style.display = "none";
+          if (button) button.textContent = "▶";
+        }
+      });
+    }
+  
+    // ✅ 언어 전환 시 전체 상태 복원
+    function syncAllToggles() {
+      Object.keys(toggleStates).forEach((id) => syncOtherLanguage(id));
     }
   </script>
 </head>
@@ -476,9 +481,9 @@
         </ul>
         
         <!-- Code Toggle Section -->
-        <div class="code-box" style="margin-top:1.5rem;">
+        <div class="code-box" data-code-id="code-rollingstone">
           <h3>
-            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            <button class="toggle-btn" onclick="toggleSingleCode(this, 'code-rollingstone')">▶</button>
             ⚙️ Rendering Code Snippet
           </h3>
           <div class="code-content">
@@ -753,12 +758,11 @@ while (!glfwWindowShouldClose(window))
         </div>
 
         <!-- ✅ Two NavMeshes Section -->
-        <div class="code-box" style="margin-top:2rem;">
+        <div class="code-box" data-code-id="code-navmesh">
           <h3>
-            <button class="toggle-btn" onclick="toggleTwoNavMeshes(this)">▶</button>
+            <button class="toggle-btn" onclick="toggleTwoNavMeshes(this, 'code-navmesh')">▶</button>
             Two NavMeshes
           </h3>
-        
           <div class="two-navmesh-wrapper" style="display:none; gap:1rem; margin-top:1rem;">
             <!-- NavMesh 1 -->
             <div class="code-box" style="flex:1;">
@@ -829,9 +833,9 @@ private void CreateVirtualWall(DangerCornerPair pair)
         </div>
 
         <!-- ✅ Dijkstra Pathfinder Section -->
-        <div class="code-box" style="margin-top:2rem;">
+        <div class="code-box" data-code-id="code-dijkstra">
           <h3>
-            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            <button class="toggle-btn" onclick="toggleSingleCode(this, 'code-dijkstra')">▶</button>
             Dijkstra
           </h3>
           <div class="code-content">
@@ -1066,9 +1070,9 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         </ul>
         
         <!-- ✅ 코드 토글 섹션 추가 -->
-        <div class="code-box" style="margin-top:1.5rem;">
+        <div class="code-box" data-code-id="code-rollingstone">
           <h3>
-            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            <button class="toggle-btn" onclick="toggleSingleCode(this, 'code-rollingstone')">▶</button>
             ⚙️ 렌더링 코드 스니펫
           </h3>
           <div class="code-content">
@@ -1337,13 +1341,12 @@ while (!glfwWindowShouldClose(window))
         </p>
 
 
-        <!-- ✅ Two NavMeshes Section -->
-        <div class="code-box" style="margin-top:2rem;">
+        <!-- ✅ 두 개의 NavMesh 섹션 -->
+        <div class="code-box" data-code-id="code-navmesh">
           <h3>
-            <button class="toggle-btn" onclick="toggleTwoNavMeshes(this)">▶</button>
-            Two NavMeshes
+            <button class="toggle-btn" onclick="toggleTwoNavMeshes(this, 'code-navmesh')">▶</button>
+            두 개의 NavMesh
           </h3>
-        
           <div class="two-navmesh-wrapper" style="display:none; gap:1rem; margin-top:1rem;">
             <!-- NavMesh 1 -->
             <div class="code-box" style="flex:1;">
@@ -1414,10 +1417,10 @@ private void CreateVirtualWall(DangerCornerPair pair)
         </div>
 
         <!-- ✅ 다익스트라 길찾기 섹션 -->
-        <div class="code-box" style="margin-top:2rem;">
+        <div class="code-box" data-code-id="code-dijkstra">
           <h3>
-            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
-            Dijkstra
+            <button class="toggle-btn" onclick="toggleSingleCode(this, 'code-dijkstra')">▶</button>
+            다익스트라
           </h3>
           <div class="code-content">
             <pre>
@@ -1577,6 +1580,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
