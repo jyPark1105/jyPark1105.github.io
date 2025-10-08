@@ -191,9 +191,10 @@
       border-radius: 6px;
       padding: 1rem;
       overflow-x: auto;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       line-height: 1.4;
       color: #222;
+      font-family: 'Consolas', 'Courier New', monospace; /* 코드 전용 폰트로 명시 */
     }
     
     .zoomable-gif {
@@ -369,43 +370,43 @@
       </p>
     
       <div class="code-pair">
+        <!-- 🔹 Left Column -->
         <div class="code-box">
-          <h3>🧱 Example 1: Dijkstra Pathfinding Logic (C# in Unity)</h3>
+          <h3>🧭 Example 1: Pathfinding Cache Logic (C# in Unity)</h3>
           <pre>
-    public List&lt;Vector3&gt; FindShortestPath(string start, string goal)
+    // ================= PATH1 =================
+    public void FindPath1()
     {
-        var openSet = new PriorityQueue&lt;PathNode&gt;();
-        var distances = new Dictionary&lt;string, float&gt;();
-        var previous = new Dictionary&lt;string, string&gt;();
+        string startName = startInputNode.text.Trim();
+        string endName = endInputNode.text.Trim();
     
-        foreach (var node in nodes.Keys)
-            distances[node] = float.MaxValue;
+        Vector3 start = GetNodePosition(startName);
+        Vector3 end = GetNodePosition(endName);
     
-        distances[start] = 0;
-        openSet.Enqueue(new PathNode(start, 0));
-    
-        while (openSet.Count &gt; 0)
+        // Cache 저장 여부 확인
+        if (cachedNavMeshPaths[0] != null)
         {
-            var current = openSet.Dequeue();
-            if (current.Name == goal) break;
+            pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
+            UIDebugTextAnimator.Instance.debugTextMsg.text = 
+                "저장된 NavMesh 경로 불러오기 완료";
+            UIDebugTextAnimator.Instance.AnimateAll();
     
-            foreach (var neighbor in nodes[current.Name].Neighbors)
-            {
-                float newDist = distances[current.Name] + neighbor.Distance;
-                if (newDist &lt; distances[neighbor.Name])
-                {
-                    distances[neighbor.Name] = newDist;
-                    previous[neighbor.Name] = current.Name;
-                    openSet.Enqueue(new PathNode(neighbor.Name, newDist));
-                }
-            }
+            StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
+            return;
         }
     
-        return ReconstructPath(previous, start, goal);
+        path1 = new NavMeshPath();
+        NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path1);
+    
+        pathLineDrawer1.DrawPath(path1);
+        cachedNavMeshPaths[0] = path1;
+    
+        ...
     }
           </pre>
         </div>
     
+        <!-- 🔹 Right Column -->
         <div class="code-box">
           <h3>🧩 Example 2: Smooth Character Movement (C++ / OpenGL)</h3>
           <pre>
@@ -419,7 +420,7 @@
         velocity.y -= gravity * deltaTime;
     
         // Simple ground collision
-        if (position.y &lt; groundLevel)
+        if (position.y < groundLevel)
         {
             position.y = groundLevel;
             velocity.y = 0.0f;
@@ -1166,6 +1167,7 @@
   </div>
 </body>
 </html>
+
 
 
 
