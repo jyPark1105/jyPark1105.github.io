@@ -166,12 +166,12 @@
     #zoomNotice-en,
     #zoomNotice-ko {
       position: fixed;
-      top: 60px;
+      top: 68px;
       right: 20px;
       background: #eef6ff;
       color: #004a99;
       font-size: 0.85rem;
-      padding: 6px 10px;
+      padding: 7px 12px;
       border-radius: 6px;
       border: 1px solid #cce3ff;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
@@ -384,9 +384,9 @@
       #zoomNotice-en,
       #zoomNotice-ko {
         font-size: 0.75rem;
-        top: 55px;
+        top: 60px;          
         right: 10px;
-        padding: 5px 8px;
+        padding: 6px 9px;
       }
       
       /* 프로필 섹션 세로 배치 */
@@ -574,6 +574,28 @@
     function syncAllToggles() {
       Object.keys(toggleStates).forEach((id) => syncOtherLanguage(id));
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const gifs = document.querySelectorAll(".zoomable-gif");
+    const modal = document.getElementById("gifOverlay");
+    const modalGif = document.getElementById("gifOverlayImg");
+    const modalTitle = document.querySelector(".gif-title");
+
+    gifs.forEach(gif => {
+      gif.addEventListener("dblclick", function () {
+        modal.style.display = "block";
+        modalGif.src = this.src;
+        modalTitle.textContent = this.dataset.title || "";
+        document.body.classList.add("no-scroll");
+      });
+    });
+
+    modal.addEventListener("click", function () {
+      modal.style.display = "none";
+      modalGif.src = "";
+      document.body.classList.remove("no-scroll");
+    });
+  });
   </script>
 </head>
   
@@ -1764,6 +1786,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
