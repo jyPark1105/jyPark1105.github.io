@@ -319,18 +319,18 @@
       const en = document.getElementById('english');
       const ko = document.getElementById('korean');
       const btn = document.getElementById('langToggle');
-    
-      // ✅ 현재 열려있는 코드 인덱스 기록
+  
+      // ✅ 1. 현재 열려 있는 코드박스 인덱스 기록
       const openedIndexes = [];
-      document.querySelectorAll('.code-content').forEach((c, i) => {
-        if (c.classList.contains('active')) openedIndexes.push(i);
+      document.querySelectorAll('.code-content').forEach((content, i) => {
+        if (content.classList.contains('active')) openedIndexes.push(i);
       });
-    
-      // ✅ 두 NavMeshes가 열려있으면 기록
+  
+      // ✅ 2. Two NavMeshes가 열려있으면 기록
       const twoNavMeshesOpen = Array.from(document.querySelectorAll('.two-navmesh-wrapper'))
         .some(wrapper => wrapper.style.display === 'flex');
-    
-      // ✅ 언어 전환
+  
+      // ✅ 3. 언어 전환
       if (en.style.display === 'none') {
         en.style.display = 'block';
         ko.style.display = 'none';
@@ -340,20 +340,22 @@
         ko.style.display = 'block';
         btn.textContent = '🇺🇸 영어로 보기';
       }
-    
-      // ✅ 전환 후 열린 토글 유지 복구
+  
+      // ✅ 4. DOM 갱신 후 상태 복구
       setTimeout(() => {
         const newContents = document.querySelectorAll('.code-content');
         const newButtons = document.querySelectorAll('.toggle-btn');
-      
+  
+        // 기존에 열려 있던 코드 다시 열기
         openedIndexes.forEach(i => {
           if (newContents[i]) newContents[i].classList.add('active');
           if (newButtons[i]) {
             newButtons[i].classList.add('open');
-            newButtons[i].textContent = '▼';  // 화살표 방향 고정
+            newButtons[i].textContent = '▼';
           }
         });
-      
+  
+        // Two NavMeshes 상태 복원
         if (twoNavMeshesOpen) {
           document.querySelectorAll('.two-navmesh-wrapper').forEach(wrapper => {
             wrapper.style.display = 'flex';
@@ -363,31 +365,26 @@
             btn.classList.add('open');
           });
         }
-      }, 50);
+      }, 100); // DOM 교체 타이밍 보정 (약간의 delay)
     }
   
-    // ✅ 단일 코드 토글 (렌더링, 다익스트라 등)
+    // ✅ 단일 코드 토글
     function toggleSingleCode(button) {
       const content = button.closest('.code-box').querySelector('.code-content');
       const isActive = content.classList.contains('active');
   
-      // 모두 닫기
-      document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('open'));
-  
-      // 선택한 것만 열기
-      if (!isActive) {
-        content.classList.add('active');
-        button.classList.add('open');
-        button.textContent = '▼';
-      } else {
+      if (isActive) {
         content.classList.remove('active');
-        button.classList.remove('open');
         button.textContent = '▶';
+        button.classList.remove('open');
+      } else {
+        content.classList.add('active');
+        button.textContent = '▼';
+        button.classList.add('open');
       }
     }
   
-    // ✅ Two NavMeshes (2열)
+    // ✅ Two NavMeshes 토글
     function toggleTwoNavMeshes(button) {
       const wrapper = button.closest('.code-box').querySelector('.two-navmesh-wrapper');
       const isVisible = wrapper.style.display === 'flex';
@@ -395,9 +392,11 @@
       if (isVisible) {
         wrapper.style.display = 'none';
         button.textContent = '▶';
+        button.classList.remove('open');
       } else {
         wrapper.style.display = 'flex';
         button.textContent = '▼';
+        button.classList.add('open');
       }
     }
   </script>
