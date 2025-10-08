@@ -237,8 +237,8 @@
 
     .code-box h3 {
       color: #007acc;
-      margin-top: 0.6rem;
-      margin-bottom: 1.2rem;
+      margin-top: 0.4rem;
+      margin-bottom: 0.4rem;
       font-size: 0.95rem;
       display: flex;
       align-items: center;
@@ -256,6 +256,10 @@
     }
     .code-section-title::before {
       content: "⚙️";
+    }
+
+    .code-section-title + .code-box {
+      margin-top: 1.2rem !important;  /* 🔥 여백 크기 조절: 0.8rem~1.5rem 사이로 조정 가능 */
     }
     
     .toggle-btn {
@@ -1718,6 +1722,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
