@@ -441,42 +441,6 @@
     
       <div class="code-grid">
     
-        <!-- ✅ 1행 -->
-        <div class="code-single">
-          <div class="code-box">
-            <h3><button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>⚙️ Main Frame Code: 'The Rolling Stone'</h3>
-            <div class="code-content">
-              <pre>
-    // ======== MAIN RENDER LOOP ========
-    while (!glfwWindowShouldClose(window))
-    {
-        float currentFrame = static_cast<float>(glfwGetTime());
-        if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-    
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-            (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
-        glm::mat4 view = camera.GetViewMatrix();
-    
-        dynamicsWorld->stepSimulation(deltaTime);
-        btTransform trans;
-        characterBody->getMotionState()->getWorldTransform(trans);
-        btVector3 btPos = trans.getOrigin();
-        character->position = glm::vec3(btPos.getX(), btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, btPos.getZ());
-    
-        processInput(window, defaultAnimations, runAnimations);
-        animator.updateAnimation(deltaTime);
-        updateNodeTransformations(root, glm::mat4(1.0f));
-        renderNode(root);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-              </pre>
-            </div>
-          </div>
-        </div>
-    
         <!-- ✅ 2행 (하나의 버튼으로 두 코드 동시에 제어) -->
         <div class="code-pair">
           <!-- 상단 제목 -->
@@ -619,6 +583,45 @@
           <li>Natural animation synchronization with character-object interactions</li>
         </ul>
         <p><strong>🛠️ Role:</strong> Physics system design, animation optimization, logic improvements</p>
+        
+        <!-- 코드 토글 섹션 -->
+        <div class="code-box" style="margin-top:1.5rem;">
+          <h3>
+            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            ⚙️ Rendering Code Snippet
+          </h3>
+          <div class="code-content">
+            <pre>
+      // ======== MAIN RENDER LOOP ========
+      while (!glfwWindowShouldClose(window))
+      {
+          float currentFrame = static_cast<float>(glfwGetTime());
+          if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
+          deltaTime = currentFrame - lastFrame;
+          lastFrame = currentFrame;
+      
+          glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+              (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
+          glm::mat4 view = camera.GetViewMatrix();
+      
+          dynamicsWorld->stepSimulation(deltaTime);
+          btTransform trans;
+          characterBody->getMotionState()->getWorldTransform(trans);
+          btVector3 btPos = trans.getOrigin();
+          character->position = glm::vec3(btPos.getX(), btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, btPos.getZ());
+      
+          processInput(window, defaultAnimations, runAnimations);
+          animator.updateAnimation(deltaTime);
+          updateNodeTransformations(root, glm::mat4(1.0f));
+          renderNode(root);
+          glfwSwapBuffers(window);
+          glfwPollEvents();
+      }
+            </pre>
+          </div>
+        </div>
+      </div>
+        
         <p>🔗 <strong>Github Source</strong>:  
           <a href="https://github.com/jyPark1105/The-Stone-Rolling-Game" target="_blank">'The Rolling Stone Game' Repository</a>
         </p>
@@ -1008,6 +1011,44 @@
           <li>캐릭터-오브젝트 상호작용에 따른 자연스러운 애니메이션 동기화</li>
         </ul>
         <p><strong>🛠️ 담당 역할:</strong> 물리 시스템 설계, 애니메이션 최적화, 로직 개선</p>
+        <!-- ✅ 코드 토글 섹션 추가 -->
+        <div class="code-box" style="margin-top:1.5rem;">
+          <h3>
+            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            ⚙️ 렌더링 코드 스니펫
+          </h3>
+          <div class="code-content">
+            <pre>
+      // ======== MAIN RENDER LOOP ========
+      while (!glfwWindowShouldClose(window))
+      {
+          float currentFrame = static_cast<float>(glfwGetTime());
+          if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
+          deltaTime = currentFrame - lastFrame;
+          lastFrame = currentFrame;
+      
+          glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+              (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
+          glm::mat4 view = camera.GetViewMatrix();
+      
+          dynamicsWorld->stepSimulation(deltaTime);
+          btTransform trans;
+          characterBody->getMotionState()->getWorldTransform(trans);
+          btVector3 btPos = trans.getOrigin();
+          character->position = glm::vec3(btPos.getX(), btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, btPos.getZ());
+      
+          processInput(window, defaultAnimations, runAnimations);
+          animator.updateAnimation(deltaTime);
+          updateNodeTransformations(root, glm::mat4(1.0f));
+          renderNode(root);
+          glfwSwapBuffers(window);
+          glfwPollEvents();
+      }
+            </pre>
+          </div>
+        </div>
+        <!-- ✅ 끝 -->
+      </div>
         <p>🔗 <strong>깃허브 링크</strong>: 
           <a href="https://github.com/jyPark1105/The-Stone-Rolling-Game" target="_blank">'The Rolling Stone' 게임 저장소</a>
         </p>
@@ -1320,6 +1361,7 @@
   </div>
 </body>
 </html>
+
 
 
 
