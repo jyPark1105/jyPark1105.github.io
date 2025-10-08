@@ -570,7 +570,7 @@
         <h3>🪨 'The Rolling Stone' Game (2025.04 ~ 2025.06)</h3>
         <p><strong>C++</strong>, <strong>OpenGL</strong>, <strong>Bullet Physics</strong>, <strong>Skeletal Animation</strong> based 3D physics simulation</p>
         
-        <!-- 확대 가능한 GIF -->
+        <!-- Zoomable GIF -->
         <img src="gifs/Main_Projects/The_Rolling_Stone/Graphics Project_Demo.gif"
              alt="'The Rolling Stone' Game Preview"
              class="zoomable-gif"
@@ -583,7 +583,7 @@
           <li>Natural animation synchronization with character-object interactions</li>
         </ul>
         
-        <!-- 코드 토글 섹션 -->
+        <!-- Code Toggle Section -->
         <div class="code-box" style="margin-top:1.5rem;">
           <h3>
             <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
@@ -591,31 +591,54 @@
           </h3>
           <div class="code-content">
             <pre>
-      // ======== MAIN RENDER LOOP ========
-      while (!glfwWindowShouldClose(window))
-      {
-          float currentFrame = static_cast<float>(glfwGetTime());
-          if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
-          deltaTime = currentFrame - lastFrame;
-          lastFrame = currentFrame;
-      
-          glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-              (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
-          glm::mat4 view = camera.GetViewMatrix();
-      
-          dynamicsWorld->stepSimulation(deltaTime);
-          btTransform trans;
-          characterBody->getMotionState()->getWorldTransform(trans);
-          btVector3 btPos = trans.getOrigin();
-          character->position = glm::vec3(btPos.getX(), btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, btPos.getZ());
-      
-          processInput(window, defaultAnimations, runAnimations);
-          animator.updateAnimation(deltaTime);
-          updateNodeTransformations(root, glm::mat4(1.0f));
-          renderNode(root);
-          glfwSwapBuffers(window);
-          glfwPollEvents();
-      }
+// ======== MAIN RENDER LOOP ========
+while (!glfwWindowShouldClose(window))
+{
+    // 1) Calculate FPS
+    float currentFrame = static_cast<float>(glfwGetTime());
+    if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+    // 2) Update view-projection matrices
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+        (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
+    glm::mat4 view = camera.GetViewMatrix();
+
+    // 3) Start physical simulation
+    dynamicsWorld->stepSimulation(deltaTime);
+
+    // 4) Update player's position using bullet library
+    btTransform trans;
+    characterBody->getMotionState()->getWorldTransform(trans);
+    btVector3 btPos = trans.getOrigin();
+    character->position = glm::vec3(
+        btPos.getX(),
+        btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f,
+        btPos.getZ());
+
+    // 5) Processing user's input
+    processInput(window, defaultAnimations, runAnimations);
+
+    // 6) Check collision
+    // ... // Collision with ground, Detect slope, Collision with other object
+
+    // 7) Update animation matrices
+    glm::mat4 model = glm::mat4(1.0f);
+    animator.updateAnimation(deltaTime);
+    updateNodeTransformations(root, model);
+    auto transforms = animator.getFinalBoneMatrices();
+
+    // 8) Root rendering
+    renderNode(root);
+
+    // 9) Line Debug & GUI
+    // ... // ImGui Panel
+
+    // 10) End frame
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}              
             </pre>
           </div>
         </div>
@@ -1018,31 +1041,54 @@
           </h3>
           <div class="code-content">
             <pre>
-      // ======== MAIN RENDER LOOP ========
-      while (!glfwWindowShouldClose(window))
-      {
-          float currentFrame = static_cast<float>(glfwGetTime());
-          if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
-          deltaTime = currentFrame - lastFrame;
-          lastFrame = currentFrame;
-      
-          glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-              (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
-          glm::mat4 view = camera.GetViewMatrix();
-      
-          dynamicsWorld->stepSimulation(deltaTime);
-          btTransform trans;
-          characterBody->getMotionState()->getWorldTransform(trans);
-          btVector3 btPos = trans.getOrigin();
-          character->position = glm::vec3(btPos.getX(), btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, btPos.getZ());
-      
-          processInput(window, defaultAnimations, runAnimations);
-          animator.updateAnimation(deltaTime);
-          updateNodeTransformations(root, glm::mat4(1.0f));
-          renderNode(root);
-          glfwSwapBuffers(window);
-          glfwPollEvents();
-      }
+// ======== MAIN RENDER LOOP ========
+while (!glfwWindowShouldClose(window))
+{
+    // 1) 초당 프레임 계산
+    float currentFrame = static_cast<float>(glfwGetTime());
+    if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+    // 2) 카메라 및 투영행렬 갱신
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+        (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
+    glm::mat4 view = camera.GetViewMatrix();
+
+    // 3) 물리 시뮬레이션 진행
+    dynamicsWorld->stepSimulation(deltaTime);
+
+    // 4) 플레이어 위치 갱신
+    btTransform trans;
+    characterBody->getMotionState()->getWorldTransform(trans);
+    btVector3 btPos = trans.getOrigin();
+    character->position = glm::vec3(
+        btPos.getX(),
+        btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f,
+        btPos.getZ());
+
+    // 5) 사용자 입력 처리
+    processInput(window, defaultAnimations, runAnimations);
+
+    // 6) 충돌 상태 확인
+    // ... // 지면 충돌, 슬로프 감지, 오브젝트 접촉 여부 등을 계산함
+
+    // 7) 애니메이션 갱신
+    glm::mat4 model = glm::mat4(1.0f);
+    animator.updateAnimation(deltaTime);
+    updateNodeTransformations(root, model);
+    auto transforms = animator.getFinalBoneMatrices();
+
+    // 8) 루트 렌더링
+    renderNode(root);
+
+    // 9) Line Debug & GUI
+    // ... // ImGui 패널
+
+    // 10) 프레임 마무리
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}              
             </pre>
           </div>
         </div>
@@ -1359,6 +1405,7 @@
   </div>
 </body>
 </html>
+
 
 
 
