@@ -362,16 +362,16 @@
     // ✅ 2행 (NavMesh 두 코드 동시 제어)
     function togglePairCode(button) {
       const pairSection = button.closest('.code-pair');
-      const boxes = pairSection.querySelectorAll('.code-box');
-      const isActive = Array.from(boxes).some(b => b.style.display !== 'none');
-  
-      // 전체 닫기
-      document.querySelectorAll('.code-box').forEach(b => b.style.display = 'none');
+      const contents = pairSection.querySelectorAll('.code-content');
+      const isActive = Array.from(contents).some(c => c.classList.contains('active'));
+    
+      // 모두 닫기
+      document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('open'));
-  
+    
       // 자기 자신 토글
       if (!isActive) {
-        boxes.forEach(b => b.style.display = 'block');
+        contents.forEach(c => c.classList.add('active'));
         button.classList.add('open');
       }
     }
@@ -479,69 +479,73 @@
     
         <!-- ✅ 2행 (하나의 버튼으로 두 코드 동시에 제어) -->
         <div class="code-pair">
+          <!-- 상단 제목 -->
           <div style="flex: 1 1 100%; display: flex; align-items: center; margin-bottom: 0.5rem;">
-            <button class="toggle-btn" onclick="togglePairCode(this)">▶</button>
             <h3 style="margin: 0; color: #007acc;">NavMesh (Unity / Virtual Wall)</h3>
           </div>
-    
+        
+          <!-- 왼쪽 박스: NavMesh 1 -->
           <div class="code-box">
+            <h3><button class="toggle-btn" onclick="togglePairCode(this)">▶</button>NavMesh 1</h3>
             <div class="code-content">
               <pre>
-    // ================= PATH1 =================
-    public void FindPath1()
-    {
-        string startName = startInputNode.text.Trim();
-        string endName = endInputNode.text.Trim();
-    
-        Vector3 start = GetNodePosition(startName);
-        Vector3 end = GetNodePosition(endName);
-    
-        if (cachedNavMeshPaths[0] != null)
+        // ================= PATH1 =================
+        public void FindPath1()
         {
-            pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
-            UIDebugTextAnimator.Instance.debugTextMsg.text = "저장된 NavMesh 경로 불러오기 완료";
-            UIDebugTextAnimator.Instance.AnimateAll();
-            StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
-            return;
+            string startName = startInputNode.text.Trim();
+            string endName = endInputNode.text.Trim();
+        
+            Vector3 start = GetNodePosition(startName);
+            Vector3 end = GetNodePosition(endName);
+        
+            if (cachedNavMeshPaths[0] != null)
+            {
+                pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
+                UIDebugTextAnimator.Instance.debugTextMsg.text = "저장된 NavMesh 경로 불러오기 완료";
+                UIDebugTextAnimator.Instance.AnimateAll();
+                StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
+                return;
+            }
+        
+            path1 = new NavMeshPath();
+            NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path1);
+            pathLineDrawer1.DrawPath(path1);
+            cachedNavMeshPaths[0] = path1;
         }
-    
-        path1 = new NavMeshPath();
-        NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path1);
-        pathLineDrawer1.DrawPath(path1);
-        cachedNavMeshPaths[0] = path1;
-    }
               </pre>
             </div>
           </div>
-    
+        
+          <!-- 오른쪽 박스: NavMesh 2 -->
           <div class="code-box">
+            <h3>NavMesh 2</h3>
             <div class="code-content">
               <pre>
-    private void CreateVirtualWall(DangerCornerPair pair)
-    {
-        if (currentWall != null) Destroy(currentWall);
-        Vector3 a = pair.pointA.position;
-        Vector3 b = pair.pointB.position;
-        Vector3 center = (a + b) / 2f;
-    
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        wall.name = "DangerWall";
-        wall.transform.position = center + Vector3.up * 1f;
-        wall.transform.rotation = Quaternion.LookRotation(b - a);
-        wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
-    
-        if (dangerWallMaterial != null)
-            wall.GetComponent<Renderer>().material = dangerWallMaterial;
-    
-        var obstacle = wall.AddComponent<NavMeshObstacle>();
-        obstacle.carving = true;
-        obstacle.shape = NavMeshObstacleShape.Box;
-        obstacle.size = new Vector3(0.3f, 2f, 1f);
-        obstacle.center = Vector3.zero;
-        obstacle.carveOnlyStationary = true;
-    
-        currentWall = wall;
-    }
+        private void CreateVirtualWall(DangerCornerPair pair)
+        {
+            if (currentWall != null) Destroy(currentWall);
+            Vector3 a = pair.pointA.position;
+            Vector3 b = pair.pointB.position;
+            Vector3 center = (a + b) / 2f;
+        
+            GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.name = "DangerWall";
+            wall.transform.position = center + Vector3.up * 1f;
+            wall.transform.rotation = Quaternion.LookRotation(b - a);
+            wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
+        
+            if (dangerWallMaterial != null)
+                wall.GetComponent<Renderer>().material = dangerWallMaterial;
+        
+            var obstacle = wall.AddComponent<NavMeshObstacle>();
+            obstacle.carving = true;
+            obstacle.shape = NavMeshObstacleShape.Box;
+            obstacle.size = new Vector3(0.3f, 2f, 1f);
+            obstacle.center = Vector3.zero;
+            obstacle.carveOnlyStationary = true;
+        
+            currentWall = wall;
+        }
               </pre>
             </div>
           </div>
@@ -1316,6 +1320,7 @@
   </div>
 </body>
 </html>
+
 
 
 
