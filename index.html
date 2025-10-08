@@ -859,6 +859,132 @@ while (!glfwWindowShouldClose(window))
             <li>Implemented <span class="highlight">user sign-up and login</span> functionality using Firebase, and developed features to <span class="highlight">save and retrieve Chat-GPT Q & A logs</span></li>
           </ul>
         </div>
+
+        <!-- ✅ Pathfinding Code Section -->
+        <div class="code-box" style="margin-top:2rem;">
+          <h3>
+            <button class="toggle-btn" onclick="togglePairCode(this)">▶</button>
+            ⚙️ NavMesh Pathfinding (Unity / Virtual Wall)
+          </h3>
+        
+          <div class="code-pair">
+            <!-- NavMesh 1 -->
+            <div class="code-box">
+              <h3>NavMesh 1</h3>
+              <div class="code-content">
+                <pre>
+// ================= PATH1 =================
+public void FindPath1()
+{
+    string startName = startInputNode.text.Trim();
+    string endName = endInputNode.text.Trim();
+
+    Vector3 start = GetNodePosition(startName);
+    Vector3 end = GetNodePosition(endName);
+
+    if (cachedNavMeshPaths[0] != null)
+    {
+        pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
+        UIDebugTextAnimator.Instance.debugTextMsg.text =
+            "저장된 NavMesh 경로 불러오기 완료";
+        UIDebugTextAnimator.Instance.AnimateAll();
+        StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
+        return;
+    }
+
+    path1 = new NavMeshPath();
+    NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path1);
+    pathLineDrawer1.DrawPath(path1);
+    cachedNavMeshPaths[0] = path1;
+}
+                </pre>
+              </div>
+            </div>
+        
+            <!-- NavMesh 2 -->
+            <div class="code-box">
+              <h3>NavMesh 2 (Virtual Wall)</h3>
+              <div class="code-content">
+                <pre>
+private void CreateVirtualWall(DangerCornerPair pair)
+{
+    if (currentWall != null) Destroy(currentWall);
+
+    Vector3 a = pair.pointA.position;
+    Vector3 b = pair.pointB.position;
+    Vector3 center = (a + b) / 2f;
+
+    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    wall.name = "DangerWall";
+    wall.transform.position = center + Vector3.up * 1f;
+    wall.transform.rotation = Quaternion.LookRotation(b - a);
+    wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
+
+    if (dangerWallMaterial != null)
+        wall.GetComponent<Renderer>().material = dangerWallMaterial;
+
+    var obstacle = wall.AddComponent<NavMeshObstacle>();
+    obstacle.carving = true;
+    obstacle.shape = NavMeshObstacleShape.Box;
+    obstacle.size = new Vector3(0.3f, 2f, 1f);
+    obstacle.center = Vector3.zero;
+    obstacle.carveOnlyStationary = true;
+
+    currentWall = wall;
+}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ✅ Dijkstra Section -->
+        <div class="code-box" style="margin-top:1.5rem;">
+          <h3>
+            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            ⚙️ Dijkstra (Custom)
+          </h3>
+          <div class="code-content">
+            <pre>
+public void FindPath(string startName, string endName)
+{
+    Dictionary<PathNode, float> dist = new();
+    Dictionary<PathNode, PathNode> prev = new();
+    HashSet<PathNode> visited = new();
+
+    while (visited.Count < nodes.Count)
+    {
+        PathNode current = null;
+        float minDist = float.MaxValue;
+
+        foreach (var node in nodes.Values)
+        {
+            if (!visited.Contains(node) && dist[node] < minDist)
+            {
+                current = node;
+                minDist = dist[node];
+            }
+        }
+
+        if (current == null) break;
+        visited.Add(current);
+
+        foreach (var edge in current.edges)
+        {
+            PathNode neighbor = edge.target;
+            float alt = dist[current] + edge.cost;
+
+            if (alt < dist[neighbor])
+            {
+                dist[neighbor] = alt;
+                prev[neighbor] = current;
+            }
+        }
+    }
+}
+            </pre>
+          </div>
+        </div>
         
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🛠️ Role</p>
         <ul class="marker1" style="margin-top: -0.5rem;">
@@ -1405,6 +1531,7 @@ while (!glfwWindowShouldClose(window))
   </div>
 </body>
 </html>
+
 
 
 
