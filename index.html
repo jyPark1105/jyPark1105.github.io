@@ -210,9 +210,26 @@
     
     .two-navmesh-wrapper {
       display: flex;
-      flex-wrap: nowrap;
       justify-content: space-between;
       align-items: flex-start;
+      width: 100%;
+      gap: 1.2rem;
+      box-sizing: border-box;
+    }
+    
+    .two-navmesh-wrapper .code-box {
+      flex: 1 1 48%;
+      width: 48%;
+      box-sizing: border-box;
+    }
+    
+    .two-navmesh-wrapper .code-box pre {
+      font-size: 12.5px; /* ✅ 폰트 약간 축소 */
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      line-height: 1.5;
     }
     
     .code-box pre {
@@ -1405,6 +1422,7 @@ while (!glfwWindowShouldClose(window))
   </div>
 </body>
 </html>
+
 
 
 
