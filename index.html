@@ -750,7 +750,7 @@ while (!glfwWindowShouldClose(window))
             <div class="code-box" style="flex:1;">
               <h3>NavMesh 1</h3>
               <pre>
-// ================= PATH1 =================
+// ================= PATH1 (Original NavMesh) =================
 public void FindPath1()
 {
     string startName = startInputNode.text.Trim();
@@ -759,7 +759,7 @@ public void FindPath1()
     Vector3 start = GetNodePosition(startName);
     Vector3 end = GetNodePosition(endName);
 
-    // Cache 저장 여부 확인
+    // Check if any cache saved
     if (cachedNavMeshPaths[0] != null)
     {
         pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
@@ -782,6 +782,7 @@ public void FindPath1()
             <div class="code-box" style="flex:1;">
               <h3>NavMesh 2 (Virtual Wall)</h3>
               <pre>
+// ================= PATH2 (NavMesh with Virtual Wall) =================                
 private void CreateVirtualWall(DangerCornerPair pair)
 {
     if (currentWall != null) Destroy(currentWall);
@@ -817,11 +818,11 @@ private void CreateVirtualWall(DangerCornerPair pair)
         <div class="code-box" style="margin-top:2rem;">
           <h3>
             <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
-            Dijkstra (Custom Pathfinder)
+            Dijkstra
           </h3>
           <div class="code-content">
             <pre>
-// ================= DIJKSTRA ALGORITHM =================
+// ================= PATH3 (DIJKSTRA)=================
 public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
 {
     Dictionary&lt;string, float&gt; distances = new();
@@ -834,15 +835,15 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
 
     while (unvisited.Count &gt; 0)
     {
-        // 1️⃣ 현재까지 거리 중 최소 노드 선택
+        // 1️. Select the node that has min distance far
         string current = unvisited.OrderBy(n =&gt; distances[n]).First();
         unvisited.Remove(current);
 
-        // 2️⃣ 목적지 도달 시 종료
+        // 2️. Finish if the node ends
         if (current == endNode)
             break;
 
-        // 3️⃣ 인접 노드 탐색
+        // 3️. Search an adjacent node
         foreach (var neighbor in nodes[current].neighbors)
         {
             float alt = distances[current] + Vector3.Distance(
@@ -856,7 +857,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         }
     }
 
-    // 4️⃣ 최단 경로 역추적
+    // 4️. Backtrack shortest path
     List&lt;Vector3&gt; path = new();
     string nodeTrace = endNode;
     while (previous.ContainsKey(nodeTrace))
@@ -866,7 +867,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
     }
     path.Insert(0, nodes[startNode].position);
 
-    // 5️⃣ 시각화
+    // 5️. Visualization
     pathLineDrawer3.DrawPath(path);
     UIDebugTextAnimator.Instance.debugTextMsg.text = "Dijkstra Path Complete";
     UIDebugTextAnimator.Instance.AnimateAll();
@@ -1320,7 +1321,147 @@ while (!glfwWindowShouldClose(window))
           <li>Firebase를 활용한 <span class="highlight">회원가입 및 로그인</span> 기능 구현,  <span class="highlight">챗봇 질의응답 로그 저장 및 불러오기</span> 기능 구현</li>
         </ul>
         </p>
+
+
+        <!-- ✅ Two NavMeshes Section -->
+        <div class="code-box" style="margin-top:2rem;">
+          <h3>
+            <button class="toggle-btn" onclick="toggleTwoNavMeshes(this)">▶</button>
+            Two NavMeshes
+          </h3>
         
+          <div class="two-navmesh-wrapper" style="display:none; gap:1rem; margin-top:1rem;">
+            <!-- NavMesh 1 -->
+            <div class="code-box" style="flex:1;">
+              <h3>NavMesh 1</h3>
+              <pre>
+// ================= PATH1 (기본 NavMesh) =================
+public void FindPath1()
+{
+    string startName = startInputNode.text.Trim();
+    string endName = endInputNode.text.Trim();
+
+    Vector3 start = GetNodePosition(startName);
+    Vector3 end = GetNodePosition(endName);
+
+    // Cache 저장 여부 확인
+    if (cachedNavMeshPaths[0] != null)
+    {
+        pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
+        UIDebugTextAnimator.Instance.debugTextMsg.text =
+            "저장된 NavMesh 경로 불러오기 완료";
+        UIDebugTextAnimator.Instance.AnimateAll();
+        StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
+        return;
+    }
+
+    path1 = new NavMeshPath();
+    NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path1);
+    pathLineDrawer1.DrawPath(path1);
+    cachedNavMeshPaths[0] = path1;
+}
+              </pre>
+            </div>
+        
+            <!-- NavMesh 2 (Virtual Wall) -->
+            <div class="code-box" style="flex:1;">
+              <h3>NavMesh 2 (Virtual Wall)</h3>
+              <pre>
+// ================= PATH2 (가상 벽이 추가된 NavMesh) =================                
+private void CreateVirtualWall(DangerCornerPair pair)
+{
+    if (currentWall != null) Destroy(currentWall);
+
+    Vector3 a = pair.pointA.position;
+    Vector3 b = pair.pointB.position;
+    Vector3 center = (a + b) / 2f;
+
+    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    wall.name = "DangerWall";
+    wall.transform.position = center + Vector3.up * 1f;
+    wall.transform.rotation = Quaternion.LookRotation(b - a);
+    wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
+
+    if (dangerWallMaterial != null)
+        wall.GetComponent&lt;Renderer&gt;().material = dangerWallMaterial;
+
+    var obstacle = wall.AddComponent&lt;NavMeshObstacle&gt;();
+    obstacle.carving = true;
+    obstacle.shape = NavMeshObstacleShape.Box;
+    obstacle.size = new Vector3(0.3f, 2f, 1f);
+    obstacle.center = Vector3.zero;
+    obstacle.carveOnlyStationary = true;
+
+    currentWall = wall;
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ 다익스트라 길찾기 섹션 -->
+        <div class="code-box" style="margin-top:2rem;">
+          <h3>
+            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            Dijkstra
+          </h3>
+          <div class="code-content">
+            <pre>
+// ================= PATH3 (다익스트라)=================
+public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
+{
+    Dictionary&lt;string, float&gt; distances = new();
+    Dictionary&lt;string, string&gt; previous = new();
+    List&lt;string&gt; unvisited = new(nodes.Keys);
+
+    foreach (var node in nodes.Keys)
+        distances[node] = float.MaxValue;
+    distances[startNode] = 0;
+
+    while (unvisited.Count &gt; 0)
+    {
+        // 1️. 현재까지 거리 중 최소 노드 선택
+        string current = unvisited.OrderBy(n =&gt; distances[n]).First();
+        unvisited.Remove(current);
+
+        // 2️. 목적지 도달 시 종료
+        if (current == endNode)
+            break;
+
+        // 3️. 인접 노드 탐색
+        foreach (var neighbor in nodes[current].neighbors)
+        {
+            float alt = distances[current] + Vector3.Distance(
+                nodes[current].position, nodes[neighbor].position);
+
+            if (alt &lt; distances[neighbor])
+            {
+                distances[neighbor] = alt;
+                previous[neighbor] = current;
+            }
+        }
+    }
+
+    // 4️. 최단 경로 역추적
+    List&lt;Vector3&gt; path = new();
+    string nodeTrace = endNode;
+    while (previous.ContainsKey(nodeTrace))
+    {
+        path.Insert(0, nodes[nodeTrace].position);
+        nodeTrace = previous[nodeTrace];
+    }
+    path.Insert(0, nodes[startNode].position);
+
+    // 5️. 시각화
+    pathLineDrawer3.DrawPath(path);
+    UIDebugTextAnimator.Instance.debugTextMsg.text = "Dijkstra Path Complete";
+    UIDebugTextAnimator.Instance.AnimateAll();
+
+    return path;
+}
+            </pre>
+          </div>
+        </div>
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🛠️ 담당 역할</p>
         <ul class="marker1" style="margin-top: -0.5rem;">
           <li><strong>Unity</strong>: 사용자 인터페이스 개발, 로직 담당</li>
@@ -1422,6 +1563,7 @@ while (!glfwWindowShouldClose(window))
   </div>
 </body>
 </html>
+
 
 
 
