@@ -335,8 +335,23 @@
     @media (max-width: 768px) {
       body {
         padding: 1rem;
+        overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
       }
 
+      img, video {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .zoomable-gif {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+      }
+      
       /* 프로필 섹션 세로 배치 */
       section[style*="display: flex; align-items: flex-start;"] {
         flex-direction: column;
@@ -352,8 +367,10 @@
 
       /* 프로젝트 박스 내부 여백 축소 */
       .project {
-        padding: 0.8rem 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
       }
+
 
       /* 이미지 행 세로 전환 */
       .image-row {
@@ -367,8 +384,9 @@
 
       .left-img,
       .right-img {
-        width: 100%;
-        height: auto;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
       }
 
       /* 표 스크롤 허용 */
@@ -1700,3 +1718,4 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
