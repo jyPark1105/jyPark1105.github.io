@@ -163,16 +163,23 @@
       object-fit: contain;
     }
 
-    .code-pair {
+    .code-triple {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       margin-top: 1.5rem;
     }
     
+    .code-pair {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 2rem;
+    }
+    
     .code-box {
       flex: 1;
-      min-width: 480px; /* 너무 좁아지지 않게 */
+      min-width: 350px;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -184,6 +191,7 @@
       font-size: 1rem;
       color: #007acc;
       margin-top: 0;
+      font-weight: 600;
     }
     
     .code-box pre {
@@ -192,9 +200,9 @@
       padding: 1rem;
       overflow-x: auto;
       font-size: 0.75rem;
-      line-height: 1.4;
+      line-height: 1.5;
       color: #222;
-      font-family: 'Consolas', 'Courier New', monospace; /* 코드 전용 폰트로 명시 */
+      font-family: 'Consolas', 'Courier New', monospace;
     }
     
     .zoomable-gif {
@@ -365,14 +373,15 @@
     <section>
       <h2>💻 Code Style</h2>
       <p>
-        Below are code snippets representing my general coding style and structure conventions.
+        Below are code snippets representing my general coding style and structure conventions.  
         They emphasize <strong>readability, modularity, and logical flow</strong> across different languages and engines.
       </p>
     
-      <!-- === First Row === -->
-      <div class="code-pair">
+      <!-- === First Row: 3 Columns === -->
+      <div class="code-triple">
+        <!-- NavMesh -->
         <div class="code-box">
-          <h3>🧭 Example 1: Pathfinding Cache Logic (C# in Unity)</h3>
+          <h3>🧭 NavMesh Pathfinding (C# / Unity)</h3>
           <pre>
     // ================= PATH1 =================
     public void FindPath1()
@@ -387,7 +396,7 @@
         if (cachedNavMeshPaths[0] != null)
         {
             pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
-            UIDebugTextAnimator.Instance.debugTextMsg.text = 
+            UIDebugTextAnimator.Instance.debugTextMsg.text =
                 "저장된 NavMesh 경로 불러오기 완료";
             UIDebugTextAnimator.Instance.AnimateAll();
     
@@ -400,76 +409,101 @@
     
         pathLineDrawer1.DrawPath(path1);
         cachedNavMeshPaths[0] = path1;
-    
-        ...
     }
           </pre>
         </div>
     
+        <!-- Dijkstra -->
         <div class="code-box">
-          <h3>⚙️ Example 2: Main Frame Loop Structure (C++ / OpenGL)</h3>
+          <h3>🧮 Dijkstra Pathfinding (C# / Unity)</h3>
           <pre>
-    // ======== MAIN RENDER LOOP ========
-    while (!glfwWindowShouldClose(window))
+    public void FindPath(string startName, string endName)
     {
-        // ① 프레임 타이밍 및 FPS 계산
-        float currentFrame = static_cast<float>(glfwGetTime());
-        if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-        // ... // FPS 측정, 타이머 갱신 등의 역할을 함
+        Dictionary&lt;PathNode, float&gt; dist = new();   // 각 노드까지 거리 저장
+        Dictionary&lt;PathNode, PathNode&gt; prev = new(); // 최단 경로 상 이전 노드
+        HashSet&lt;PathNode&gt; visited = new();          // 방문 여부 확인
     
-        // ② 카메라 및 투영행렬 갱신
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-            (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
-        glm::mat4 view = camera.GetViewMatrix();
-        // ... // UBO에 view-projection 행렬 업데이트
+        // 모든 노드를 방문할 때까지 반복
+        while (visited.Count &lt; nodes.Count)
+        {
+            PathNode current = null;
+            float minDist = float.MaxValue;
     
-        // ③ 물리 연산 단계
-        dynamicsWorld->stepSimulation(deltaTime);
-        // ... // 충돌 감지 및 물리 상태 업데이트
+            // 1️⃣ 아직 방문하지 않은 노드 중 가장 가까운 노드 선택
+            foreach (var node in nodes.Values)
+            {
+                if (!visited.Contains(node) && dist[node] &lt; minDist)
+                {
+                    current = node;
+                    minDist = dist[node];
+                }
+            }
     
-        // ④ 캐릭터 위치 갱신
-        btTransform trans;
-        characterBody->getMotionState()->getWorldTransform(trans);
-        btVector3 btPos = trans.getOrigin();
-        character->position = glm::vec3(
-            btPos.getX(),
-            btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, // 시각 보정
-            btPos.getZ());
+            // 2️⃣ 더 이상 방문할 노드가 없으면 종료
+            if (current == null) break;
+            visited.Add(current);
     
-        // ⑤ 사용자 입력 처리
-        processInput(window, defaultAnimations, runAnimations);
+            // 3️⃣ 인접 노드 확인 및 거리 갱신
+            foreach (var edge in current.edges)
+            {
+                PathNode neighbor = edge.target;
+                float alt = dist[current] + edge.cost; // 거리 + 간선 비용
+                if (alt &lt; dist[neighbor])
+                {
+                    dist[neighbor] = alt;
+                    prev[neighbor] = current;
+                }
+            }
+        }
+    }
+          </pre>
+        </div>
     
-        // ⑥ 충돌 상태 판정
-        // ... // 지면 충돌, 슬로프 감지, 오브젝트 접촉 여부 등을 계산함
+        <!-- NavMesh + Virtual Wall -->
+        <div class="code-box">
+          <h3>🧱 NavMesh + Virtual Wall (Bypass Logic)</h3>
+          <pre>
+    private void CreateVirtualWall(DangerCornerPair pair)
+    {
+        // 기존에 생성된 벽 제거
+        if (currentWall != null)
+            Destroy(currentWall);
     
-        // ⑦ 애니메이션 갱신
-        glm::mat4 model = glm::mat4(1.0f);
-        animator.updateAnimation(deltaTime);
-        updateNodeTransformations(root, model);
-        auto transforms = animator.getFinalBoneMatrices();
+        // 두 코너 중점 계산
+        Vector3 a = pair.pointA.position;
+        Vector3 b = pair.pointB.position;
+        Vector3 center = (a + b) / 2f;
     
-        // ⑧ 렌더링 단계
-        // ... // 섀도우 매트릭스 구성, depth map 렌더링 등
-        // ... // 캐릭터 및 오브젝트 렌더링
-        renderNode(root);
+        // 벽 생성
+        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        wall.name = "DangerWall";
+        wall.transform.position = center + Vector3.up * 1f;
+        wall.transform.rotation = Quaternion.LookRotation(b - a);
+        wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
     
-        // ⑨ 디버그 / GUI
-        // ... // 디버그 드로잉, ImGui 성능 패널, 조명 조절 UI
+        // 재질 적용
+        if (dangerWallMaterial != null)
+            wall.GetComponent&lt;Renderer&gt;().material = dangerWallMaterial;
     
-        // ⑩ 프레임 마무리
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        // NavMeshObstacle 추가 (경로 차단용)
+        var obstacle = wall.AddComponent&lt;NavMeshObstacle&gt;();
+        obstacle.carving = true;
+        obstacle.shape = NavMeshObstacleShape.Box;
+        obstacle.size = new Vector3(0.3f, 2f, 1f);
+        obstacle.center = Vector3.zero;
+        obstacle.carveOnlyStationary = true;
+    
+        // 생성된 벽 저장
+        currentWall = wall;
     }
           </pre>
         </div>
       </div>
     
-      <!-- === Second Row === -->
+      <!-- === Second Row: Single Column === -->
       <div class="code-pair">
         <div class="code-box">
-          <h3>🪨 Example 3: Rolling Stone Physics (C++ / Bullet)</h3>
+          <h3>🪨 Rolling Stone Physics (C++ / Bullet + OpenGL)</h3>
           <pre>
     // --- Rolling Stone Update Logic ---
     btTransform ballTrans;
@@ -478,7 +512,7 @@
     glm::vec3 ballPosition = glm::vec3(pos.x(), pos.y(), pos.z());
     
     // Reset position if fallen out of bounds
-    if (pos.getY() <= -10.0f)
+    if (pos.getY() &lt;= -10.0f)
         resetBallPositionToInitial(dynamicsWorld, initialBallPosition, ballHalfExtent);
     
     // Rendering pass
@@ -497,18 +531,6 @@
           </pre>
         </div>
       </div>
-    </section>
-    
-    <section>
-      <h2>📚 Skills</h2>
-      <table class="table1">
-        <tr><th>Category</th><th>Details</th></tr>
-        <tr><td>💬 Languages</td><td>C++, C#, HLSL, Python</td></tr>
-        <tr><td>🖥️ Environment</td><td>Visual Studio 2022, Visual Studio Code</td></tr>
-        <tr><td>🔧 Tools</td><td>Unity 2D/3D, OpenGL</td></tr>
-        <tr><td>💡 Strengths</td><td>Fast learning, Grasp of Code Flow, Interaction Design, Troubleshooting Capability</td></tr>
-        <tr><td>👥 Team Projects</td><td>2 times</td></tr>
-      </table>
     </section>
     
     <section>
@@ -1232,6 +1254,7 @@
   </div>
 </body>
 </html>
+
 
 
 
