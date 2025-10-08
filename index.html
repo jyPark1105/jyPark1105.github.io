@@ -329,6 +329,75 @@
     </section>
 
     <section>
+      <h2>💻 Code Style</h2>
+      <p>
+        Below are short code snippets representing my general coding style and structure conventions.
+        They demonstrate my focus on readability, modularity, and meaningful naming.
+      </p>
+    
+      <div class="project">
+        <h3>🧱 Example 1: Dijkstra Pathfinding Logic (C# in Unity)</h3>
+        <pre style="background:#f7f7f7; border-radius:8px; padding:1rem; overflow-x:auto;">
+    <span style="color:#007acc;">public</span> List&lt;Vector3&gt; FindShortestPath(string start, string goal)
+    {
+        var openSet = new PriorityQueue&lt;PathNode&gt;();
+        var distances = new Dictionary&lt;string, float&gt;();
+        var previous = new Dictionary&lt;string, string&gt;();
+    
+        foreach (var node in nodes.Keys)
+            distances[node] = float.MaxValue;
+    
+        distances[start] = 0;
+        openSet.Enqueue(new PathNode(start, 0));
+    
+        while (openSet.Count &gt; 0)
+        {
+            var current = openSet.Dequeue();
+            if (current.Name == goal) break;
+    
+            foreach (var neighbor in nodes[current.Name].Neighbors)
+            {
+                float newDist = distances[current.Name] + neighbor.Distance;
+                if (newDist &lt; distances[neighbor.Name])
+                {
+                    distances[neighbor.Name] = newDist;
+                    previous[neighbor.Name] = current.Name;
+                    openSet.Enqueue(new PathNode(neighbor.Name, newDist));
+                }
+            }
+        }
+    
+        return ReconstructPath(previous, start, goal);
+    }
+        </pre>
+      </div>
+    
+      <div class="project">
+        <h3>🧩 Example 2: Smooth Character Movement (C++ / OpenGL)</h3>
+        <pre style="background:#f7f7f7; border-radius:8px; padding:1rem; overflow-x:auto;">
+    void Player::Update(float deltaTime)
+    {
+        glm::vec3 direction = input.GetMoveDirection();
+        velocity += direction * moveSpeed * deltaTime;
+        position += velocity * deltaTime;
+    
+        // Apply gravity
+        velocity.y -= gravity * deltaTime;
+    
+        // Simple ground collision
+        if (position.y &lt; groundLevel)
+        {
+            position.y = groundLevel;
+            velocity.y = 0.0f;
+        }
+    
+        UpdateMatrix();
+    }
+        </pre>
+      </div>
+    </section>
+    
+    <section>
       <h2>📚 Skills</h2>
       <table class="table1">
         <tr><th>Category</th><th>Details</th></tr>
@@ -1061,6 +1130,7 @@
   </div>
 </body>
 </html>
+
 
 
 
