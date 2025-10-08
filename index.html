@@ -794,7 +794,71 @@ private void CreateVirtualWall(DangerCornerPair pair)
               </pre>
             </div>
           </div>
-        </div>    
+        </div>
+
+        <!-- ✅ Dijkstra Pathfinder Section -->
+        <div class="code-box" style="margin-top:2rem;">
+          <h3>
+            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
+            Dijkstra (Custom Pathfinder)
+          </h3>
+          <div class="code-content">
+            <pre>
+// ================= DIJKSTRA ALGORITHM =================
+public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
+{
+    Dictionary&lt;string, float&gt; distances = new();
+    Dictionary&lt;string, string&gt; previous = new();
+    List&lt;string&gt; unvisited = new(nodes.Keys);
+
+    foreach (var node in nodes.Keys)
+        distances[node] = float.MaxValue;
+    distances[startNode] = 0;
+
+    while (unvisited.Count &gt; 0)
+    {
+        // 1️⃣ 현재까지 거리 중 최소 노드 선택
+        string current = unvisited.OrderBy(n =&gt; distances[n]).First();
+        unvisited.Remove(current);
+
+        // 2️⃣ 목적지 도달 시 종료
+        if (current == endNode)
+            break;
+
+        // 3️⃣ 인접 노드 탐색
+        foreach (var neighbor in nodes[current].neighbors)
+        {
+            float alt = distances[current] + Vector3.Distance(
+                nodes[current].position, nodes[neighbor].position);
+
+            if (alt &lt; distances[neighbor])
+            {
+                distances[neighbor] = alt;
+                previous[neighbor] = current;
+            }
+        }
+    }
+
+    // 4️⃣ 최단 경로 역추적
+    List&lt;Vector3&gt; path = new();
+    string nodeTrace = endNode;
+    while (previous.ContainsKey(nodeTrace))
+    {
+        path.Insert(0, nodes[nodeTrace].position);
+        nodeTrace = previous[nodeTrace];
+    }
+    path.Insert(0, nodes[startNode].position);
+
+    // 5️⃣ 시각화
+    pathLineDrawer3.DrawPath(path);
+    UIDebugTextAnimator.Instance.debugTextMsg.text = "Dijkstra Path Complete";
+    UIDebugTextAnimator.Instance.AnimateAll();
+
+    return path;
+}
+            </pre>
+          </div>
+        </div>
         
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🛠️ Role</p>
         <ul class="marker1" style="margin-top: -0.5rem;">
@@ -1341,6 +1405,7 @@ while (!glfwWindowShouldClose(window))
   </div>
 </body>
 </html>
+
 
 
 
