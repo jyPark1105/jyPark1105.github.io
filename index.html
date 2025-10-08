@@ -323,7 +323,18 @@
       const en = document.getElementById('english');
       const ko = document.getElementById('korean');
       const btn = document.getElementById('langToggle');
-  
+    
+      // ✅ 현재 열려있는 코드 인덱스 기록
+      const openedIndexes = [];
+      document.querySelectorAll('.code-content').forEach((c, i) => {
+        if (c.classList.contains('active')) openedIndexes.push(i);
+      });
+    
+      // ✅ 두 NavMeshes가 열려있으면 기록
+      const twoNavMeshesOpen = Array.from(document.querySelectorAll('.two-navmesh-wrapper'))
+        .some(wrapper => wrapper.style.display === 'flex');
+    
+      // ✅ 언어 전환
       if (en.style.display === 'none') {
         en.style.display = 'block';
         ko.style.display = 'none';
@@ -333,29 +344,32 @@
         ko.style.display = 'block';
         btn.textContent = '🇺🇸 영어로 보기';
       }
-    }
-  
-    document.addEventListener("DOMContentLoaded", function () {
-      const gifs = document.querySelectorAll(".zoomable-gif");
-      const modal = document.getElementById("gifOverlay");
-      const modalGif = document.getElementById("gifOverlayImg");
-      const modalTitle = document.querySelector(".gif-title");
-  
-      gifs.forEach(gif => {
-        gif.addEventListener("dblclick", function () {
-          modal.style.display = "block";
-          modalGif.src = this.src;
-          modalTitle.textContent = this.dataset.title || "";
-          document.body.classList.add("no-scroll");
+    
+      // ✅ 전환 후 열린 토글 유지 복구
+      setTimeout(() => {
+        const newContents = document.querySelectorAll('.code-content');
+        openedIndexes.forEach(i => {
+          if (newContents[i]) newContents[i].classList.add('active');
         });
-      });
-  
-      modal.addEventListener("click", function () {
-        modal.style.display = "none";
-        modalGif.src = "";
-        document.body.classList.remove("no-scroll");
-      });
-    });
+    
+        // 버튼 아이콘(▶ → ▼)도 복구
+        const newButtons = document.querySelectorAll('.toggle-btn');
+        openedIndexes.forEach(i => {
+          if (newButtons[i]) newButtons[i].classList.add('open');
+        });
+    
+        // ✅ Two NavMeshes 복구
+        if (twoNavMeshesOpen) {
+          document.querySelectorAll('.two-navmesh-wrapper').forEach(wrapper => {
+            wrapper.style.display = 'flex';
+          });
+          document.querySelectorAll('.toggle-btn').forEach(btn => {
+            if (btn.textContent === '▶') btn.textContent = '▼';
+          });
+        }
+      }, 50);
+    }
+
   
     // ✅ 단일 코드 토글 (1행, 3행)
     function toggleSingleCode(button) {
@@ -1563,6 +1577,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
