@@ -365,12 +365,12 @@
     <section>
       <h2>💻 Code Style</h2>
       <p>
-        Below are short code snippets representing my general coding style and structure conventions.
-        They demonstrate my focus on readability, modularity, and meaningful naming.
+        Below are code snippets representing my general coding style and structure conventions.
+        They emphasize <strong>readability, modularity, and logical flow</strong> across different languages and engines.
       </p>
     
+      <!-- === First Row === -->
       <div class="code-pair">
-        <!-- 🔹 Left Column -->
         <div class="code-box">
           <h3>🧭 Example 1: Pathfinding Cache Logic (C# in Unity)</h3>
           <pre>
@@ -406,33 +406,98 @@
           </pre>
         </div>
     
-        <!-- 🔹 Right Column -->
         <div class="code-box">
-          <h3>🧩 Example 2: Smooth Character Movement (C++ / OpenGL)</h3>
+          <h3>⚙️ Example 2: Main Frame Loop Structure (C++ / OpenGL)</h3>
           <pre>
-    void Player::Update(float deltaTime)
+    // ======== MAIN RENDER LOOP ========
+    while (!glfwWindowShouldClose(window))
     {
-        glm::vec3 direction = input.GetMoveDirection();
-        velocity += direction * moveSpeed * deltaTime;
-        position += velocity * deltaTime;
+        // ① 프레임 타이밍 및 FPS 계산
+        float currentFrame = static_cast<float>(glfwGetTime());
+        if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        // ... // FPS 측정, 타이머 갱신 등의 역할을 함
     
-        // Apply gravity
-        velocity.y -= gravity * deltaTime;
+        // ② 카메라 및 투영행렬 갱신
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+            (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
+        glm::mat4 view = camera.GetViewMatrix();
+        // ... // UBO에 view-projection 행렬 업데이트
     
-        // Simple ground collision
-        if (position.y < groundLevel)
-        {
-            position.y = groundLevel;
-            velocity.y = 0.0f;
-        }
+        // ③ 물리 연산 단계
+        dynamicsWorld->stepSimulation(deltaTime);
+        // ... // 충돌 감지 및 물리 상태 업데이트
     
-        UpdateMatrix();
+        // ④ 캐릭터 위치 갱신
+        btTransform trans;
+        characterBody->getMotionState()->getWorldTransform(trans);
+        btVector3 btPos = trans.getOrigin();
+        character->position = glm::vec3(
+            btPos.getX(),
+            btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, // 시각 보정
+            btPos.getZ());
+    
+        // ⑤ 사용자 입력 처리
+        processInput(window, defaultAnimations, runAnimations);
+    
+        // ⑥ 충돌 상태 판정
+        // ... // 지면 충돌, 슬로프 감지, 오브젝트 접촉 여부 등을 계산함
+    
+        // ⑦ 애니메이션 갱신
+        glm::mat4 model = glm::mat4(1.0f);
+        animator.updateAnimation(deltaTime);
+        updateNodeTransformations(root, model);
+        auto transforms = animator.getFinalBoneMatrices();
+    
+        // ⑧ 렌더링 단계
+        // ... // 섀도우 매트릭스 구성, depth map 렌더링 등
+        // ... // 캐릭터 및 오브젝트 렌더링
+        renderNode(root);
+    
+        // ⑨ 디버그 / GUI
+        // ... // 디버그 드로잉, ImGui 성능 패널, 조명 조절 UI
+    
+        // ⑩ 프레임 마무리
+        glfwSwapBuffers(window);
+        glfwPollEvents();
     }
           </pre>
         </div>
       </div>
+    
+      <!-- === Second Row === -->
+      <div class="code-pair">
+        <div class="code-box">
+          <h3>🪨 Example 3: Rolling Stone Physics (C++ / Bullet)</h3>
+          <pre>
+    // --- Rolling Stone Update Logic ---
+    btTransform ballTrans;
+    ballBody->getMotionState()->getWorldTransform(ballTrans);
+    btVector3 pos = ballTrans.getOrigin();
+    glm::vec3 ballPosition = glm::vec3(pos.x(), pos.y(), pos.z());
+    
+    // Reset position if fallen out of bounds
+    if (pos.getY() <= -10.0f)
+        resetBallPositionToInitial(dynamicsWorld, initialBallPosition, ballHalfExtent);
+    
+    // Rendering pass
+    objectShader.use();
+    glm::mat4 model = glm::scale(
+        glm::translate(glm::mat4(1.0f), ballPosition),
+        0.75f * ballWorldSize);
+    
+    objectShader.setMat4("M", model);
+    objectShader.setMat4("V", camera.GetViewMatrix());
+    objectShader.setMat4("P", projection);
+    
+    glDisable(GL_BLEND);
+    ballModel.Draw(objectShader);
+    glEnable(GL_BLEND);
+          </pre>
+        </div>
+      </div>
     </section>
-
     
     <section>
       <h2>📚 Skills</h2>
@@ -1167,6 +1232,7 @@
   </div>
 </body>
 </html>
+
 
 
 
