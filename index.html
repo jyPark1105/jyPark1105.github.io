@@ -615,11 +615,11 @@
         <div class="code-box" data-code-id="code-rollingstone">
           <h3>
             <button class="toggle-btn" onclick="toggleSingleCode(this, 'code-rollingstone')">▶</button>
-            ⚙️ Rendering Code Snippet
+            ⚙️ Main frame rendering
           </h3>
           <div class="code-content">
             <pre>
-// ======== MAIN RENDER LOOP ========
+// ======== MAIN RENDERING LOOP ========
 while (!glfwWindowShouldClose(window))
 {
     // 1) Calculate FPS
@@ -819,7 +819,6 @@ while (!glfwWindowShouldClose(window))
                   <ul class="marker2">
                     <li><strong>Receive questions from the client and return responses</strong></li>
                     <li>Implement functionality for storing, deleting, and loading Q & A</li>
-                    질의응답 저장, 삭제, 불러오기 기능 구현
                   </ul>
                 </td>
               </tr>
@@ -930,9 +929,9 @@ public void FindPath1()
               </pre>
             </div>
         
-            <!-- NavMesh 2 (Virtual Wall) -->
+            <!-- NavMesh 2 (Bypass) -->
             <div class="code-box" style="flex:1;">
-              <h3>NavMesh 2 (Virtual Wall)</h3>
+              <h3>NavMesh 2 (Bypass)</h3>
               <pre>
 // ================= PATH2 (NavMesh with Virtual Wall) =================                
 private void CreateVirtualWall(DangerCornerPair pair)
@@ -1210,11 +1209,11 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         <div class="code-box" data-code-id="code-rollingstone">
           <h3>
             <button class="toggle-btn" onclick="toggleSingleCode(this, 'code-rollingstone')">▶</button>
-            ⚙️ 렌더링 코드 스니펫
+            ⚙️ 메인 프레임 렌더링
           </h3>
           <div class="code-content">
             <pre>
-// ======== MAIN RENDER LOOP ========
+// ======== 메인 렌더링 루프 ========
 while (!glfwWindowShouldClose(window))
 {
     // 1) 초당 프레임 계산
@@ -1519,9 +1518,9 @@ public void FindPath1()
               </pre>
             </div>
         
-            <!-- NavMesh 2 (Virtual Wall) -->
+            <!-- NavMesh 2 (우회) -->
             <div class="code-box" style="flex:1;">
-              <h3>NavMesh 2 (Virtual Wall)</h3>
+              <h3>NavMesh 2 (우회)</h3>
               <pre>
 // ================= PATH2 (가상 벽이 추가된 NavMesh) =================                
 private void CreateVirtualWall(DangerCornerPair pair)
@@ -1719,5 +1718,6 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
