@@ -195,26 +195,6 @@
     }
 
     /* ✅ 제목 + 토글 버튼 정렬 */
-    .code-box h3 {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1rem;
-      color: #007acc;
-      margin-top: 0;
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-    }
-
-    .toggle-btn {
-      background: none;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      color: #007acc;
-      transition: transform 0.2s ease;
-    }
-
     .toggle-btn.open {
       transform: rotate(90deg);
     }
@@ -227,17 +207,34 @@
     .code-content.active {
       display: block;
     }
-
-    .code-box pre {
-      background: #f9f9f9;
-      border-radius: 6px;
-      padding: 1rem;
-      overflow-x: auto;
-      font-size: 0.75rem;
-      line-height: 1.5;
-      color: #222;
-      font-family: 'Consolas', 'Courier New', monospace;
+    
+    .two-navmesh-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: flex-start;
     }
+    
+    .code-box pre {
+      font-size: 13px;
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    .code-box h3 {
+      color: #007acc;
+      margin-bottom: .5rem;
+    }
+    .toggle-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #007acc;
+      margin-right: .3rem;
+    }
+    
 
     /* 확대된 GIF 전체 컨테이너 */
     .gif-overlay-container {
@@ -359,23 +356,18 @@
       }
     }
   
-    function togglePairCode(button) {
-      const pair = button.closest('.code-box').querySelector('.code-pair');
-      const isActive = pair.style.display === 'flex';
+    function toggleTwoNavMeshes(button) {
+      const wrapper = button.closest('.code-box').querySelector('.two-navmesh-wrapper');
+      const isVisible = wrapper.style.display === 'flex';
     
-      // 닫기
-      if (isActive) {
-        pair.style.display = 'none';
+      if (isVisible) {
+        wrapper.style.display = 'none';
         button.textContent = '▶';
-      } 
-      // 열기
-      else {
-        pair.style.display = 'flex';
-        pair.style.gap = '1rem';
-        pair.style.marginTop = '1rem';
+      } else {
+        wrapper.style.display = 'flex';
         button.textContent = '▼';
       }
-    }  
+    }
   </script>
 </head>
   
@@ -729,15 +721,16 @@ while (!glfwWindowShouldClose(window))
           </ul>
         </div>
 
-        <!-- ✅ NavMesh Combined Section -->
+        <!-- ✅ Two NavMeshes Section -->
         <div class="code-box" style="margin-top:2rem;">
           <h3>
-            <button class="toggle-btn" onclick="togglePairCode(this)">▶</button>
-            NavMesh (Unity / Virtual Wall)
+            <button class="toggle-btn" onclick="toggleTwoNavMeshes(this)">▶</button>
+            Two NavMeshes
           </h3>
         
-          <div class="code-pair" style="display:none;">
-            <div class="code-box" style="flex:1; margin-right:1rem;">
+          <div class="two-navmesh-wrapper" style="display:none; gap:1rem; margin-top:1rem;">
+            <!-- NavMesh 1 -->
+            <div class="code-box" style="flex:1;">
               <h3>NavMesh 1</h3>
               <pre>
 // ================= PATH1 =================
@@ -753,7 +746,7 @@ public void FindPath1()
     if (cachedNavMeshPaths[0] != null)
     {
         pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
-        UIDebugTextAnimator.Instance.debugTextMsg.text = 
+        UIDebugTextAnimator.Instance.debugTextMsg.text =
             "저장된 NavMesh 경로 불러오기 완료";
         UIDebugTextAnimator.Instance.AnimateAll();
         StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
@@ -768,6 +761,7 @@ public void FindPath1()
               </pre>
             </div>
         
+            <!-- NavMesh 2 (Virtual Wall) -->
             <div class="code-box" style="flex:1;">
               <h3>NavMesh 2 (Virtual Wall)</h3>
               <pre>
@@ -786,9 +780,9 @@ private void CreateVirtualWall(DangerCornerPair pair)
     wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
 
     if (dangerWallMaterial != null)
-        wall.GetComponent<Renderer>().material = dangerWallMaterial;
+        wall.GetComponent&lt;Renderer&gt;().material = dangerWallMaterial;
 
-    var obstacle = wall.AddComponent<NavMeshObstacle>();
+    var obstacle = wall.AddComponent&lt;NavMeshObstacle&gt;();
     obstacle.carving = true;
     obstacle.shape = NavMeshObstacleShape.Box;
     obstacle.size = new Vector3(0.3f, 2f, 1f);
@@ -800,7 +794,8 @@ private void CreateVirtualWall(DangerCornerPair pair)
               </pre>
             </div>
           </div>
-        </div>        
+        </div>    
+        
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🛠️ Role</p>
         <ul class="marker1" style="margin-top: -0.5rem;">
           <li><strong>Unity</strong>: Developed user interface and core logic</li>
@@ -1346,6 +1341,7 @@ while (!glfwWindowShouldClose(window))
   </div>
 </body>
 </html>
+
 
 
 
