@@ -124,17 +124,26 @@
 
     .image-row {
       display: flex;
-      gap: 20px;
-      margin-bottom: 2rem;
-      align-items: stretch; /* 두 칸 높이를 동일하게 */
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
     }
     
     .image-box {
-      flex: 1;
-      text-align: center;
-      display: flex;          /* 내부에서 정렬 제어 */
+      flex: 1 1 50%;
+      display: flex;
       justify-content: center;
       align-items: center;
+    }
+    
+    .image-box img,
+    .left-img,
+    .right-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover; /* 🔹 이미지 비율 유지하며 박스에 맞춤 */
+      display: block;
     }
     
     .left-img {
@@ -1803,3 +1812,4 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
