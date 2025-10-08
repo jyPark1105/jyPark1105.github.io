@@ -163,6 +163,23 @@
       object-fit: contain;
     }
 
+    #zoomNotice-en,
+    #zoomNotice-ko {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      background: #eef6ff;
+      color: #004a99;
+      font-size: 0.85rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #cce3ff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      z-index: 998;
+      user-select: none;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
     .code-grid {
       display: flex;
       flex-direction: column;
@@ -338,6 +355,13 @@
   <style>
     /* ✅ 반응형 디자인: 모바일 최적화 */
     @media (max-width: 768px) {
+      #langToggle {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 0.9rem;
+      }
+      
       body {
         padding: 1rem;
         overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
@@ -355,6 +379,14 @@
         border-radius: 8px;
         display: block;
         margin: 0 auto;
+      }
+
+      #zoomNotice-en,
+      #zoomNotice-ko {
+        font-size: 0.75rem;
+        top: 55px;
+        right: 10px;
+        padding: 5px 8px;
       }
       
       /* 프로필 섹션 세로 배치 */
@@ -454,22 +486,28 @@
       "code-dijkstra": false
     };
   
-    // ✅ 언어 전환 함수
+    // 언어 전환 함수
     function toggleLanguage() {
       const en = document.getElementById("english");
       const ko = document.getElementById("korean");
       const btn = document.getElementById("langToggle");
-  
+      const noticeEn = document.getElementById("zoomNotice-en");
+      const noticeKo = document.getElementById("zoomNotice-ko");
+    
       const isEnglish = en.style.display !== "none";
       en.style.display = isEnglish ? "none" : "block";
       ko.style.display = isEnglish ? "block" : "none";
       btn.textContent = isEnglish ? "🇺🇸 영어로 보기" : "🇰🇷 한국어 보기";
-  
-      // 언어 전환 후 상태 동기화
+    
+      // 확대/축소 안내문 언어도 전환
+      noticeEn.style.display = isEnglish ? "none" : "block";
+      noticeKo.style.display = isEnglish ? "block" : "none";
+    
+      // 기존 토글 상태 동기화 유지
       setTimeout(() => syncAllToggles(), 50);
     }
   
-    // ✅ 단일 코드 토글 (예: Rolling Stone, Dijkstra)
+    // 단일 코드 토글 (예: Rolling Stone, Dijkstra)
     function toggleSingleCode(button, codeId) {
       const box = button.closest(".code-box");
       const content = box.querySelector(".code-content");
@@ -490,7 +528,7 @@
       syncOtherLanguage(codeId);
     }
   
-    // ✅ Two NavMeshes 전용 토글
+    // Two NavMeshes 전용 토글
     function toggleTwoNavMeshes(button, codeId) {
       const box = button.closest(".code-box");
       const wrapper = box.querySelector(".two-navmesh-wrapper");
@@ -510,7 +548,7 @@
       syncOtherLanguage(codeId);
     }
   
-    // ✅ 특정 ID 코드박스 반대언어로 상태 반영
+    // 특정 ID 코드박스의 리버스 언어로 상태 반영
     function syncOtherLanguage(codeId) {
       const targetBoxes = document.querySelectorAll(`[data-code-id="${codeId}"]`);
       targetBoxes.forEach((box) => {
@@ -542,7 +580,9 @@
 <body>
   
   <button id="langToggle" onclick="toggleLanguage()">🇰🇷 한국어 보기</button>
-
+  <div id="zoomNotice-en">🔍 Recommended zoom level: <strong>80% ~ 125%</strong></div>
+  <div id="zoomNotice-ko" style="display:none;">🔍 권장 확대/축소 비율: <strong>80% ~ 125%</strong></div>
+  
   <!-- ENGLISH VERSION -->
   <div id="english">
     <section style="display: flex; align-items: flex-start; margin-bottom: 3rem;">
@@ -1722,6 +1762,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
