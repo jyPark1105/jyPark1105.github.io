@@ -379,11 +379,73 @@
         They emphasize <strong>readability, modularity, and logical flow</strong> across different languages and engines.
       </p>
     
-      <!-- === First Row: 3 Columns === -->
-      <div class="code-triple">
+      <!-- === 1행: Main Frame Loop === -->
+      <div class="code-single">
+        <div class="code-box">
+          <h3>⚙️ Main Frame Loop Structure (C++ / OpenGL)</h3>
+          <pre>
+    // ======== MAIN RENDER LOOP ========
+    while (!glfwWindowShouldClose(window))
+    {
+        // ① 프레임 타이밍 및 FPS 계산
+        float currentFrame = static_cast<float>(glfwGetTime());
+        if (!VSYNC && currentFrame - lastFrame <= frameTime) continue;
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        // ... // FPS 측정, 타이머 갱신 등의 역할을 함
+    
+        // ② 카메라 및 투영행렬 갱신
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
+            (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, frustum_far);
+        glm::mat4 view = camera.GetViewMatrix();
+        // ... // UBO에 view-projection 행렬 업데이트
+    
+        // ③ 물리 연산 단계
+        dynamicsWorld->stepSimulation(deltaTime);
+        // ... // 충돌 감지 및 물리 상태 업데이트
+    
+        // ④ 캐릭터 위치 갱신
+        btTransform trans;
+        characterBody->getMotionState()->getWorldTransform(trans);
+        btVector3 btPos = trans.getOrigin();
+        character->position = glm::vec3(
+            btPos.getX(),
+            btPos.getY() - gTotalColliderHeight * 0.5f + 0.05f, // 시각 보정
+            btPos.getZ());
+    
+        // ⑤ 사용자 입력 처리
+        processInput(window, defaultAnimations, runAnimations);
+    
+        // ⑥ 충돌 상태 판정
+        // ... // 지면 충돌, 슬로프 감지, 오브젝트 접촉 여부 등을 계산함
+    
+        // ⑦ 애니메이션 갱신
+        glm::mat4 model = glm::mat4(1.0f);
+        animator.updateAnimation(deltaTime);
+        updateNodeTransformations(root, model);
+        auto transforms = animator.getFinalBoneMatrices();
+    
+        // ⑧ 렌더링 단계
+        // ... // 섀도우 매트릭스 구성, depth map 렌더링 등
+        // ... // 캐릭터 및 오브젝트 렌더링
+        renderNode(root);
+    
+        // ⑨ 디버그 / GUI
+        // ... // 디버그 드로잉, ImGui 성능 패널, 조명 조절 UI
+    
+        // ⑩ 프레임 마무리
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+          </pre>
+        </div>
+      </div>
+    
+      <!-- === 2행: NavMesh 2열 === -->
+      <div class="code-pair">
         <!-- NavMesh -->
         <div class="code-box">
-          <h3>🧭 NavMesh Pathfinding (C# / Unity)</h3>
+          <h3>NavMesh 1</h3>
           <pre>
     // ================= PATH1 =================
     public void FindPath1()
@@ -415,55 +477,9 @@
           </pre>
         </div>
     
-        <!-- Dijkstra -->
-        <div class="code-box">
-          <h3>🧮 Dijkstra Pathfinding (C# / Unity)</h3>
-          <pre>
-    public void FindPath(string startName, string endName)
-    {
-        Dictionary&lt;PathNode, float&gt; dist = new();   // 각 노드까지 거리 저장
-        Dictionary&lt;PathNode, PathNode&gt; prev = new(); // 최단 경로 상 이전 노드
-        HashSet&lt;PathNode&gt; visited = new();          // 방문 여부 확인
-    
-        // 모든 노드를 방문할 때까지 반복
-        while (visited.Count &lt; nodes.Count)
-        {
-            PathNode current = null;
-            float minDist = float.MaxValue;
-    
-            // 1️⃣ 아직 방문하지 않은 노드 중 가장 가까운 노드 선택
-            foreach (var node in nodes.Values)
-            {
-                if (!visited.Contains(node) && dist[node] &lt; minDist)
-                {
-                    current = node;
-                    minDist = dist[node];
-                }
-            }
-    
-            // 2️⃣ 더 이상 방문할 노드가 없으면 종료
-            if (current == null) break;
-            visited.Add(current);
-    
-            // 3️⃣ 인접 노드 확인 및 거리 갱신
-            foreach (var edge in current.edges)
-            {
-                PathNode neighbor = edge.target;
-                float alt = dist[current] + edge.cost; // 거리 + 간선 비용
-                if (alt &lt; dist[neighbor])
-                {
-                    dist[neighbor] = alt;
-                    prev[neighbor] = current;
-                }
-            }
-        }
-    }
-          </pre>
-        </div>
-    
         <!-- NavMesh + Virtual Wall -->
         <div class="code-box">
-          <h3>🧱 NavMesh + Virtual Wall (Bypass Logic)</h3>
+          <h3>NavMesh 2 (Virtual Wall)</h3>
           <pre>
     private void CreateVirtualWall(DangerCornerPair pair)
     {
@@ -485,10 +501,10 @@
     
         // 재질 적용
         if (dangerWallMaterial != null)
-            wall.GetComponent&lt;Renderer&gt;().material = dangerWallMaterial;
+            wall.GetComponent<Renderer>().material = dangerWallMaterial;
     
         // NavMeshObstacle 추가 (경로 차단용)
-        var obstacle = wall.AddComponent&lt;NavMeshObstacle&gt;();
+        var obstacle = wall.AddComponent<NavMeshObstacle>();
         obstacle.carving = true;
         obstacle.shape = NavMeshObstacleShape.Box;
         obstacle.size = new Vector3(0.3f, 2f, 1f);
@@ -502,34 +518,50 @@
         </div>
       </div>
     
-      <!-- === Second Row: Single Column === -->
-      <div class="code-pair">
+      <!-- === 3행: Dijkstra === -->
+      <div class="code-single">
         <div class="code-box">
-          <h3>🪨 Rolling Stone Physics (C++ / Bullet + OpenGL)</h3>
+          <h3>Dijkstra (Custom)</h3>
           <pre>
-    // --- Rolling Stone Update Logic ---
-    btTransform ballTrans;
-    ballBody->getMotionState()->getWorldTransform(ballTrans);
-    btVector3 pos = ballTrans.getOrigin();
-    glm::vec3 ballPosition = glm::vec3(pos.x(), pos.y(), pos.z());
+    public void FindPath(string startName, string endName)
+    {
+        Dictionary<PathNode, float> dist = new();   // 각 노드까지 거리 저장
+        Dictionary<PathNode, PathNode> prev = new(); // 최단 경로 상 이전 노드
+        HashSet<PathNode> visited = new();          // 방문 여부 확인
     
-    // Reset position if fallen out of bounds
-    if (pos.getY() &lt;= -10.0f)
-        resetBallPositionToInitial(dynamicsWorld, initialBallPosition, ballHalfExtent);
+        // 모든 노드를 방문할 때까지 반복
+        while (visited.Count < nodes.Count)
+        {
+            PathNode current = null;
+            float minDist = float.MaxValue;
     
-    // Rendering pass
-    objectShader.use();
-    glm::mat4 model = glm::scale(
-        glm::translate(glm::mat4(1.0f), ballPosition),
-        0.75f * ballWorldSize);
+            // 1️⃣ 아직 방문하지 않은 노드 중 가장 가까운 노드 선택
+            foreach (var node in nodes.Values)
+            {
+                if (!visited.Contains(node) && dist[node] < minDist)
+                {
+                    current = node;
+                    minDist = dist[node];
+                }
+            }
     
-    objectShader.setMat4("M", model);
-    objectShader.setMat4("V", camera.GetViewMatrix());
-    objectShader.setMat4("P", projection);
+            // 2️⃣ 더 이상 방문할 노드가 없으면 종료
+            if (current == null) break;
+            visited.Add(current);
     
-    glDisable(GL_BLEND);
-    ballModel.Draw(objectShader);
-    glEnable(GL_BLEND);
+            // 3️⃣ 인접 노드 확인 및 거리 갱신
+            foreach (var edge in current.edges)
+            {
+                PathNode neighbor = edge.target;
+                float alt = dist[current] + edge.cost; // 거리 + 간선 비용
+                if (alt < dist[neighbor])
+                {
+                    dist[neighbor] = alt;
+                    prev[neighbor] = current;
+                }
+            }
+        }
+    }
           </pre>
         </div>
       </div>
@@ -1256,6 +1288,7 @@
   </div>
 </body>
 </html>
+
 
 
 
