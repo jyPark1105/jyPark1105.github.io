@@ -166,18 +166,19 @@
     #zoomNotice-en,
     #zoomNotice-ko {
       position: fixed;
-      top: 68px;
-      right: 20px;
+      top: 68px;               
+      right: 28px;             
       background: #eef6ff;
       color: #004a99;
-      font-size: 0.85rem;
-      padding: 7px 12px;
+      font-size: 0.8rem;       
+      padding: 5px 9px 6px 9px;
       border-radius: 6px;
       border: 1px solid #cce3ff;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       z-index: 998;
       user-select: none;
       font-family: 'Segoe UI', sans-serif;
+      white-space: nowrap;
     }
     
     .code-grid {
@@ -380,13 +381,23 @@
         display: block;
         margin: 0 auto;
       }
-
+      .zoomable-left-img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;        /* 원본 비율 유지 */
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+        cursor: zoom-in;                /* 확대 가능 표시 */
+        transition: transform 0.3s ease;
+      }
+      
       #zoomNotice-en,
       #zoomNotice-ko {
-        font-size: 0.75rem;
-        top: 60px;          
-        right: 10px;
-        padding: 6px 9px;
+        font-size: 0.7rem;
+        top: 60px;
+        right: 12px;
+        padding: 4px 8px;
       }
       
       /* 프로필 섹션 세로 배치 */
@@ -755,7 +766,10 @@ while (!glfwWindowShouldClose(window))
         <!-- 대표 이미지 -->
         <div class="image-row">
           <div class="image-box">
-            <img src="gifs/Main_Projects/Talk&Go/Total_Campus_Map.gif" alt="Total Campus Map" class="left-img" />
+            <img src="gifs/Main_Projects/Talk&Go/Total_Campus_Map.gif"
+                 alt="Total Campus Map"
+                 class="zoomable-left-img"
+                 data-title="Campus-Map" />
           </div>
           <div class="image-box">
             <img src="images/Talk&Go/Main.png" alt="Main Screen" class="right-img" />
@@ -1350,7 +1364,10 @@ while (!glfwWindowShouldClose(window))
         <!-- 대표 이미지 -->
         <div class="image-row">
           <div class="image-box">
-            <img src="gifs/Main_Projects/Talk&Go/Total_Campus_Map.gif" alt="Total Campus Map" class="left-img" />
+            <img src="gifs/Main_Projects/Talk&Go/Total_Campus_Map.gif"
+                 alt="Total Campus Map"
+                 class="zoomable-left-img"
+                 data-title="Campus-Map" />
           </div>
           <div class="image-box">
             <img src="images/Talk&Go/Main.png" alt="Main Screen" class="right-img" />
@@ -1786,6 +1803,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
