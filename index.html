@@ -163,16 +163,22 @@
       object-fit: contain;
     }
 
-    .code-pair {
+    .code-grid {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
+      flex-direction: column;
+      gap: 1.5rem;
       margin-top: 1.5rem;
-      flex-wrap: wrap;
     }
-  
+
+    .code-pair, .code-single {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
     .code-box {
-      flex: 1 1 50%;
+      flex: 1 1 100%;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -180,9 +186,15 @@
       padding: 1rem 1.2rem;
       box-sizing: border-box;
       position: relative;
+      transition: all 0.25s ease;
     }
-  
-    /* ✅ 제목과 버튼 정렬 */
+
+    /* ✅ 2열(50:50) 구조 */
+    .code-pair .code-box {
+      flex: 1 1 48%;
+    }
+
+    /* ✅ 제목 + 토글 버튼 정렬 */
     .code-box h3 {
       display: flex;
       align-items: center;
@@ -193,8 +205,7 @@
       font-weight: 600;
       margin-bottom: 0.8rem;
     }
-  
-    /* ✅ 토글 버튼 스타일 */
+
     .toggle-btn {
       background: none;
       border: none;
@@ -203,19 +214,20 @@
       color: #007acc;
       transition: transform 0.2s ease;
     }
+
     .toggle-btn.open {
       transform: rotate(90deg);
     }
-  
-    /* ✅ 코드 블록 보이기/숨기기 */
+
     .code-content {
       display: none;
+      transition: max-height 0.3s ease;
     }
+
     .code-content.active {
       display: block;
     }
-  
-    /* ✅ 코드 텍스트 스타일 */
+
     .code-box pre {
       background: #f9f9f9;
       border-radius: 6px;
@@ -225,13 +237,6 @@
       line-height: 1.5;
       color: #222;
       font-family: 'Consolas', 'Courier New', monospace;
-    }
-    
-    .zoomable-gif {
-      cursor: zoom-in;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 1;
-      position: relative;
     }
 
     /* 확대된 GIF 전체 컨테이너 */
@@ -399,85 +404,6 @@
         Below are code snippets representing my general coding style and structure conventions.  
         They emphasize <strong>readability, modularity, and logical flow</strong> across different languages and engines.
       </p>
-    
-      <style>
-        /* ✅ 공통 코드 박스 스타일 */
-        .code-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          margin-top: 1.5rem;
-        }
-    
-        .code-pair, .code-single {
-          display: flex;
-          gap: 20px;
-          flex-wrap: wrap;
-          justify-content: space-between;
-        }
-    
-        .code-box {
-          flex: 1 1 100%;
-          background: #fff;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-          padding: 1rem 1.2rem;
-          box-sizing: border-box;
-          position: relative;
-          transition: all 0.25s ease;
-        }
-    
-        /* ✅ 2열(50:50) 구조 */
-        .code-pair .code-box {
-          flex: 1 1 48%;
-        }
-    
-        /* ✅ 제목 + 토글 버튼 정렬 */
-        .code-box h3 {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 1rem;
-          color: #007acc;
-          margin-top: 0;
-          font-weight: 600;
-          margin-bottom: 0.8rem;
-        }
-    
-        .toggle-btn {
-          background: none;
-          border: none;
-          font-size: 1rem;
-          cursor: pointer;
-          color: #007acc;
-          transition: transform 0.2s ease;
-        }
-    
-        .toggle-btn.open {
-          transform: rotate(90deg);
-        }
-    
-        .code-content {
-          display: none;
-          transition: max-height 0.3s ease;
-        }
-    
-        .code-content.active {
-          display: block;
-        }
-    
-        .code-box pre {
-          background: #f9f9f9;
-          border-radius: 6px;
-          padding: 1rem;
-          overflow-x: auto;
-          font-size: 0.75rem;
-          line-height: 1.5;
-          color: #222;
-          font-family: 'Consolas', 'Courier New', monospace;
-        }
-      </style>
     
       <div class="code-grid">
     
@@ -1402,3 +1328,4 @@
   </div>
 </body>
 </html>
+
