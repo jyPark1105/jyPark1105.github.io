@@ -350,16 +350,14 @@
         const newContents = document.querySelectorAll('.code-content');
         const newButtons = document.querySelectorAll('.toggle-btn');
       
-        // ✅ 기존 열린 토글 다시 열기
         openedIndexes.forEach(i => {
           if (newContents[i]) newContents[i].classList.add('active');
           if (newButtons[i]) {
             newButtons[i].classList.add('open');
-            newButtons[i].textContent = '▼';  // 화살표 방향 확실히 아래로
+            newButtons[i].textContent = '▼';  // 화살표 방향 고정
           }
         });
       
-        // ✅ Two NavMeshes 복구
         if (twoNavMeshesOpen) {
           document.querySelectorAll('.two-navmesh-wrapper').forEach(wrapper => {
             wrapper.style.display = 'flex';
@@ -370,28 +368,34 @@
           });
         }
       }, 50);
-
+    }
   
-    // ✅ 단일 코드 토글 (1행, 3행)
+    // ✅ 단일 코드 토글 (렌더링, 다익스트라 등)
     function toggleSingleCode(button) {
       const content = button.closest('.code-box').querySelector('.code-content');
       const isActive = content.classList.contains('active');
   
-      // 모든 코드 닫기
+      // 모두 닫기
       document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('open'));
   
-      // 클릭한 코드 다시 토글
+      // 선택한 것만 열기
       if (!isActive) {
         content.classList.add('active');
         button.classList.add('open');
+        button.textContent = '▼';
+      } else {
+        content.classList.remove('active');
+        button.classList.remove('open');
+        button.textContent = '▶';
       }
     }
   
+    // ✅ Two NavMeshes (2열)
     function toggleTwoNavMeshes(button) {
       const wrapper = button.closest('.code-box').querySelector('.two-navmesh-wrapper');
       const isVisible = wrapper.style.display === 'flex';
-    
+  
       if (isVisible) {
         wrapper.style.display = 'none';
         button.textContent = '▶';
@@ -1578,6 +1582,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
