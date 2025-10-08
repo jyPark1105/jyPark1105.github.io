@@ -178,15 +178,14 @@
     }
 
     .code-box {
-      flex: 1 1 100%;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      padding: 1rem 1.2rem;
-      box-sizing: border-box;
-      position: relative;
-      transition: all 0.25s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      padding: 0.8rem 1rem;             /* 기존보다 살짝 줄임 */
+      margin-bottom: 1.2rem;            /* ✅ 상하 여백 축소 */
+      font-size: 0.9rem;                /* ✅ 전체 폰트 크기 축소 */
+      transition: all 0.2s ease;
     }
 
     /* ✅ 2열(50:50) 구조 */
@@ -228,16 +227,34 @@
     }
     
     .code-box pre {
-      font-size: 13px;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 8px;
+      font-size: 12px !important;
+      background: #fafafa;
+      padding: 0.8rem;
+      border-radius: 6px;
       overflow-x: auto;
+      line-height: 1.45;
     }
-    
+
     .code-box h3 {
       color: #007acc;
-      margin-bottom: .5rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .code-section-title {
+      font-weight: bold;
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .code-section-title::before {
+      content: "⚙️";
     }
     
     .toggle-btn {
@@ -479,7 +496,8 @@
           <li>Implemented <span class="highlight">Physics Debug Drawer</span></li>
           <li>Natural animation synchronization with character-object interactions</li>
         </ul>
-        
+
+        <div class="code-section-title">Code Snippet</div>
         <!-- Code Toggle Section -->
         <div class="code-box" data-code-id="code-rollingstone">
           <h3>
@@ -757,6 +775,7 @@ while (!glfwWindowShouldClose(window))
           </ul>
         </div>
 
+        <div class="code-section-title">Code Snippet</div>
         <!-- ✅ Two NavMeshes Section -->
         <div class="code-box" data-code-id="code-navmesh">
           <h3>
@@ -831,7 +850,7 @@ private void CreateVirtualWall(DangerCornerPair pair)
             </div>
           </div>
         </div>
-
+        
         <!-- ✅ Dijkstra Pathfinder Section -->
         <div class="code-box" data-code-id="code-dijkstra">
           <h3>
@@ -1068,7 +1087,8 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
           <li><span class="highlight">물리 디버깅 함수</span> 구현</li>
           <li>캐릭터-오브젝트 상호작용에 따른 자연스러운 애니메이션 동기화</li>
         </ul>
-        
+
+        <div class="code-section-title">코드 스니펫</div>
         <!-- ✅ 코드 토글 섹션 추가 -->
         <div class="code-box" data-code-id="code-rollingstone">
           <h3>
@@ -1340,7 +1360,7 @@ while (!glfwWindowShouldClose(window))
         </ul>
         </p>
 
-
+        <div class="code-section-title">코드 스니펫</div>
         <!-- ✅ 두 개의 NavMesh 섹션 -->
         <div class="code-box" data-code-id="code-navmesh">
           <h3>
@@ -1580,6 +1600,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
