@@ -359,22 +359,23 @@
       }
     }
   
-    // ✅ 2행 (NavMesh 두 코드 동시 제어)
     function togglePairCode(button) {
-      const pairSection = button.closest('.code-pair');
-      const contents = pairSection.querySelectorAll('.code-content');
-      const isActive = Array.from(contents).some(c => c.classList.contains('active'));
+      const pair = button.closest('.code-box').querySelector('.code-pair');
+      const isActive = pair.style.display === 'flex';
     
-      // 모두 닫기
-      document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('open'));
-    
-      // 자기 자신 토글
-      if (!isActive) {
-        contents.forEach(c => c.classList.add('active'));
-        button.classList.add('open');
+      // 닫기
+      if (isActive) {
+        pair.style.display = 'none';
+        button.textContent = '▶';
+      } 
+      // 열기
+      else {
+        pair.style.display = 'flex';
+        pair.style.gap = '1rem';
+        pair.style.marginTop = '1rem';
+        button.textContent = '▼';
       }
-    }
+    }  
   </script>
 </head>
   
@@ -429,138 +430,6 @@
               <li>Bachelor of computer science, 4th year student</li>
           </ul> 
       </ul>
-    </section>
-
-    <!-- 💻 Code Style Section -->
-    <section>
-      <h2>💻 Code Style</h2>
-      <p>
-        Below are code snippets representing my general coding style and structure conventions.  
-        They emphasize <strong>readability, modularity, and logical flow</strong> across different languages and engines.
-      </p>
-    
-      <div class="code-grid">
-    
-        <!-- ✅ 2행 (하나의 버튼으로 두 코드 동시에 제어) -->
-        <div class="code-pair">
-          <!-- 상단 제목 -->
-          <div style="flex: 1 1 100%; display: flex; align-items: center; margin-bottom: 0.5rem;">
-            <h3 style="margin: 0; color: #007acc;">NavMesh (Unity / Virtual Wall)</h3>
-          </div>
-        
-          <!-- 왼쪽 박스: NavMesh 1 -->
-          <div class="code-box">
-            <h3><button class="toggle-btn" onclick="togglePairCode(this)">▶</button>NavMesh 1</h3>
-            <div class="code-content">
-              <pre>
-        // ================= PATH1 =================
-        public void FindPath1()
-        {
-            string startName = startInputNode.text.Trim();
-            string endName = endInputNode.text.Trim();
-        
-            Vector3 start = GetNodePosition(startName);
-            Vector3 end = GetNodePosition(endName);
-        
-            if (cachedNavMeshPaths[0] != null)
-            {
-                pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
-                UIDebugTextAnimator.Instance.debugTextMsg.text = "저장된 NavMesh 경로 불러오기 완료";
-                UIDebugTextAnimator.Instance.AnimateAll();
-                StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
-                return;
-            }
-        
-            path1 = new NavMeshPath();
-            NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path1);
-            pathLineDrawer1.DrawPath(path1);
-            cachedNavMeshPaths[0] = path1;
-        }
-              </pre>
-            </div>
-          </div>
-        
-          <!-- 오른쪽 박스: NavMesh 2 -->
-          <div class="code-box">
-            <h3>NavMesh 2</h3>
-            <div class="code-content">
-              <pre>
-        private void CreateVirtualWall(DangerCornerPair pair)
-        {
-            if (currentWall != null) Destroy(currentWall);
-            Vector3 a = pair.pointA.position;
-            Vector3 b = pair.pointB.position;
-            Vector3 center = (a + b) / 2f;
-        
-            GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            wall.name = "DangerWall";
-            wall.transform.position = center + Vector3.up * 1f;
-            wall.transform.rotation = Quaternion.LookRotation(b - a);
-            wall.transform.localScale = new Vector3(0.3f, 2f, Vector3.Distance(a, b));
-        
-            if (dangerWallMaterial != null)
-                wall.GetComponent<Renderer>().material = dangerWallMaterial;
-        
-            var obstacle = wall.AddComponent<NavMeshObstacle>();
-            obstacle.carving = true;
-            obstacle.shape = NavMeshObstacleShape.Box;
-            obstacle.size = new Vector3(0.3f, 2f, 1f);
-            obstacle.center = Vector3.zero;
-            obstacle.carveOnlyStationary = true;
-        
-            currentWall = wall;
-        }
-              </pre>
-            </div>
-          </div>
-        </div>
-    
-        <!-- ✅ 3행 -->
-        <div class="code-single">
-          <div class="code-box">
-            <h3><button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>Dijkstra (Custom)</h3>
-            <div class="code-content">
-              <pre>
-    public void FindPath(string startName, string endName)
-    {
-        Dictionary<PathNode, float> dist = new();
-        Dictionary<PathNode, PathNode> prev = new();
-        HashSet<PathNode> visited = new();
-    
-        while (visited.Count < nodes.Count)
-        {
-            PathNode current = null;
-            float minDist = float.MaxValue;
-    
-            foreach (var node in nodes.Values)
-            {
-                if (!visited.Contains(node) && dist[node] < minDist)
-                {
-                    current = node;
-                    minDist = dist[node];
-                }
-            }
-    
-            if (current == null) break;
-            visited.Add(current);
-    
-            foreach (var edge in current.edges)
-            {
-                PathNode neighbor = edge.target;
-                float alt = dist[current] + edge.cost;
-                if (alt < dist[neighbor])
-                {
-                    dist[neighbor] = alt;
-                    prev[neighbor] = current;
-                }
-            }
-        }
-    }
-              </pre>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section>
@@ -860,19 +729,17 @@ while (!glfwWindowShouldClose(window))
           </ul>
         </div>
 
-        <!-- ✅ Pathfinding Code Section -->
+        <!-- ✅ NavMesh Combined Section -->
         <div class="code-box" style="margin-top:2rem;">
           <h3>
             <button class="toggle-btn" onclick="togglePairCode(this)">▶</button>
-            ⚙️ NavMesh Pathfinding (Unity / Virtual Wall)
+            NavMesh (Unity / Virtual Wall)
           </h3>
         
-          <div class="code-pair">
-            <!-- NavMesh 1 -->
-            <div class="code-box">
+          <div class="code-pair" style="display:none;">
+            <div class="code-box" style="flex:1; margin-right:1rem;">
               <h3>NavMesh 1</h3>
-              <div class="code-content">
-                <pre>
+              <pre>
 // ================= PATH1 =================
 public void FindPath1()
 {
@@ -882,10 +749,11 @@ public void FindPath1()
     Vector3 start = GetNodePosition(startName);
     Vector3 end = GetNodePosition(endName);
 
+    // Cache 저장 여부 확인
     if (cachedNavMeshPaths[0] != null)
     {
         pathLineDrawer1.DrawPath(cachedNavMeshPaths[0]);
-        UIDebugTextAnimator.Instance.debugTextMsg.text =
+        UIDebugTextAnimator.Instance.debugTextMsg.text = 
             "저장된 NavMesh 경로 불러오기 완료";
         UIDebugTextAnimator.Instance.AnimateAll();
         StartCoroutine(TurnOnVisualizerBtn((int)Pathfinders.NavMesh1 - 1));
@@ -897,15 +765,12 @@ public void FindPath1()
     pathLineDrawer1.DrawPath(path1);
     cachedNavMeshPaths[0] = path1;
 }
-                </pre>
-              </div>
+              </pre>
             </div>
         
-            <!-- NavMesh 2 -->
-            <div class="code-box">
+            <div class="code-box" style="flex:1;">
               <h3>NavMesh 2 (Virtual Wall)</h3>
-              <div class="code-content">
-                <pre>
+              <pre>
 private void CreateVirtualWall(DangerCornerPair pair)
 {
     if (currentWall != null) Destroy(currentWall);
@@ -932,60 +797,10 @@ private void CreateVirtualWall(DangerCornerPair pair)
 
     currentWall = wall;
 }
-                </pre>
-              </div>
+              </pre>
             </div>
           </div>
-        </div>
-        
-        <!-- ✅ Dijkstra Section -->
-        <div class="code-box" style="margin-top:1.5rem;">
-          <h3>
-            <button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>
-            ⚙️ Dijkstra (Custom)
-          </h3>
-          <div class="code-content">
-            <pre>
-public void FindPath(string startName, string endName)
-{
-    Dictionary<PathNode, float> dist = new();
-    Dictionary<PathNode, PathNode> prev = new();
-    HashSet<PathNode> visited = new();
-
-    while (visited.Count < nodes.Count)
-    {
-        PathNode current = null;
-        float minDist = float.MaxValue;
-
-        foreach (var node in nodes.Values)
-        {
-            if (!visited.Contains(node) && dist[node] < minDist)
-            {
-                current = node;
-                minDist = dist[node];
-            }
-        }
-
-        if (current == null) break;
-        visited.Add(current);
-
-        foreach (var edge in current.edges)
-        {
-            PathNode neighbor = edge.target;
-            float alt = dist[current] + edge.cost;
-
-            if (alt < dist[neighbor])
-            {
-                dist[neighbor] = alt;
-                prev[neighbor] = current;
-            }
-        }
-    }
-}
-            </pre>
-          </div>
-        </div>
-        
+        </div>        
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🛠️ Role</p>
         <ul class="marker1" style="margin-top: -0.5rem;">
           <li><strong>Unity</strong>: Developed user interface and core logic</li>
@@ -1531,6 +1346,7 @@ while (!glfwWindowShouldClose(window))
   </div>
 </body>
 </html>
+
 
 
 
