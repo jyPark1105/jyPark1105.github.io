@@ -348,16 +348,17 @@
       // ✅ 전환 후 열린 토글 유지 복구
       setTimeout(() => {
         const newContents = document.querySelectorAll('.code-content');
+        const newButtons = document.querySelectorAll('.toggle-btn');
+      
+        // ✅ 기존 열린 토글 다시 열기
         openedIndexes.forEach(i => {
           if (newContents[i]) newContents[i].classList.add('active');
+          if (newButtons[i]) {
+            newButtons[i].classList.add('open');
+            newButtons[i].textContent = '▼';  // 화살표 방향 확실히 아래로
+          }
         });
-    
-        // 버튼 아이콘(▶ → ▼)도 복구
-        const newButtons = document.querySelectorAll('.toggle-btn');
-        openedIndexes.forEach(i => {
-          if (newButtons[i]) newButtons[i].classList.add('open');
-        });
-    
+      
         // ✅ Two NavMeshes 복구
         if (twoNavMeshesOpen) {
           document.querySelectorAll('.two-navmesh-wrapper').forEach(wrapper => {
@@ -365,10 +366,10 @@
           });
           document.querySelectorAll('.toggle-btn').forEach(btn => {
             if (btn.textContent === '▶') btn.textContent = '▼';
+            btn.classList.add('open');
           });
         }
       }, 50);
-    }
 
   
     // ✅ 단일 코드 토글 (1행, 3행)
@@ -1577,6 +1578,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
