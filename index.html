@@ -303,6 +303,7 @@
       overflow: hidden;
     }
   </style>
+  
   <script>
     function toggleLanguage() {
       const en = document.getElementById('english');
@@ -319,13 +320,13 @@
         btn.textContent = '🇺🇸 영어로 보기';
       }
     }
-    
+  
     document.addEventListener("DOMContentLoaded", function () {
       const gifs = document.querySelectorAll(".zoomable-gif");
       const modal = document.getElementById("gifOverlay");
       const modalGif = document.getElementById("gifOverlayImg");
       const modalTitle = document.querySelector(".gif-title");
-    
+  
       gifs.forEach(gif => {
         gif.addEventListener("dblclick", function () {
           modal.style.display = "block";
@@ -334,42 +335,43 @@
           document.body.classList.add("no-scroll");
         });
       });
-    
+  
       modal.addEventListener("click", function () {
         modal.style.display = "none";
         modalGif.src = "";
         document.body.classList.remove("no-scroll");
       });
     });
-
+  
     // ✅ 단일 코드 토글 (1행, 3행)
     function toggleSingleCode(button) {
       const content = button.closest('.code-box').querySelector('.code-content');
       const isActive = content.classList.contains('active');
-
-      // 모든 닫기
+  
+      // 모든 코드 닫기
       document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
       document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('open'));
-
-      // 클릭한 코드만 토글
+  
+      // 클릭한 코드 다시 토글
       if (!isActive) {
         content.classList.add('active');
         button.classList.add('open');
       }
     }
-
+  
+    // ✅ 2행 (NavMesh 두 코드 동시 제어)
     function togglePairCode(button) {
       const pairSection = button.closest('.code-pair');
-      const codeBlocks = pairSection.querySelectorAll('.code-content');
-      const isActive = Array.from(codeBlocks).some(c => c.classList.contains('active'));
-
-      // 모든 닫기
-      document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
+      const boxes = pairSection.querySelectorAll('.code-box');
+      const isActive = Array.from(boxes).some(b => b.style.display !== 'none');
+  
+      // 전체 닫기
+      document.querySelectorAll('.code-box').forEach(b => b.style.display = 'none');
       document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('open'));
-
-      // 이 행만 다시 켜기
+  
+      // 자기 자신 토글
       if (!isActive) {
-        codeBlocks.forEach(c => c.classList.add('active'));
+        boxes.forEach(b => b.style.display = 'block');
         button.classList.add('open');
       }
     }
@@ -442,7 +444,7 @@
         <!-- ✅ 1행 -->
         <div class="code-single">
           <div class="code-box">
-            <h3><button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>⚙️ Main Frame Loop Structure (C++ / OpenGL)</h3>
+            <h3><button class="toggle-btn" onclick="toggleSingleCode(this)">▶</button>⚙️ Main Frame Code: 'The Rolling Stone'</h3>
             <div class="code-content">
               <pre>
     // ======== MAIN RENDER LOOP ========
@@ -1314,5 +1316,6 @@
   </div>
 </body>
 </html>
+
 
 
