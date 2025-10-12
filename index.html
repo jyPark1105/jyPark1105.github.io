@@ -869,133 +869,167 @@ while (!glfwWindowShouldClose(window))
             </div>
           </div>
         </div>
-        
+
         <section>
-        <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">📁 System Development Overview</p>
-          <table class="table2">
-            <colgroup>
-              <col style="width: 16%;">
-              <col style="width: 10%;">
-              <col style="width: 14%;">
-              <col style="width: 30%;">
-              <col style="width: 30%;">
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Component</th>
-                <th>Language</th>
-                <th>Tech Stack</th>
-                <th>Internal Features</th>
-                <th>External Integration</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Unity(En) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/Unity.png" alt="Unity 3D">
-                  <strong>Unity 3D</strong>
-                </td>
-                <td><strong>C#</strong></td>
-                <td>
-                  <ul class="marker1">
-                    <li>Probuilder</li>
-                    <li>NavMesh</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>UI structure (Pathfinder, Chatbot, Campus map)</li>
-                    <li>Three Pathfinding Methods: NavMesh & Dijkstra-based</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>Firebase: <strong>Authentication</strong></li>
-                    <li>Django: <strong>Communicate with JSON via UnityWebRequest class</strong></li>
-                    <li>React: Rendering embedded <strong>WebGL layer</strong</li>
-                  </ul>
-                </td>
-              </tr>
-              <!-- DRF(En) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/Django Rest Framework.png" alt="Django Rest Framework" class="icon-wide">
-                  <strong>Django Rest Framework</strong> (Backend)
-                </td>
-                <td><strong>Python</strong></td>
-                <td>
-                  <ul class="marker1">
-                  <li>Django Rest API</li>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>Search internal database (campus information)</li>
-                    <li>Calling OpenAI API for using GPT-3.5 Turbo model/li>
-                    <li>Refining GPT-answers based system prompts</li>
-                    <li>Return JSON-formatted responses</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li><strong>Receive questions from the client and return responses</strong></li>
-                    <li>Implement functionality for storing, deleting, and loading Q & A</li>
-                  </ul>
-                </td>
-              </tr>
-              <!-- React(En) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/React.png" alt="React with Node.js">
-                  <strong>React with Node.js</strong> (Frontend)
-                </td>
-                <td><strong>JavaScript</strong></td>
-                <td>
-                  <ul class="marker1">
-                    <li>React</li>
-                    <li>Node.js</li>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>User interface layout of web</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li><strong>Render Unity WebGL layer onto React page</strong></li>
-                  </ul>
-                </td>
-              </tr>
-              <!-- Firebase(En) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/Firebase.png" alt="Firebase">
-                  <strong>Firebase</strong>
-                </td>
-                <td></td>
-                <td>
-                  <ul class="marker1">
-                    <li>Web App</li>
-                    <li>Authentication</li>
-                    <li>Firestore Database</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>Authentication: <strong>Sign-up and Login functionality</strong></li>
-                    <li><strong>Stores Chatbot Q & A data in Firestore Database for each user account (UID)</strong></li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li><strong>Storing</strong>: Storing Chatbot Q & A data to Firebase Database, passed by each user account(UID)</li>
-                    <li><strong>Loading</strong>: Transfer user UID and Q&A data from Firebase to Django</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">📁 System Development Overview</p>
+        
+          <!-- 기본: 다이어그램 -->
+          <div id="system-diagram" class="image-box" style="text-align:center;">
+            <img src="images/Talk&Go/system_overview_diagram.png"
+                 alt="System Overview Diagram"
+                 class="right-img"
+                 style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
+          </div>
+        
+          <!-- 토글 버튼 -->
+          <div style="text-align:center; margin-top: 1rem;">
+            <button id="toggleTable" class="toggle-btn" 
+                    style="font-size:1rem; background:#007acc; color:white; padding:8px 14px; border-radius:6px;">
+              🔍 View Detailed Table
+            </button>
+          </div>
+        
+          <!-- 숨김 상태의 테이블 -->
+          <div id="system-table" style="display:none; margin-top: 1.5rem;">
+            <!-- ✅ 네가 올린 표 그대로 삽입 -->
+            <table class="table2">
+              <colgroup>
+                <col style="width: 16%;">
+                <col style="width: 10%;">
+                <col style="width: 14%;">
+                <col style="width: 30%;">
+                <col style="width: 30%;">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Language</th>
+                  <th>Tech Stack</th>
+                  <th>Internal Features</th>
+                  <th>External Integration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Unity(En) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/Unity.png" alt="Unity 3D">
+                    <strong>Unity 3D</strong>
+                  </td>
+                  <td><strong>C#</strong></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>Probuilder</li>
+                      <li>NavMesh</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>UI structure (Pathfinder, Chatbot, Campus map)</li>
+                      <li>Three Pathfinding Methods: NavMesh & Dijkstra-based</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>Firebase: <strong>Authentication</strong></li>
+                      <li>Django: <strong>Communicate with JSON via UnityWebRequest class</strong></li>
+                      <li>React: Rendering embedded <strong>WebGL layer</strong</li>
+                    </ul>
+                  </td>
+                </tr>
+                <!-- DRF(En) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/Django Rest Framework.png" alt="Django Rest Framework" class="icon-wide">
+                    <strong>Django Rest Framework</strong> (Backend)
+                  </td>
+                  <td><strong>Python</strong></td>
+                  <td>
+                    <ul class="marker1">
+                    <li>Django Rest API</li>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>Search internal database (campus information)</li>
+                      <li>Calling OpenAI API for using GPT-3.5 Turbo model/li>
+                      <li>Refining GPT-answers based system prompts</li>
+                      <li>Return JSON-formatted responses</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li><strong>Receive questions from the client and return responses</strong></li>
+                      <li>Implement functionality for storing, deleting, and loading Q & A</li>
+                    </ul>
+                  </td>
+                </tr>
+                <!-- React(En) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/React.png" alt="React with Node.js">
+                    <strong>React with Node.js</strong> (Frontend)
+                  </td>
+                  <td><strong>JavaScript</strong></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>React</li>
+                      <li>Node.js</li>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>User interface layout of web</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li><strong>Render Unity WebGL layer onto React page</strong></li>
+                    </ul>
+                  </td>
+                </tr>
+                <!-- Firebase(En) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/Firebase.png" alt="Firebase">
+                    <strong>Firebase</strong>
+                  </td>
+                  <td></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>Web App</li>
+                      <li>Authentication</li>
+                      <li>Firestore Database</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>Authentication: <strong>Sign-up and Login functionality</strong></li>
+                      <li><strong>Stores Chatbot Q & A data in Firestore Database for each user account (UID)</strong></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li><strong>Storing</strong>: Storing Chatbot Q & A data to Firebase Database, passed by each user account(UID)</li>
+                      <li><strong>Loading</strong>: Transfer user UID and Q&A data from Firebase to Django</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
+        
+        <script>
+          const toggleBtn = document.getElementById("toggleTable");
+          const tableDiv = document.getElementById("system-table");
+          const diagramDiv = document.getElementById("system-diagram");
+        
+          toggleBtn.addEventListener("click", () => {
+            const isHidden = tableDiv.style.display === "none";
+            tableDiv.style.display = isHidden ? "block" : "none";
+            diagramDiv.style.display = isHidden ? "none" : "block";
+            toggleBtn.textContent = isHidden ? "↩️ Back to Diagram" : "🔍 View Detailed Table";
+          });
+        </script>
 
         <div style="margin-top:2rem;">
           <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🔧 Technical Details</p>
@@ -1925,6 +1959,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
