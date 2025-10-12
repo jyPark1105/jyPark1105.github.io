@@ -873,25 +873,23 @@ while (!glfwWindowShouldClose(window))
         <section>
           <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">📁 System Development Overview</p>
         
-          <!-- 기본: 다이어그램 -->
+          <!-- Base: Diagram -->
           <div id="system-diagram" class="image-box" style="text-align:center;">
-            <img src="images/Talk&Go/system_overview_diagram.png"
-                 alt="System Overview Diagram"
+            <img src="images/Talk&Go/System_Diagram.png"
+                 alt="System Diagram"
                  class="right-img"
                  style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
           </div>
         
-          <!-- 토글 버튼 -->
+          <!-- Toggle Button -->
           <div style="text-align:center; margin-top: 1rem;">
             <button id="toggleTable" class="toggle-btn" 
                     style="font-size:1rem; background:#007acc; color:white; padding:8px 14px; border-radius:6px;">
               🔍 View Detailed Table
             </button>
           </div>
-        
-          <!-- 숨김 상태의 테이블 -->
+          
           <div id="system-table" style="display:none; margin-top: 1.5rem;">
-            <!-- ✅ 네가 올린 표 그대로 삽입 -->
             <table class="table2">
               <colgroup>
                 <col style="width: 16%;">
@@ -1542,129 +1540,148 @@ while (!glfwWindowShouldClose(window))
 
         <section>
           <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">📁 시스템 개발 개요</p>
-          <table class="table2">
-            <colgroup>
-              <col style="width: 16%;">
-              <col style="width: 10%;">
-              <col style="width: 14%;">
-              <col style="width: 30%;">
-              <col style="width: 30%;">
-            </colgroup>
-            <thead>
-              <tr>
-                <th>구성 요소</th>
-                <th>언어</th>
-                <th>기술 스택</th>
-                <th>내부 구현 기능</th>
-                <th>외부와의 연동</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Unity(Ko) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/Unity.png" alt="Unity 3D">
-                  <strong>Unity 3D</strong>
-                </td>
-                <td><strong>C#</strong></td>
-                <td>
-                  <ul class="marker1">
-                    <li>Probuilder</li>
-                    <li>NavMesh</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>사용자 인터페이스 구성 (길찾기, 챗봇, 캠퍼스맵)</li>
-                    <li><strong>NavMesh & Dijkstra 알고리즘 기반</strong> 총 3개의 길찾기 기능</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>Firebase: <strong>보안 인증</strong></li>
-                    <li>Django: <strong>UnityWebRequest 클래스를 통한 JSON 통신</strong></li>
-                    <li>React: <strong>WebGL layer</strong> 추가 렌더링</li>
-                  </ul>
-                </td>
-              </tr>
-              <!-- DRF(Ko) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/Django Rest Framework.png" alt="Django Rest Framework" class="icon-wide">
-                  <strong>Django Rest Framework</strong> (Backend)
-                </td>
-                <td><strong>Python</strong></td>
-                <td>
-                  <ul class="marker1">
-                    <li>Django Rest API</li>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>학교 정보가 저장된 <strong>데이터베이스 탐색</strong></li>
-                    <li>GPT-3.5 Turbo 모델 사용을 위한 <strong>OpenAI API 호출</strong></li>
-                    <li>시스템 프롬프트 기반 <strong>응답 정제</strong></li>
-                    <li><strong>JSON 형식의 응답 생성</strong></li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li><strong>클라이언트로부터 전달된 질문 수신 및 응답 반환</strong></li>
-                    <li><strong>질의응답 저장, 삭제, 불러오기 기능 구현</strong> (Firebase Database)</li>
-                  </ul>
-                </td>
-              </tr>
-              <!-- React(Ko) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/React.png" alt="React with Node.js">
-                  <strong>React with Node.js</strong> (Frontend)
-                </td>
-                <td><strong>JavaScript</strong></td>
-                <td>
-                  <ul class="marker1">
-                    <li>React</li>
-                    <li>Node.js</li>
-                <td>
-                  <ul class="marker2">
-                    <li>웹 사용자 인터페이스 구성</li>
-                  </ul>
-                </td>
-                <td class="small-text">
-                  <ul class="marker2">
-                    <li><strong>Unity WebGL layer를 React 위에 렌더링</strong></li>
-                  </ul>
-                </td>
-              </tr>
-              <!-- Firebase(Ko) -->
-              <tr>
-                <td class="icon-cell">
-                  <img src="icons/Firebase.png" alt="Firebase">
-                  <strong>Firebase</strong>
-                </td>
-                <td></td>
-                <td>
-                  <ul class="marker1">
-                    <li>Web App</li>
-                    <li>Authentication</li>
-                    <li>Firestore Database</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li>보안: <strong>회원가입 및 로그인 기능</strong></li>
-                    <li><strong>사용자별 Chatbot 질의응답 데이터를 Firestore Database에 저장</strong></li>
-                  </ul>
-                </td>
-                <td>
-                  <ul class="marker2">
-                    <li><strong>저장</strong>: 전달받은 사용자 고유 식별자(UID)를 통해 사용자별 Chatbot 질의응답을 Firebase DB에 저장(Django)</li>
-                    <li><strong>불러오기</strong>: 사용자 고유 식별자(UID) 및 질의응답 데이터 → Django로 전달 (Firebase)</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-            </tbody>
-          </table>
+        
+          <!-- 기본: 다이어그램 -->
+          <div id="system-diagram-ko" class="image-box" style="text-align:center;">
+            <img src="images/Talk&Go/System_Diagram.png"
+                 alt="시스템 다이어그램"
+                 class="right-img"
+                 style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
+          </div>
+        
+          <!-- 토글 버튼 -->
+          <div style="text-align:center; margin-top: 1rem;">
+            <button id="toggleDiagramKo" class="toggle-btn" 
+                    style="font-size:1rem; background:#007acc; color:white; padding:8px 14px; border-radius:6px;">
+              🔍 다이어그램 확대 보기
+            </button>
+          </div>
+
+          <div id="system-table" style="display:none; margin-top: 1.5rem;">
+            <table class="table2">
+              <colgroup>
+                <col style="width: 16%;">
+                <col style="width: 10%;">
+                <col style="width: 14%;">
+                <col style="width: 30%;">
+                <col style="width: 30%;">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>구성 요소</th>
+                  <th>언어</th>
+                  <th>기술 스택</th>
+                  <th>내부 구현 기능</th>
+                  <th>외부와의 연동</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Unity(Ko) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/Unity.png" alt="Unity 3D">
+                    <strong>Unity 3D</strong>
+                  </td>
+                  <td><strong>C#</strong></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>Probuilder</li>
+                      <li>NavMesh</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>사용자 인터페이스 구성 (길찾기, 챗봇, 캠퍼스맵)</li>
+                      <li><strong>NavMesh & Dijkstra 알고리즘 기반</strong> 총 3개의 길찾기 기능</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>Firebase: <strong>보안 인증</strong></li>
+                      <li>Django: <strong>UnityWebRequest 클래스를 통한 JSON 통신</strong></li>
+                      <li>React: <strong>WebGL layer</strong> 추가 렌더링</li>
+                    </ul>
+                  </td>
+                </tr>
+                <!-- DRF(Ko) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/Django Rest Framework.png" alt="Django Rest Framework" class="icon-wide">
+                    <strong>Django Rest Framework</strong> (Backend)
+                  </td>
+                  <td><strong>Python</strong></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>Django Rest API</li>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>학교 정보가 저장된 <strong>데이터베이스 탐색</strong></li>
+                      <li>GPT-3.5 Turbo 모델 사용을 위한 <strong>OpenAI API 호출</strong></li>
+                      <li>시스템 프롬프트 기반 <strong>응답 정제</strong></li>
+                      <li><strong>JSON 형식의 응답 생성</strong></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li><strong>클라이언트로부터 전달된 질문 수신 및 응답 반환</strong></li>
+                      <li><strong>질의응답 저장, 삭제, 불러오기 기능 구현</strong> (Firebase Database)</li>
+                    </ul>
+                  </td>
+                </tr>
+                <!-- React(Ko) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/React.png" alt="React with Node.js">
+                    <strong>React with Node.js</strong> (Frontend)
+                  </td>
+                  <td><strong>JavaScript</strong></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>React</li>
+                      <li>Node.js</li>
+                  <td>
+                    <ul class="marker2">
+                      <li>웹 사용자 인터페이스 구성</li>
+                    </ul>
+                  </td>
+                  <td class="small-text">
+                    <ul class="marker2">
+                      <li><strong>Unity WebGL layer를 React 위에 렌더링</strong></li>
+                    </ul>
+                  </td>
+                </tr>
+                <!-- Firebase(Ko) -->
+                <tr>
+                  <td class="icon-cell">
+                    <img src="icons/Firebase.png" alt="Firebase">
+                    <strong>Firebase</strong>
+                  </td>
+                  <td></td>
+                  <td>
+                    <ul class="marker1">
+                      <li>Web App</li>
+                      <li>Authentication</li>
+                      <li>Firestore Database</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li>보안: <strong>회원가입 및 로그인 기능</strong></li>
+                      <li><strong>사용자별 Chatbot 질의응답 데이터를 Firestore Database에 저장</strong></li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="marker2">
+                      <li><strong>저장</strong>: 전달받은 사용자 고유 식별자(UID)를 통해 사용자별 Chatbot 질의응답을 Firebase DB에 저장(Django)</li>
+                      <li><strong>불러오기</strong>: 사용자 고유 식별자(UID) 및 질의응답 데이터 → Django로 전달 (Firebase)</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🔧 기술 세부 사항</p>
@@ -1960,13 +1977,3 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
