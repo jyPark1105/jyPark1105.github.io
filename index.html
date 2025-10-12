@@ -1668,12 +1668,12 @@ while (!glfwWindowShouldClose(window))
                   <td>
                     <ul class="marker2">
                       <li>보안: <strong>회원가입 및 로그인 기능</strong></li>
-                      <li><strong>사용자별 Chatbot 질의응답 데이터를 Firestore Database에 저장</strong></li>
+                      <li><strong>사용자별 Chatbot 질의응답 데이터를 Firestore DB에 저장</strong></li>
                     </ul>
                   </td>
                   <td>
                     <ul class="marker2">
-                      <li><strong>저장</strong>: 전달받은 사용자 고유 식별자(UID)를 통해 사용자별 Chatbot 질의응답을 Firebase DB에 저장(Django)</li>
+                      <li><strong>저장</strong>: 전달받은 사용자 고유 식별자(UID)를 통해 사용자별 Chatbot 질의응답을 Firebase DB에 저장 (Django)</li>
                       <li><strong>불러오기</strong>: 사용자 고유 식별자(UID) 및 질의응답 데이터 → Django로 전달 (Firebase)</li>
                     </ul>
                   </td>
@@ -1684,6 +1684,27 @@ while (!glfwWindowShouldClose(window))
           </div>
         </section>
 
+        <script>
+          const toggleBtnKo = document.getElementById("toggleDiagramKo");
+          const diagramKo = document.getElementById("system-diagram-ko");
+        
+          toggleBtnKo.addEventListener("click", () => {
+            const isZoomed = diagramKo.classList.contains("zoomed");
+        
+            if (isZoomed) {
+              diagramKo.classList.remove("zoomed");
+              diagramKo.style.transform = "scale(1)";
+              diagramKo.style.transition = "transform 0.3s ease";
+              toggleBtnKo.textContent = "🔍 다이어그램 확대 보기";
+            } else {
+              diagramKo.classList.add("zoomed");
+              diagramKo.style.transform = "scale(1.5)";
+              diagramKo.style.transition = "transform 0.3s ease";
+              toggleBtnKo.textContent = "↩️ 원래 크기로 보기";
+            }
+          });
+        </script>
+        
         <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">🔧 기술 세부 사항</p>
         <ul class="marker2">
           <li><span class="highlight">Path Finder</span>: 산악 지형 기반의 경로 탐색 시스템(두 개의 NavMesh & 사설 Dijkstra 알고리즘)</li>
@@ -1977,3 +1998,4 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
