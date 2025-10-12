@@ -892,24 +892,23 @@ while (!glfwWindowShouldClose(window))
         </div>
 
         <section>
-          <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">📁 System Development Overview</p>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <p style="font-weight:bold; margin-bottom: 0; font-size: 1.1rem;">📁 System Development Overview</p>
+            <button id="toggleTable" class="toggle-btn" 
+                    style="font-size:0.9rem; background:#007acc; color:white; 
+                           padding:6px 10px; border-radius:6px; width:130px;">
+              🔍 View Table
+            </button>
+          </div>
         
           <!-- Base: Diagram -->
-          <div id="system-diagram" class="image-box" style="text-align:center;">
+          <div id="system-diagram" class="image-box" style="text-align:center; margin-top:0.8rem;">
             <img src="images/Talk&Go/System_Diagram.png"
                  alt="System Diagram"
                  class="right-img"
-                 style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
+                 style="max-width: 47%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
           </div>
         
-          <!-- Toggle Button -->
-          <div style="text-align:center; margin-top: 1rem;">
-            <button id="toggleTable" class="toggle-btn" 
-                    style="font-size:1rem; background:#007acc; color:white; padding:8px 14px; border-radius:6px;">
-              🔍 View Detailed Table
-            </button>
-          </div>
-          
           <div id="system-table" style="display:none; margin-top: 1.5rem;">
             <table class="table2">
               <colgroup>
@@ -1632,25 +1631,26 @@ while (!glfwWindowShouldClose(window))
         </div>
 
         <section>
-          <p style="font-weight:bold; margin-bottom: 1rem; font-size: 1.1rem;">📁 시스템 개발 개요</p>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <p style="font-weight:bold; margin-bottom: 0; font-size: 1.1rem;">📁 시스템 개발 개요</p>
+            <button id="toggleTable" class="toggle-btn" 
+                    style="font-size:0.9rem; background:#007acc; color:white; 
+                           padding:6px 10px; border-radius:6px; width:130px;">
+              🔍 View Table
+            </button>
+          </div>
         
           <!-- 기본: 다이어그램 -->
-          <div id="system-diagram-ko" class="image-box" style="text-align:center;">
+          <div id="system-diagram-ko" class="image-box" style="text-align:center; margin-top:0.8rem;">
             <img src="images/Talk&Go/System_Diagram.png"
                  alt="시스템 다이어그램"
                  class="right-img"
-                 style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
+                 style="max-width: 47%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
           </div>
         
-          <!-- 토글 버튼 -->
-          <div style="text-align:center; margin-top: 1rem;">
-            <button id="toggleTableKo" class="toggle-btn" 
-                    style="font-size:1rem; background:#007acc; color:white; padding:8px 14px; border-radius:6px;">
-              🔍 상세 테이블 보기
-            </button>
-          </div>
+          <div id="toggleTableKo" style="display:none; margin-top: 1.5rem;">
 
-          <div id="system-table" style="display:none; margin-top: 1.5rem;">
+          <div id="system-table-ko" style="display:none; margin-top: 1.5rem;">
             <table class="table2">
               <colgroup>
                 <col style="width: 16%;">
@@ -2160,6 +2160,7 @@ print("✅ ONNX 최적화 완료: YYMMDD_final_output.onnx")
   </div>
 </body>
 </html>
+
 
 
 
