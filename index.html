@@ -1205,7 +1205,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
     
       <div class="project">
         <h3>👁️ Real-time People Detection on NPU-embedded Edge Camera (2024.07 ~ 2024.09)</h3>
-        <p><strong>NPU Edge Device</strong>, <strong>YOLOv5s</strong>, <strong>People Detection</strong></p>
+        <p>Deployed the <strong>YOLOv5s</strong> model on <strong>an NPU-embedded edge device</strong> through <strong>model quantization and porting</strong></p>
         
         <div class="image-row three-col">
           <div class="image-box">
@@ -1229,10 +1229,9 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         </div>
     
         <ul class="marker2" style="margin-top: 1rem;">
-          <li>Deployed the YOLOv5s model on an NPU-embedded edge camera (Edge Device) through model optimization and porting.</li>
-          <li>Quantization: PyTorch (.pt) → ONNX (.onnx) → Quantization (Kneron Toolchain WebGUI) → NEF (.nef) final conversion.</li>
-          <li>Implemented real-time people detection using the optimized YOLOv5s model.</li>
-          <li>Verified the efficient operation of the vision model under limited computational resources.</li>
+          <li>Quantization: PyTorch(.pt) → ONNX(.onnx) → Quantization(Kneron Toolchain WebGUI) → NEF(.nef) final conversion as binary file</li>
+          <li>Implemented real-time people detection using the quantized YOLOv5s model</li>
+          <li>Verified the efficient operation of the vision model under limited computational resources</li>
         </ul>
     
         <p><strong>🛠️ Role</strong>: Model Quantization, Porting, Real-time Inference Validation</p>
@@ -1877,7 +1876,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
     
       <div class="project">
         <h3> NPU(신경 처리 장치) 내장형 에지 카메라 기반의 실시간 사람 탐지 (2024.07 ~ 2024.09)</h3>
-        <p><strong>NPU 에지 디바이스</strong>, <strong>YOLOv5s</strong>, <strong>실시간 사람 탐지</strong>, <strong>NPU 실행 파일 포맷</strong></p>
+        <p><strong>NPU(Neural Processing Unit) 칩이 탑재된 엣지 카메라</strong>에 <strong>YOLOv5s</strong> 모델 <strong>경량화 및 포팅</strong> 수행</p>
         
         <div class="image-row three-col">
           <div class="image-box">
@@ -1901,8 +1900,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         </div>
     
         <ul class="marker2" style="margin-top: 1rem;">
-          <li>NPU(Neural Processing Unit) 칩이 탑재된 엣지 카메라에 YOLOv5s 모델 경량화 및 포팅 수행</li>
-          <li>경량화 과정: PyTorch(.pt) → ONNX(.onnx) → Kneron Toolchain WebGUI를 통한 경량화 → 이진 파일 NEF(.nef) 최종 변환</li>
+          <li>경량화 과정: PyTorch(.pt) → ONNX(.onnx) → Kneron Toolchain WebGUI를 통한 경량화 → 이진 파일로서 NEF(.nef) 최종 변환</li>
           <li>경량화된 YOLOv5s 모델을 카메라 보드에 포팅하여 실시간 사람 감지 구현</li>
           <li>제한된 연산 환경에서 비전 모델의 효율적 동작 검증</li>
         </ul>
@@ -1996,6 +1994,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
