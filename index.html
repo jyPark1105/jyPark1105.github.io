@@ -1542,7 +1542,7 @@ while (!glfwWindowShouldClose(window))
         
           <!-- 기본: 다이어그램 -->
           <div id="system-diagram-ko" class="image-box" style="text-align:center;">
-            <img src="images/Talk&Go/System_Diagram_KO.png"
+            <img src="images/Talk&Go/System_Diagram.png"
                  alt="시스템 다이어그램"
                  class="right-img"
                  style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
@@ -1685,8 +1685,8 @@ while (!glfwWindowShouldClose(window))
 
         <script>
           const toggleBtnKo = document.getElementById("toggleTableKo");
-          const tableDivKo = document.getElementById("system-table");
-          const diagramDivKo = document.getElementById("system-diagram");
+          const tableDivKo = document.getElementById("system-table-ko");
+          const diagramDivKo = document.getElementById("system-diagram-ko");
         
           toggleBtnKo.addEventListener("click", () => {
             const isHidden = tableDivKo.style.display === "none";
@@ -1994,6 +1994,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
