@@ -1543,7 +1543,7 @@ while (!glfwWindowShouldClose(window))
         
           <!-- 기본: 다이어그램 -->
           <div id="system-diagram-ko" class="image-box" style="text-align:center;">
-            <img src="images/Talk&Go/System_Diagram.png"
+            <img src="images/Talk&Go/System_Diagram_KO.png"
                  alt="시스템 다이어그램"
                  class="right-img"
                  style="max-width: 95%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
@@ -1551,9 +1551,9 @@ while (!glfwWindowShouldClose(window))
         
           <!-- 토글 버튼 -->
           <div style="text-align:center; margin-top: 1rem;">
-            <button id="toggleDiagramKo" class="toggle-btn" 
+            <button id="toggleTableKo" class="toggle-btn" 
                     style="font-size:1rem; background:#007acc; color:white; padding:8px 14px; border-radius:6px;">
-              🔍 다이어그램 확대 보기
+              🔍 상세 테이블 보기
             </button>
           </div>
 
@@ -1685,23 +1685,21 @@ while (!glfwWindowShouldClose(window))
         </section>
 
         <script>
-          const toggleBtnKo = document.getElementById("toggleDiagramKo");
-          const diagramKo = document.getElementById("system-diagram-ko");
+          const toggleBtnKo = document.getElementById("toggleTableKo");
+          const tableDivKo = document.getElementById("system-table");
+          const diagramDivKo = document.getElementById("system-diagram");
         
           toggleBtnKo.addEventListener("click", () => {
-            const isZoomed = diagramKo.classList.contains("zoomed");
+            const isHidden = tableDivKo.style.display === "none";
         
-            if (isZoomed) {
-              diagramKo.classList.remove("zoomed");
-              diagramKo.style.transform = "scale(1)";
-              diagramKo.style.transition = "transform 0.3s ease";
-              toggleBtnKo.textContent = "🔍 다이어그램 확대 보기";
-            } else {
-              diagramKo.classList.add("zoomed");
-              diagramKo.style.transform = "scale(1.5)";
-              diagramKo.style.transition = "transform 0.3s ease";
-              toggleBtnKo.textContent = "↩️ 원래 크기로 보기";
-            }
+            // 표시 전환
+            tableDivKo.style.display = isHidden ? "block" : "none";
+            diagramDivKo.style.display = isHidden ? "none" : "block";
+        
+            // 버튼 텍스트 전환
+            toggleBtnKo.textContent = isHidden
+              ? "↩️ 다이어그램으로 돌아가기"
+              : "🔍 상세 테이블 보기";
           });
         </script>
         
@@ -1998,5 +1996,6 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
