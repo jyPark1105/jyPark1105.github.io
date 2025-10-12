@@ -757,7 +757,7 @@ while (!glfwWindowShouldClose(window))
           </div>
         </div>
 
-        <p><strong>🛠️ Role:</strong> Physics system design, animation optimization, logic improvements</p>    
+        <p><strong>🛠️ Role</strong>: Physics system design, Animation optimization, Logic improvements</p>    
         <p>🔗 <strong>Github Source</strong>:  
           <a href="https://github.com/jyPark1105/The-Stone-Rolling-Game" target="_blank">'The Rolling Stone Game' Repository</a>
         </p>
@@ -1135,7 +1135,36 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         </p>
       </div>
     </section>
+
+    <section>
+      <h2>🧠 AI Project </h2>
     
+      <div class="project">
+        <h3>👁️ Real-time People Detection on NPU-embedded Edge Camera (2024.07 ~ 2024.09)</h3>
+        <p><strong>NPU Edge Device</strong>, <strong>YOLOv5s</strong>, <strong>People Detection</strong>, <strong>NPU Executable Format (NEF)</strong></p>
+    
+        <div class="image-row">
+          <div class="image-box">
+            <img src="images/AI/people_detection_demo.jpg" alt="Real-time Detection Demo" class="zoomable-left-img zoomable-gif" data-title="Real-time Detection Demo" />
+          </div>
+          <div class="image-box">
+            <img src="images/AI/model_conversion_flow.png" alt="Model Conversion Flow" class="right-img" />
+          </div>
+        </div>
+    
+        <ul class="marker2" style="margin-top: 1rem;">
+          <li>Deployed the YOLOv5s model on an NPU-embedded edge camera (Edge Device) through model optimization and porting.</li>
+          <li>Quantization: PyTorch (.pt) → ONNX (.onnx) → Quantization (Kneron Toolchain WebGUI) → NEF (.nef) final conversion.</li>
+          <li>Implemented real-time people detection using the optimized YOLOv5s model.</li>
+          <li>Verified the efficient operation of the vision model under limited computational resources.</li>
+        </ul>
+    
+        <p><strong>🛠️ Role</strong>: Model Quantization, Porting, Real-time Inference Validation</p>
+        <p><strong>🌐 Environment</strong>: PyTorch 1.7.1+cu110 · TorchVision 0.8.2 · ONNX 1.13.0 · Docker Desktop 4.30.0 · Kneron Toolchain WebGUI · KL630 NPU · PuTTY 0.83 · VLC 3.0.20</p>
+        <p><strong>✨ Special Notes</strong>: Implemented based on internal company documentation (Confidential project)</p>
+      </div>
+    </section>
+      
     <section>
       <h2>🎮 My Small Games</h2>
     
@@ -1162,7 +1191,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
           <li><span class="highlight">If all items are not collected, the game will restart</span> even after reaching the final destination!</li>
         </ul>
         
-        <p><strong>🛠️ Role:</strong> Solo development</p>
+        <p><strong>🛠️ Role</strong>: Solo development</p>
 
         <p>🔗 <strong>Github Source</strong>: 
           <a href="https://github.com/jyPark1105/Unity-Beginner-Tutorial/tree/main/Project%20BE1" target="_blank">Ball Collector Game Repository (Github)</a>
@@ -1202,7 +1231,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
           <li><span class="highlight">Escape the wide stage within the given time!</span></li>
         </ul>
 
-        <p><strong>🛠️ Role:</strong> Solo development</p>
+        <p><strong>🛠️ Role</strong>: Solo development</p>
 
         <p>🔗 <strong>Github Source</strong>: 
           <a href="https://github.com/jyPark1105/Unity-Beginner-Tutorial/tree/main/Project%20BE2" target="_blank">Get Coin Game Repository (Github)</a>
@@ -1730,6 +1759,34 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
     </section>
 
     <section>
+      <h2>🧠 AI 프로젝트</h2>
+    
+      <div class="project">
+        <h3>️내장형 에지 카메라 기반의 실시간 사람 탐지 (2024.07 ~ 2024.09)</h3>
+        <p><strong>NPU 에지 디바이스</strong>, <strong>YOLOv5s</strong>, <strong>사람 탐지</strong>, <strong>NPU 실행 파일 포맷</strong></p>
+    
+        <div class="image-row">
+          <div class="image-box">
+            <img src="images/AI/people_detection_demo.jpg" alt="실시간 감지 데모" class="zoomable-left-img zoomable-gif" data-title="실시간 감지 데모" />
+          </div>
+          <div class="image-box">
+            <img src="images/AI/model_conversion_flow.png" alt="모델 변환 과정" class="right-img" />
+          </div>
+        </div>
+    
+        <ul class="marker2" style="margin-top: 1rem;">
+          <li>NPU(Neural Processing Unit) 칩이 탑재된 엣지 카메라에 YOLOv5s 모델 경량화 및 포팅 수행</li>
+          <li>경량화 과정: PyTorch(.pt) → ONNX(.onnx) → Kneron Toolchain WebGUI를 통한 경량화 → 이진 파일 NEF(.nef) 최종 변환</li>
+          <li>경량화된 YOLOv5s 모델을 카메라 보드에 포팅하여 실시간 사람 감지 구현</li>
+          <li>제한된 연산 환경에서 비전 모델의 효율적 동작 검증</li>
+        </ul>
+    
+        <p><strong>🛠️ 담당 역할</strong>: 모델 경량화, 포팅, 실시간 인퍼런스 검증</p>
+        <p><strong>🔗 관련 문서 및 비고</strong>: 회사 내부 매뉴얼 기반으로 시행한 프로젝트 (기재할 수 없음)</p>
+      </div>
+    </section>
+      
+    <section>
       <h2>🎮 작은 프로젝트</h2>
     
       <div class="project">
@@ -1812,6 +1869,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
