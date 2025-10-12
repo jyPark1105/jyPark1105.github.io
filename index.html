@@ -1326,15 +1326,6 @@ print("✅ ONNX optimization completed: YYMMDD_final_output.onnx")
             </div>
           </div>
         </div>
-
-<script>
-function toggleTwoNavMeshes(btn, codeId) {
-  const wrapper = document.querySelector(`[data-code-id="${codeId}"] .two-navmesh-wrapper`);
-  const isHidden = wrapper.style.display === "none";
-  wrapper.style.display = isHidden ? "flex" : "none";
-  btn.textContent = isHidden ? "▼" : "▶";
-}
-</script>
         
         <p><strong>🛠️ Role</strong>: Model Quantization, Porting, Real-time Inference Validation</p>
         <p><strong>🌐 Environment</strong>: PyTorch 1.7.1+cu110 · TorchVision 0.8.2 · ONNX 1.13.0 · Docker Desktop 4.30.0 · Kneron Toolchain WebGUI · KL630 NPU · PuTTY 0.83 · VLC 3.0.20</p>
@@ -2007,6 +1998,78 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
           <li>경량화된 YOLOv5s 모델을 카메라 보드에 포팅하여 실시간 사람 감지 구현</li>
           <li>제한된 연산 환경에서 비전 모델의 효율적 동작 검증</li>
         </ul>
+
+        <!-- 회색 구분선 (첫 코드박스 전용) -->
+        <hr style="border: none; border-top: 3px solid #e0e0e0; margin: 0.4rem 0 1.2rem 0;">
+        
+        <div class="code-section-title">코드 스니펫</div>
+        
+        <!-- ✅ PyTorch → ONNX 변환 및 최적화 -->
+        <div class="code-box" data-code-id="code-ai-onnx">
+          <h3>
+            <button class="toggle-btn" onclick="toggleAIConversion(this, 'code-ai-onnx')">
+            PyTorch → ONNX 변환 및 최적화
+          </h3>
+        
+          <!-- 내부 코드블록 (기본 숨김) -->
+          <div class="two-navmesh-wrapper" style="display:none; gap:1rem; margin-top:1rem;">
+            
+            <!-- 🔹 Left: PyTorch → ONNX Conversion -->
+            <div class="code-box" style="flex:1;">
+              <h3>PyTorch → ONNX 변환</h3>
+              <pre>
+# ======== PyTorch → ONNX 변환 ========
+import torch
+import torch.onnx
+import os
+
+# 1) .pt 모델 파일 경로 및 ONNX 저장 경로 설정
+pt_file_path = '/path/to/your/best.pt'         # 학습된 PyTorch 모델 경로
+onnx_file_path = '/path/to/save/best.onnx'     # 내보낼 ONNX 모델 경로
+
+# 2) 모델 로드 ('cpu' 대신 'cuda' 사용 시 GPU 환경 적용 가능)
+model = torch.load(pt_file_path, map_location=torch.device('cpu'))
+model.eval()  # 모델을 평가 모드로 전환
+
+# 3) 더미 입력 데이터 생성 (모델 입력 형태에 맞게 조정 필요)
+dummy_input = torch.randn(1, 3, 224, 224)  # 예시: 배치=1, 채널=3, 높이=224, 너비=224
+
+# 4) 출력 폴더가 존재하지 않으면 자동 생성
+os.makedirs(os.path.dirname(onnx_file_path), exist_ok=True)
+
+# 5) 모델을 ONNX 형식으로 내보내기
+torch.onnx.export(model, dummy_input, onnx_file_path, opset_version=11)
+
+print(f"✅ ONNX 파일이 성공적으로 생성되었습니다: {onnx_file_path}")
+              </pre>
+            </div>
+        
+    <!-- 🔹 Right: ONNX 최적화 -->
+    <div class="code-box" style="flex:1;">
+      <h3>ONNX 최적화 (Kneron Toolchain)</h3>
+      <pre>
+# ======== ONNX 최적화 ========
+import ktc                      # Kneron Toolchain 모듈
+import onnx
+import torch.onnx
+
+# 1) 기존 ONNX 모델 불러오기
+exp = onnx.load('YYMMDD_output.onnx')
+
+# 2) PyTorch → ONNX 변환 과정 최적화
+result = ktc.onnx_optimizer.torch_exported_onnx_flow(exp)  # Warning 메시지는 무시 가능
+
+# 3) ONNX → ONNX 최적화 수행 (불필요한 연산 제거)
+opt = ktc.onnx_optimizer.onnx2onnx_flow(result, eliminate_tail=True)
+
+# 4) 최적화된 ONNX 모델 저장
+onnx.save(opt, 'YYMMDD_final_output.onnx')
+
+print("✅ ONNX 최적화 완료: YYMMDD_final_output.onnx")
+              </pre>
+            </div>
+          </div>
+        </div>
     
         <p><strong>🛠️ 담당 역할</strong>: 모델 경량화, 포팅, 실시간 인퍼런스 검증</p>
         <p><strong>🌐 개발 환경</strong>: PyTorch 1.7.1+cu110 · TorchVision 0.8.2 · ONNX 1.13.0 · Docker Desktop 4.30.0 · Kneron Toolchain WebGUI · KL630 NPU · PuTTY 0.83 · VLC 3.0.20</p>
@@ -2097,6 +2160,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
