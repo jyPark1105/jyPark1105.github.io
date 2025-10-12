@@ -599,7 +599,28 @@
       // 반대 언어 쪽도 동기화
       syncOtherLanguage(codeId);
     }
+
+    // AI Conversion 전용 토글
+    function toggleAIConversion(button, codeId) {
+      const box = button.closest(".code-box");
+      const wrapper = box.querySelector(".two-navmesh-wrapper");
+      const isVisible = wrapper.style.display === "flex";
   
+      // 상태 저장 (NavMeshes와 동일)
+      toggleStates[codeId] = !isVisible;
+  
+      if (isVisible) {
+        wrapper.style.display = "none";
+        button.textContent = "▶";
+      } else {
+        wrapper.style.display = "flex";
+        button.textContent = "▼";
+      }
+  
+      // 반대 언어(English ↔ Korean) 페이지 간 토글 상태 동기화
+      syncOtherLanguage(codeId);
+    }
+    
     // 특정 ID 코드박스의 리버스 언어로 상태 반영
     function syncOtherLanguage(codeId) {
       const targetBoxes = document.querySelectorAll(`[data-code-id="${codeId}"]`);
@@ -621,7 +642,7 @@
         }
       });
     }
-  
+    
     // ✅ 언어 전환 시 전체 상태 복원
     function syncAllToggles() {
       Object.keys(toggleStates).forEach((id) => syncOtherLanguage(id));
@@ -1139,15 +1160,15 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
 
     while (unvisited.Count &gt; 0)
     {
-        // 1️. Select the node that has min distance far
+        // 1. Select the node that has min distance far
         string current = unvisited.OrderBy(n =&gt; distances[n]).First();
         unvisited.Remove(current);
 
-        // 2️. Finish if the node ends
+        // 2. Finish if the node ends
         if (current == endNode)
             break;
 
-        // 3️. Search an adjacent node
+        // 3. Search an adjacent node
         foreach (var neighbor in nodes[current].neighbors)
         {
             float alt = distances[current] + Vector3.Distance(
@@ -1171,7 +1192,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
     }
     path.Insert(0, nodes[startNode].position);
 
-    // 5️. Visualization
+    // 5. Visualization
     pathLineDrawer3.DrawPath(path);
     UIDebugTextAnimator.Instance.debugTextMsg.text = "Dijkstra Path Complete";
     UIDebugTextAnimator.Instance.AnimateAll();
@@ -1233,7 +1254,88 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
           <li>Implemented real-time people detection using the quantized YOLOv5s model</li>
           <li>Verified the efficient operation of the vision model under limited computational resources</li>
         </ul>
-    
+        
+        <!-- 회색 구분선 (첫 코드박스 전용) -->
+        <hr style="border: none; border-top: 3px solid #e0e0e0; margin: 0.4rem 0 1.2rem 0;">
+        
+        <div class="code-section-title">Code Snippet</div>
+        
+        <!-- ✅ PyTorch → ONNX Conversion + Optimization -->
+        <div class="code-box" data-code-id="code-ai-onnx">
+          <h3>
+            <button class="toggle-btn" onclick="toggleAIConversion(this, 'code-ai-onnx')">
+            PyTorch → ONNX Conversion with Optimization
+          </h3>
+        
+          <!-- Inner CodeBlock (Default hidden) -->
+          <div class="two-navmesh-wrapper" style="display:none; gap:1rem; margin-top:1rem;">
+            
+            <!-- 🔹 Left: PyTorch → ONNX Conversion -->
+            <div class="code-box" style="flex:1;">
+              <h3>PyTorch → ONNX Conversion</h3>
+              <pre>
+# ======== PyTorch → ONNX CONVERSION ========
+import torch
+import torch.onnx
+import os
+
+# 1) Set file paths for the .pt model and ONNX output
+pt_file_path = '/path/to/your/best.pt'         # Path to the trained PyTorch model
+onnx_file_path = '/path/to/save/best.onnx'     # Path to export the ONNX model
+
+# 2) Load the model (change 'cpu' to 'cuda' if using GPU)
+model = torch.load(pt_file_path, map_location=torch.device('cpu'))
+model.eval()  # Switch model to evaluation mode
+
+# 3) Create dummy input (adjust shape according to the model input)
+dummy_input = torch.randn(1, 3, 224, 224)  # Example: batch=1, channels=3, height=224, width=224
+
+# 4) Create directory if it does not exist
+os.makedirs(os.path.dirname(onnx_file_path), exist_ok=True)
+
+# 5) Export the model to ONNX format
+torch.onnx.export(model, dummy_input, onnx_file_path, opset_version=11)
+
+print(f"✅ ONNX file successfully generated: {onnx_file_path}")
+              </pre>
+            </div>
+        
+            <!-- 🔹 Right: ONNX Optimization -->
+            <div class="code-box" style="flex:1;">
+              <h3>ONNX Optimization (Kneron Toolchain)</h3>
+              <pre>
+# ======== ONNX OPTIMIZATION ========
+import ktc                      # Kneron Toolchain
+import onnx
+import torch.onnx
+
+# 1) Load the existing ONNX model
+exp = onnx.load('YYMMDD_output.onnx')
+
+# 2) Optimize the PyTorch → ONNX conversion flow
+result = ktc.onnx_optimizer.torch_exported_onnx_flow(exp)  # Warning messages can be ignored
+
+# 3) Perform ONNX → ONNX optimization (remove unnecessary operations)
+opt = ktc.onnx_optimizer.onnx2onnx_flow(result, eliminate_tail=True)
+
+# 4) Save the optimized ONNX model
+onnx.save(opt, 'YYMMDD_final_output.onnx')
+
+print("✅ ONNX optimization completed: YYMMDD_final_output.onnx")
+              </pre>
+            </div>
+          </div>
+        </div>
+
+<script>
+function toggleTwoNavMeshes(btn, codeId) {
+  const wrapper = document.querySelector(`[data-code-id="${codeId}"] .two-navmesh-wrapper`);
+  const isHidden = wrapper.style.display === "none";
+  wrapper.style.display = isHidden ? "flex" : "none";
+  btn.textContent = isHidden ? "▼" : "▶";
+}
+</script>
+        
         <p><strong>🛠️ Role</strong>: Model Quantization, Porting, Real-time Inference Validation</p>
         <p><strong>🌐 Environment</strong>: PyTorch 1.7.1+cu110 · TorchVision 0.8.2 · ONNX 1.13.0 · Docker Desktop 4.30.0 · Kneron Toolchain WebGUI · KL630 NPU · PuTTY 0.83 · VLC 3.0.20</p>
         <p><strong>✨ Special Notes</strong>: Implemented based on internal company documentation (Confidential project)</p>
@@ -1459,6 +1561,7 @@ while (!glfwWindowShouldClose(window))
             </pre>
           </div>
         </div>
+      
         <p><strong>🛠️ 담당 역할:</strong> 물리 시스템 설계, 애니메이션 최적화, 로직 개선</p>    
         <p>🔗 <strong>깃허브 링크</strong>: 
           <a href="https://github.com/jyPark1105/The-Stone-Rolling-Game" target="_blank">'The Rolling Stone' 게임 저장소</a>
@@ -1811,15 +1914,15 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
 
     while (unvisited.Count &gt; 0)
     {
-        // 1️. 현재까지 거리 중 최소 노드 선택
+        // 1. 현재까지 거리 중 최소 노드 선택
         string current = unvisited.OrderBy(n =&gt; distances[n]).First();
         unvisited.Remove(current);
 
-        // 2️. 목적지 도달 시 종료
+        // 2. 목적지 도달 시 종료
         if (current == endNode)
             break;
 
-        // 3️. 인접 노드 탐색
+        // 3. 인접 노드 탐색
         foreach (var neighbor in nodes[current].neighbors)
         {
             float alt = distances[current] + Vector3.Distance(
@@ -1833,7 +1936,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
         }
     }
 
-    // 4️. 최단 경로 역추적
+    // 4. 최단 경로 역추적
     List&lt;Vector3&gt; path = new();
     string nodeTrace = endNode;
     while (previous.ContainsKey(nodeTrace))
@@ -1843,7 +1946,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
     }
     path.Insert(0, nodes[startNode].position);
 
-    // 5️. 시각화
+    // 5. 시각화
     pathLineDrawer3.DrawPath(path);
     UIDebugTextAnimator.Instance.debugTextMsg.text = "Dijkstra Path Complete";
     UIDebugTextAnimator.Instance.AnimateAll();
@@ -1994,6 +2097,7 @@ public List&lt;Vector3&gt; Dijkstra(string startNode, string endNode)
   </div>
 </body>
 </html>
+
 
 
 
