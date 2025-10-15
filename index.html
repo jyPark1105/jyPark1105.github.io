@@ -674,12 +674,12 @@
   
 <body>
   
-  <button id="langToggle" onclick="toggleLanguage()">🇰🇷 한국어 보기</button>
-  <div id="zoomNotice-en">🔍 Recommended zoom level: <strong>80% ~ 125%</strong></div>
-  <div id="zoomNotice-ko" style="display:none;">🔍 권장 확대/축소 비율: <strong>80% ~ 125%</strong></div>
+  <button id="langToggle" onclick="toggleLanguage()">🇺🇸 영어로 보기</button>
+  <div id="zoomNotice-en" style="display:none;">🔍 Recommended zoom level: <strong>80% ~ 125%</strong></div>
+  <div id="zoomNotice-ko">🔍 권장 확대/축소 비율: <strong>80% ~ 125%</strong></div>
   
   <!-- ENGLISH VERSION -->
-  <div id="english">
+  <div id="english" style="display:none;">
     <section style="display: flex; align-items: flex-start; margin-bottom: 3rem;">
       <img src="images/Self/my_face.jpg" alt="Profile Image"
         style="width: 200px; height: auto; border-radius: 12px; margin-right: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
@@ -1443,7 +1443,7 @@ print("✅ ONNX optimization completed: YYMMDD_final_output.onnx")
   </div>
 
   <!-- KOREAN VERSION -->
-  <div id="korean" style="display:none;">
+  <div id="korean">
     <section style="display: flex; align-items: flex-start; margin-bottom: 3rem;">
       <img src="images/Self/my_face.jpg" alt="프로필 이미지"
         style="width: 200px; height: auto; border-radius: 12px; margin-right: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
@@ -2192,6 +2192,7 @@ print("✅ ONNX 최적화 완료: YYMMDD_final_output.onnx")
   </div>
 </body>
 </html>
+
 
 
 
